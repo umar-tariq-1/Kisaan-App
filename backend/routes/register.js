@@ -1,5 +1,7 @@
 const express = require("express");
 const validate = require("../validate");
+const bcrypt = require("bcrypt");
+const User = require("../models/user");
 
 const register = express.Router();
 
@@ -18,14 +20,36 @@ register.post("/", async (req, res) => {
     userData.password,
     userData.confirmpassword
   );
+
   if (Error) {
     res.status(403).send({ message: Error }); //403 indicates validation error
     return;
   }
+
+  const userExists = await User.findOne({ email: userData.email });
+  if (userExists) {
+    res.status(409).send({ message: "User already exists" });
+    return;
+    //409 indicates conflict in the request, in our case user already exists
+  }
+
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(req.body.password, salt);
+  userData = { ...userData, password: hashedPassword };
+
+  const createdUser = new User({
+    firstName: userData.firstName,
+    lastName: userData.lastName,
+    email: userData.email,
+    password: userData.password,
+  });
+
   try {
+    await createdUser.save();
     res.status(201).send({ message: "User registered successfully" }); //201 indicates successful creation
   } catch (error) {
     res.send({ message: "internal server error " }).status(500); //500 indicates server side error
+    return;
   }
 });
 

@@ -16,7 +16,7 @@ const CONN_PASSWORD = "XukhxcDruTQuIBta";
 const CONN_URL =
   "mongodb+srv://Umar:" +
   CONN_PASSWORD +
-  "@kisaanappcluster.c2ty0wa.mongodb.net/users?retryWrites=true&w=majority";
+  "@kisaanappcluster.c2ty0wa.mongodb.net/registeredUsers?retryWrites=true&w=majority";
 
 mongoose
   .connect(CONN_URL)
