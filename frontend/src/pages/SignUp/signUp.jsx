@@ -174,8 +174,10 @@ function SignUp() {
       console.log(res)
       setLoading(false)
       navigate("/login");
-    } catch (error) {
+    } 
+    catch (error) {
       setLoading(false)
+      setError(error.response.data.message)
     }
   };
 
