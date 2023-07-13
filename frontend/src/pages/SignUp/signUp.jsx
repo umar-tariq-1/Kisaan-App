@@ -190,7 +190,10 @@ function SignUp() {
     } 
     catch (error) {
       setLoading(false)
+      if(error.response.data.message)
+      {
       setError(error.response.data.message)
+      }
       enqueueSnackbar('Couldn\'t register',{variant: "error"});
     }
   };
