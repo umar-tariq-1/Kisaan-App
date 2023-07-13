@@ -27,6 +27,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import Zoom from '@mui/material/Zoom';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import { styled } from '@mui/material/styles';
+import { SnackbarProvider, useSnackbar } from 'notistack'
 
 const CTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -50,6 +51,7 @@ function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [inputErrors, setinputErrors]=useState({});
   const [open, setOpen] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleTooltipClose = () => {
     setOpen(false);
@@ -86,59 +88,69 @@ function SignUp() {
     {
       setError('First Name must contain only one word')
       setinputErrors({fname:1})
+      enqueueSnackbar('Couldn\'t register',{variant: "error"});
       return false
     }
     else if(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(Fname))
     {
       setError('First Name must contain only alphabet letters')
       setinputErrors({fname:1})
+      enqueueSnackbar('Couldn\'t register',{variant: "error"});
       return false
     }
     else if(/\d/.test(Fname))
     {
       setError('First Name must not contain any number')
       setinputErrors({fname:1})
+      enqueueSnackbar('Couldn\'t register',{variant: "error"});
       return false
     }
     else if(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(Lname))
     {
       setError('Last Name must contain only alphabet letters')
       setinputErrors({lname:1})
+      enqueueSnackbar('Couldn\'t register',{variant: "error"});
       return false
     }
     else if(/\d/.test(Lname))
     {
       setError('Last Name must not contain any number')
       setinputErrors({fname:1})
+      enqueueSnackbar('Couldn\'t register',{variant: "error"});
       return false
     }
     else if(/\s/.test(Lname))
     {
       setError('Last Name must contain only one word')
       setinputErrors({lname:1})
+      enqueueSnackbar('Couldn\'t register',{variant: "error"});
       return false
     }
     else if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(Email)))
   {
     setError('Invalid Email')
     setinputErrors({email:1})
+    enqueueSnackbar('Couldn\'t register',{variant: "error"});
     return false
   }
   else if(/\s/.test(Password))
   {
     setError("Password must not contain white space")
     setinputErrors({password:1})
+    enqueueSnackbar('Couldn\'t register',{variant: "error"});
     return false
   }
   else if(!Password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/))
   {  
     setError("Incorrect Password")
     setinputErrors({password:1})
+    enqueueSnackbar('Couldn\'t register',{variant: "error"});
     return false
   }
   else if(Password !== Confirmpassword){
     setError('Passwords donot match' )
     setinputErrors({confirmpassword:1})
+    enqueueSnackbar('Couldn\'t register',{variant: "error"});
     return false
   }
   else{
@@ -171,13 +183,15 @@ function SignUp() {
         lastName:capitalize(userData.lastName),
         email:(userData.email).toLowerCase()}
       const{ data : res }  = await axios.post(url, newData);
-      console.log(res)
-      setLoading(false)
+      //console.log(res)
+      setLoading(false);
+      enqueueSnackbar('Successfully registered',{variant: "success"});
       navigate("/login");
     } 
     catch (error) {
       setLoading(false)
       setError(error.response.data.message)
+      enqueueSnackbar('Couldn\'t register',{variant: "error"});
     }
   };
 
