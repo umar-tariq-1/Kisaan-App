@@ -86,7 +86,7 @@ function SignUp() {
     
     if(/\s/.test(Fname))
     {
-      setError('First Name must contain only one word')
+      setError('First Name must not contain blank space')
       setinputErrors({fname:1})
       enqueueSnackbar('Couldn\'t register',{variant: "error"});
       return false
@@ -121,7 +121,7 @@ function SignUp() {
     }
     else if(/\s/.test(Lname))
     {
-      setError('Last Name must contain only one word')
+      setError('Last Name must not contain blank space')
       setinputErrors({lname:1})
       enqueueSnackbar('Couldn\'t register',{variant: "error"});
       return false
@@ -135,7 +135,7 @@ function SignUp() {
   }
   else if(/\s/.test(Password))
   {
-    setError("Password must not contain white space")
+    setError("Password must not contain blank space")
     setinputErrors({password:1})
     enqueueSnackbar('Couldn\'t register',{variant: "error"});
     return false
