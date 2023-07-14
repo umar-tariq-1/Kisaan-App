@@ -9,6 +9,7 @@ import reportWebVitals from "./reportWebVitals";
 import { SnackbarProvider, useSnackbar } from "notistack";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
   <React.StrictMode>
     <SnackbarProvider

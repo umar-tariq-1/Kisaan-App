@@ -4,6 +4,7 @@ import SignUp from "./pages/SignUp/signUp";
 import Login from "./pages/Login/login";
 import Contact from "./pages/Contact/contact";
 import About from "./pages/About/about";
+
 function App() {
   return (
     <Router>

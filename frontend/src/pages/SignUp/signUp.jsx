@@ -177,12 +177,12 @@ function SignUp() {
     try {
       setLoading(true)
       // console.log("clicked")
-      const url = "http://localhost:3001/register";
+      const url = process.env.REACT_APP_BASE_URL + "/register";
       const newData={...userData,
         firstName:capitalize(userData.firstName),
         lastName:capitalize(userData.lastName),
         email:(userData.email).toLowerCase()}
-      const{ data : res }  = await axios.post(url, newData);
+      const { data }  = await axios.post(url, newData);
       //console.log(res)
       setLoading(false);
       enqueueSnackbar('Successfully registered',{variant: "success"});
@@ -190,12 +190,14 @@ function SignUp() {
     } 
     catch (error) {
       setLoading(false)
+      if(error.response.data)
+      {
       if(error.response.data.message)
       {
       setError(error.response.data.message)
       }
       enqueueSnackbar('Couldn\'t register',{variant: "error"});
-    }
+    }}
   };
 
   useEffect(()=> {
