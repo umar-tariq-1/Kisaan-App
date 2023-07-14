@@ -1,19 +1,32 @@
 const express = require("express");
-const validate = require("../validate");
+const { validate } = require("../validate");
+const { capitalize } = require("../validate");
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 
 const register = express.Router();
 
 register.post("/", async (req, res) => {
-  userData = {
-    firstName: validate.capitalize(req.body.firstName.trim()),
-    lastName: validate.capitalize(req.body.lastName.trim()),
-    email: req.body.email.trim(),
-    password: validate.capitalize(req.body.password.trim()),
-    confirmpassword: validate.capitalize(req.body.confirmpassword.trim()),
-  };
-  const Error = validate.validate(
+  if (
+    req.body.firstName &&
+    req.body.lastName &&
+    req.body.email &&
+    req.body.password &&
+    req.body.confirmpassword
+  ) {
+    userData = {
+      firstName: capitalize(req.body.firstName.trim()),
+      lastName: capitalize(req.body.lastName.trim()),
+      email: req.body.email.toLowerCase().trim(),
+      password: req.body.password,
+      confirmpassword: req.body.confirmpassword,
+    };
+  } else {
+    res.status(403).send({ message: "Incomplete info entered" }); //403 indicates validation error
+    return;
+  }
+
+  const Error = validate(
     userData.firstName,
     userData.lastName,
     userData.email,
@@ -34,7 +47,7 @@ register.post("/", async (req, res) => {
   }
 
   const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(req.body.password, salt);
+  const hashedPassword = await bcrypt.hash(userData.password, salt);
   userData = { ...userData, password: hashedPassword };
 
   const createdUser = new User({
