@@ -5,6 +5,15 @@ import Login from "./pages/Login/login";
 import Contact from "./pages/Contact/contact";
 import About from "./pages/About/about";
 
+// function getCookie(cname) {
+//   var arrayb = document.cookie.split(";");
+//   for (const item of arrayb) {
+//     if (item.startsWith("Token=")) {
+//       return item.substr(6);
+//     }
+//   }
+// }
+
 function App() {
   return (
     <Router>

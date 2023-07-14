@@ -1,6 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
+const { createToken } = require("../utils/token");
 
 const login = express.Router();
 
@@ -15,40 +16,48 @@ function validate(Email, Password) {
 }
 
 login.post("/", async (req, res) => {
-  if (req.body.email && req.body.password) {
-    loginData = {
-      email: req.body.email.toLowerCase().trim(),
-      password: req.body.password,
-    };
-  } else {
-    res.status(403).send({ message: "Incomplete info entered" }); //403 indicates validation error
-    return;
+  try {
+    if (req.body.email && req.body.password) {
+      loginData = {
+        email: req.body.email.toLowerCase().trim(),
+        password: req.body.password,
+      };
+    } else {
+      res.status(403).send({ message: "Incomplete info entered" }); //403 indicates validation error
+      return;
+    }
+
+    const Error = validate(loginData.email, loginData.password);
+    if (Error) {
+      res.status(403).send({ message: Error }); //403 indicates validation error
+      return;
+    }
+
+    const foundUser = await User.findOne({ email: loginData.email });
+
+    if (!foundUser) {
+      return res
+        .status(401)
+        .send({ message: "No user exists with entered Email" });
+    }
+
+    const validPassword = await bcrypt.compare(
+      loginData.password,
+      foundUser.password
+    );
+
+    if (!validPassword) {
+      return res.status(401).send({ message: "Incorrect Password" });
+    }
+
+    const token = createToken(foundUser._id);
+    //console.log(token);
+    res.cookie("token", token, { withCredentials: true, httpOnly: false });
+
+    res.status(200).send({ message: "Loggedin successfully" });
+  } catch (err) {
+    console.log(err);
   }
-
-  const Error = validate(loginData.email, loginData.password);
-  if (Error) {
-    res.status(403).send({ message: Error }); //403 indicates validation error
-    return;
-  }
-
-  const foundUser = await User.findOne({ email: loginData.email });
-
-  if (!foundUser) {
-    return res
-      .status(401)
-      .send({ message: "No user exists with entered Email" });
-  }
-
-  const validPassword = await bcrypt.compare(
-    loginData.password,
-    foundUser.password
-  );
-
-  if (!validPassword) {
-    return res.status(401).send({ message: "Incorrect Password" });
-  }
-
-  res.status(200).send({ message: "Loggedin successfully" });
 });
 
 module.exports = login;

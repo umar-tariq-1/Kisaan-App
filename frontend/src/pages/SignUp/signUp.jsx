@@ -182,7 +182,7 @@ function SignUp() {
         firstName:capitalize(userData.firstName),
         lastName:capitalize(userData.lastName),
         email:(userData.email).toLowerCase()}
-      const { data }  = await axios.post(url, newData);
+      const { data }  = await axios.post(url, newData, { withCredentials: true });
       //console.log(res)
       setLoading(false);
       enqueueSnackbar('Successfully registered',{variant: "success"});
