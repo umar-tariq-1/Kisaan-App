@@ -1,4 +1,3 @@
-const express = require("express");
 const mongoose = require("mongoose");
 
 function connectToMongoDBAtlas(conn_URL, PORT) {
@@ -8,7 +7,9 @@ function connectToMongoDBAtlas(conn_URL, PORT) {
       useUnifiedTopology: true,
     })
     .then(() => {
-      console.log("Backend running and connected to Database...");
+      console.log(
+        `Backend running on port: ${process.env.PORT}...\nConnected to Database...`
+      );
     })
     .catch((err) => {
       console.log(err);
