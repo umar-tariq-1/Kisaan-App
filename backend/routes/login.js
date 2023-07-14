@@ -54,7 +54,8 @@ login.post("/", async (req, res) => {
     //console.log(token);
     res.cookie("token", token, { withCredentials: true, httpOnly: false });
 
-    res.status(200).send({ message: "Loggedin successfully" });
+    res.status(200).send({ message: "Loggedin successfully", success: true });
+    //console.log(token);
   } catch (err) {
     console.log(err);
   }
