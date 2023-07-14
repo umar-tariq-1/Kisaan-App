@@ -1,6 +1,6 @@
 const express = require("express");
-const { validate } = require("../validate");
-const { capitalize } = require("../validate");
+const { validate } = require("../utils/validate");
+const { capitalize } = require("../utils/validate");
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 

@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const connectToMongoDBAtlas = require("./DBconnection");
+const connectToMongoDBAtlas = require("./utils/DBconnection");
 const env = require("dotenv").config();
 
 const register = require("./routes/register");
