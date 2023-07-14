@@ -8,7 +8,7 @@ function connectToMongoDBAtlas(conn_URL, PORT) {
     })
     .then(() => {
       console.log(
-        `Backend running on port: ${process.env.PORT}...\nConnected to Database...`
+        `Backend running on port: ${process.env.PORT} and Connected to Database...`
       );
     })
     .catch((err) => {
