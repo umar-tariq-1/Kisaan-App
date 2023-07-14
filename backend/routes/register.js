@@ -40,6 +40,7 @@ register.post("/", async (req, res) => {
   }
 
   const userExists = await User.findOne({ email: userData.email });
+
   if (userExists) {
     res.status(409).send({ message: "User already exists" });
     return;
