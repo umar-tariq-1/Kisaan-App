@@ -61,9 +61,11 @@ function SignUp() {
   };
 
   const handleTooltipOpen = () => {
+    console.log(open);
     setOpen(true);
   };
 
+  
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
@@ -222,7 +224,7 @@ function SignUp() {
                 <br/>
                 <>• 1 lowercase letter</>
                 </> 
-  const passwordField = <CustomPasswordField onClick={handleTooltipOpen} /* containsTooltip={1} handleTooltipOpen={handleTooltipOpen} */ inputError={inputErrors.password} style={styleFull} id='password' label='Password' name='password' handleChange={handleChange} />
+  const passwordField = <CustomPasswordField onClick={handleTooltipOpen} handleTooltipOpen={handleTooltipOpen} /* containsTooltip={1} handleTooltipOpen={handleTooltipOpen} */ inputError={inputErrors.password} style={styleFull} id='password' label='Password' name='password' handleChange={handleChange} />
 
   return (
   <>

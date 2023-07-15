@@ -23,6 +23,7 @@ const CustomPasswordField = (props) => {
       required
       style={props.style}
       variant="outlined"
+      onClick={props.handleTooltipOpen}
     >
       <InputLabel color="success" htmlFor="outlined-adornment-password">
         {props.label}
