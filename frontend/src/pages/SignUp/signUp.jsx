@@ -28,6 +28,8 @@ import Zoom from '@mui/material/Zoom';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import { styled } from '@mui/material/styles';
 import { SnackbarProvider, useSnackbar } from 'notistack'
+import CustomTextField from "../../components/Form/Textfield";
+import CustomToolTip from "../../components/Form/Tooltip";
 
 const CTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -182,7 +184,7 @@ function SignUp() {
         firstName:capitalize(userData.firstName),
         lastName:capitalize(userData.lastName),
         email:(userData.email).toLowerCase()}
-      const { data }  = await axios.post(url, newData, { withCredentials: true });
+      await axios.post(url, newData);
       //console.log(res)
       setLoading(false);
       enqueueSnackbar('Successfully registered',{variant: "success"});
@@ -197,13 +199,48 @@ function SignUp() {
       setError(error.response.data.message)
       }
       enqueueSnackbar('Couldn\'t register',{variant: "error"});
-    }}
+      }}
+    
   };
 
   useEffect(()=> {
     AOS.init({duration : 600});
   }, [])
 
+  const styleFirstHalf={width: "51.5%", marginBottom:"3%",marginTop:"4%",marginLeft:"-2%"}
+  const styleSecondHalf={width: "51.5%", marginBottom:"3%", marginLeft:"1%",marginTop:"4%",marginRight:"-2%"}
+  const styleFull={width: "104%",marginLeft:"-2%",marginRight:"-2%", marginBottom:"3%"}
+  const passwordToottipTitle = <>
+                <>Password must have:</> 
+                <br/> 
+                <>• 6-20 characters</> 
+                <br/> 
+                <>• Atleast 1 numeric digit,</>
+                <br/> 
+                <>• 1 uppercase letter,</>
+                <br/>
+                <>• 1 lowercase letter</>
+                </> 
+  const passwordField=<FormControl onClick={handleTooltipOpen} {...(inputErrors.password && {error})} required style={{width: "104%",marginLeft:"-2%", marginBottom:"3%"}} variant="outlined">
+              <InputLabel color='success' htmlFor="outlined-adornment-password">Password</InputLabel>
+              <OutlinedInput
+              color="success"
+                id="password"
+                type={showPassword ? 'text' : 'password'}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end">
+                      {showPassword ? <MdVisibility /> : <MdVisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Password" name="password" onChange={handleChange}
+              />
+            </FormControl>
   return (
   <>
   {loading &&
@@ -221,13 +258,16 @@ function SignUp() {
           <h2 className="text-uppercase text-center mb-4">Registration</h2>
 
           <form onSubmit={handleSubmit}>
-            <TextField {...(inputErrors.fname && {error})} style={{width: "51.5%", marginBottom:"3%",marginTop:"4%",marginLeft:"-2%"}} color="success" type='text' label="First Name" name="firstName" onChange={handleChange} required /> 
+            <CustomTextField inputErrors={inputErrors} error={error} style={styleFirstHalf} label="First Name" name="firstName" onChange={handleChange} />
+            {/* <TextField {...(inputErrors.fname && {error})} style={{width: "51.5%", marginBottom:"3%",marginTop:"4%",marginLeft:"-2%"}} color="success" type='text' label="First Name" name="firstName" onChange={handleChange} required />  */}
+            <CustomTextField inputErrors={inputErrors} error={error} style={styleSecondHalf} label="Last Name" name="lastName" onChange={handleChange} />
             
-            <TextField {...(inputErrors.lname && {error})} style={{width: "51.5%", marginBottom:"3%", marginLeft:"1%",marginTop:"4%",marginRight:"-2%"}}color="success" type="text" name="lastName" label="Last Name" onChange={handleChange} required/>
+            {/* <TextField {...(inputErrors.lname && {error})} style={{width: "51.5%", marginBottom:"3%", marginLeft:"1%",marginTop:"4%",marginRight:"-2%"}}color="success" type="text" name="lastName" label="Last Name" onChange={handleChange} required/> */}
+            <CustomTextField inputErrors={inputErrors} error={error} style={styleFull} label="Email" name="email" onChange={handleChange} />
             
-            <TextField {...(inputErrors.email && {error})} style={{width: "104%",marginLeft:"-2%",marginRight:"-2%", marginBottom:"3%"}}color="success" type="text" label="Email" name="email" onChange={handleChange} required />
+            {/* <TextField {...(inputErrors.email && {error})} style={{width: "104%",marginLeft:"-2%",marginRight:"-2%", marginBottom:"3%"}}color="success" type="text" label="Email" name="email" onChange={handleChange} required /> */}
 
-            <ClickAwayListener onClickAway={handleTooltipClose}>
+            {/* <ClickAwayListener onClickAway={handleTooltipClose}>
             <div data-toggle="tooltip" title="">
             <CTooltip PopperProps={{
                   disablePortal: true,
@@ -249,8 +289,9 @@ function SignUp() {
                 <br/> 
                 <>• 1 lowercase letter</>
                 </>
-              } placement="top-end" TransitionComponent={Zoom} disableInteractive>
-            <FormControl onClick={handleTooltipOpen} {...(inputErrors.password && {error})} required style={{width: "104%",marginLeft:"-2%", marginBottom:"3%"}} variant="outlined">
+              } placement="top-end" TransitionComponent={Zoom} disableInteractive> */}
+            <CustomToolTip handleTooltipClose={handleTooltipClose} handleTooltipOpen={handleTooltipOpen} open={open} title={passwordToottipTitle} tooltipElement={passwordField} />
+            {/* <FormControl onClick={handleTooltipOpen} {...(inputErrors.password && {error})} required style={{width: "104%",marginLeft:"-2%", marginBottom:"3%"}} variant="outlined">
               <InputLabel color='success' htmlFor="outlined-adornment-password">Password</InputLabel>
               <OutlinedInput
               color="success"
@@ -269,10 +310,11 @@ function SignUp() {
                 }
                 label="Password" name="password" onChange={handleChange}
               />
-           </FormControl>
+            </FormControl> */}
+            {/*
            </CTooltip>
            </div>
-           </ClickAwayListener>
+           </ClickAwayListener> */}
           
             <FormControl {...(inputErrors.confirmpassword && {error})} required style={{width: "104%",marginLeft:"-2%", marginBottom:"4%"}} variant="outlined">
               <InputLabel color='success' htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
