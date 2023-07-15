@@ -1,34 +1,29 @@
 const express = require("express");
-const jwt = require("jsonwebtoken");
-const User = require("../models/user");
+const { authorize, getAuthorizedUser } = require("../middlewares/authorize");
 const authorization = express.Router();
 
-authorization.post("/", async (req, res) => {
-  try {
-    var token = req.cookies.token;
-    if (!token) {
-      return res.status(401).send({ message: "No token found" });
-    }
-  } catch (err) {
-    return res
-      .status(401)
-      .send({ message: "Didn't get cookies in request header" });
-  }
-  jwt.verify(token, process.env.TOKEN_KEY, async (err, data) => {
-    if (err) {
-      res
-        .status(401)
-        .send({ message: "Request time out. Please login again!" });
-      return;
-    } else {
-      const user = await User.findById(data.id);
-      if (user) {
-        return res.status(200).send({ authorizedUser: user, success: true });
-      } else {
-        return res.status(401).send({ message: "Authorization failed" });
-      }
-    }
-  });
+authorization.post("/dashboard", authorize);
+
+authorization.post("/dashboard", (req, res) => {
+  const authorizedUser = getAuthorizedUser();
+  // console.log(authorizedUser);
+  delete authorizedUser.password;
+  delete authorizedUser._id;
+
+  return res.status(200).send({ authorizedUser, isLoggedIn: true });
+});
+
+authorization.post("/logout", authorize);
+
+authorization.post("/logout", (req, res) => {
+  /* const authorizedUser = getAuthorizedUser();
+  // console.log(authorizedUser);
+  delete authorizedUser.password;
+  delete authorizedUser._id; */
+  return res
+    .clearCookie("token", { httpOnly: true })
+    .send({ message: "LoggedOut successfully!", isLoggedIn: false })
+    .status(200);
 });
 
 module.exports = authorization;

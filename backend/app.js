@@ -18,7 +18,7 @@ app.use(cookieParser());
 
 app.use("/register", register);
 app.use("/login", login);
-app.use("/authorize", authorization);
+app.use("/", authorization);
 
 const PORT = process.env.PORT;
 const CONN_URL = process.env.DB_CONN_URL;

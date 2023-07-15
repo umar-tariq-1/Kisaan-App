@@ -23,13 +23,15 @@ login.post("/", async (req, res) => {
         password: req.body.password,
       };
     } else {
-      res.status(403).send({ message: "Incomplete info entered" }); //403 indicates validation error
+      res
+        .status(403)
+        .send({ message: "Incomplete info entered", isLoggedIn: false }); //403 indicates validation error
       return;
     }
 
     const Error = validate(loginData.email, loginData.password);
     if (Error) {
-      res.status(403).send({ message: Error }); //403 indicates validation error
+      res.status(403).send({ message: Error, isLoggedIn: false }); //403 indicates validation error
       return;
     }
 
@@ -47,14 +49,29 @@ login.post("/", async (req, res) => {
     );
 
     if (!validPassword) {
-      return res.status(401).send({ message: "Incorrect Password" });
+      return res
+        .status(401)
+        .send({ message: "Incorrect Password", isLoggedIn: false });
     }
 
+    var loggedInUser = { ...foundUser._doc };
+    delete loggedInUser.password;
+    delete loggedInUser._id;
     const token = createToken(foundUser._id);
+    var cookieExpirationDate = new Date(Date.now() + 3600000);
     //console.log(token);
-    res.cookie("token", token, { withCredentials: true, httpOnly: false });
+    res.cookie("token", token, {
+      withCredentials: true,
+      httpOnly: true,
+      expires: cookieExpirationDate,
+    });
 
-    res.status(200).send({ message: "Loggedin successfully", success: true });
+    res.status(200).send({
+      message: "LoggedIn successfully!",
+      loggedInUser,
+      isLoggedIn: true,
+      cookieExpirationDate: `${cookieExpirationDate.toDateString()} ${cookieExpirationDate.getHours()}:${cookieExpirationDate.getMinutes()}:${cookieExpirationDate.getSeconds()}`,
+    });
     //console.log(token);
   } catch (err) {
     console.log(err);
