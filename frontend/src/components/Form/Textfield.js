@@ -3,7 +3,7 @@ import { TextField } from "@mui/material";
 const CustomTextField = (props) => {
   return (
     <TextField
-      {...(props.inputErrors.fname && props.error)}
+      {...(props.inputError && { error: true })}
       style={props.style}
       color="success"
       type="text"
