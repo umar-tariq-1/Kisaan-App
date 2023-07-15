@@ -1,4 +1,19 @@
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import IconButton from "@mui/material/IconButton";
+
+import { MdVisibilityOff, MdVisibility } from "react-icons/md";
+
 const CustomPassworField = (props) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <FormControl
       {...(onClick = props.containToolTip && props.handleTooltipOpen)}
@@ -13,7 +28,7 @@ const CustomPassworField = (props) => {
       <OutlinedInput
         color="success"
         id={props.id}
-        type={props.showPassword ? "text" : "password"}
+        type={showPassword ? "text" : "password"}
         endAdornment={
           <InputAdornment position="end">
             <IconButton
@@ -33,3 +48,5 @@ const CustomPassworField = (props) => {
     </FormControl>
   );
 };
+
+export default CustomPassworField;
