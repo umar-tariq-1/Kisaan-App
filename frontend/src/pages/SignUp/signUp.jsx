@@ -63,7 +63,9 @@ function SignUp() {
       setinputErrors({ fname: 1 });
       enqueueSnackbar("Couldn't register", { variant: "error" });
       return false;
-    } else if (/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(Fname)) {
+    }
+    // eslint-disable-next-line 
+    else if (/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(Fname)) {
       setError("First Name must contain only alphabet letters");
       setinputErrors({ fname: 1 });
       enqueueSnackbar("Couldn't register", { variant: "error" });
@@ -73,7 +75,9 @@ function SignUp() {
       setinputErrors({ fname: 1 });
       enqueueSnackbar("Couldn't register", { variant: "error" });
       return false;
-    } else if (/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(Lname)) {
+    } 
+    // eslint-disable-next-line
+    else if (/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(Lname)) {
       setError("Last Name must contain only alphabet letters");
       setinputErrors({ lname: 1 });
       enqueueSnackbar("Couldn't register", { variant: "error" });
@@ -88,7 +92,9 @@ function SignUp() {
       setinputErrors({ lname: 1 });
       enqueueSnackbar("Couldn't register", { variant: "error" });
       return false;
-    } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(Email)) {
+    } 
+    // eslint-disable-next-line
+    else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(Email)) {
       setError("Invalid Email");
       setinputErrors({ email: 1 });
       enqueueSnackbar("Couldn't register", { variant: "error" });
