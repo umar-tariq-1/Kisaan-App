@@ -1,16 +1,16 @@
 function validate(Fname, Lname, Email, Password, Confirmpassword) {
   if (/\s/.test(Fname)) {
-    return "First Name must not contain blank space";
+    return "Name must not contain blank space";
   } else if (/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(Fname)) {
-    return "First Name must contain only alphabet letters";
+    return "Name must contain only alphabet letters";
   } else if (/\d/.test(Fname)) {
-    return "First Name must not contain any number";
+    return "Name must not contain any number";
   } else if (/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(Lname)) {
-    return "Last Name must contain only alphabet letters";
+    return "Name must contain only alphabet letters";
   } else if (/\d/.test(Lname)) {
-    return "Last Name must not contain any number";
+    return "Name must not contain any number";
   } else if (/\s/.test(Lname)) {
-    return "Last Name must not contain blank space";
+    return "Name must not contain blank space";
   } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(Email)) {
     return "Invalid Email";
   } else if (/\s/.test(Password)) {

@@ -55,43 +55,43 @@ function SignUp() {
 
   function validate(Fname, Lname, Email, Password, Confirmpassword) {
     if (/\s/.test(Fname)) {
-      setError("First Name must not contain blank space");
+      setError("Name must not contain blank space");
       setinputErrors({ fname: 1 });
       enqueueSnackbar("Couldn't register", { variant: "error" });
       return false;
     }
-    // eslint-disable-next-line 
+    // eslint-disable-next-line
     else if (/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(Fname)) {
       setError("First Name must contain only alphabet letters");
       setinputErrors({ fname: 1 });
       enqueueSnackbar("Couldn't register", { variant: "error" });
       return false;
     } else if (/\d/.test(Fname)) {
-      setError("First Name must not contain any number");
+      setError("Name must not contain any number");
       setinputErrors({ fname: 1 });
       enqueueSnackbar("Couldn't register", { variant: "error" });
       return false;
-    } 
+    }
     // eslint-disable-next-line
     else if (/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(Lname)) {
-      setError("Last Name must contain only alphabet letters");
+      setError("Name must contain only alphabet letters");
       setinputErrors({ lname: 1 });
       enqueueSnackbar("Couldn't register", { variant: "error" });
       return false;
     } else if (/\d/.test(Lname)) {
-      setError("Last Name must not contain any number");
+      setError("Name must not contain any number");
       setinputErrors({ lname: 1 });
       enqueueSnackbar("Couldn't register", { variant: "error" });
       return false;
     } else if (/\s/.test(Lname)) {
-      setError("Last Name must not contain blank space");
+      setError("Name must not contain blank space");
       setinputErrors({ lname: 1 });
       enqueueSnackbar("Couldn't register", { variant: "error" });
       return false;
-    } 
+    }
     // eslint-disable-next-line
     else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(Email)) {
-    setError("Invalid Email");
+      setError("Invalid Email");
       setinputErrors({ email: 1 });
       enqueueSnackbar("Couldn't register", { variant: "error" });
       return false;
@@ -150,12 +150,16 @@ function SignUp() {
       navigate("/login");
     } catch (error) {
       setLoading(false);
-      if (error.response.data) {
-        if (error.response.data.message) {
-          setError(error.response.data.message);
+      if (error.response) {
+        if (error.response.data) {
+          if (error.response.data.message) {
+            setError(error.response.data.message);
+          }
         }
-        enqueueSnackbar("Couldn't register", { variant: "error" });
+      } else {
+        setError("Server not working. Try again later");
       }
+      enqueueSnackbar("Couldn't register", { variant: "error" });
     }
   };
 
@@ -212,98 +216,111 @@ function SignUp() {
     <>
       {loading && <CustomLoadingAnimation />}
 
-      <MDBContainer
-        fluid
-        className="d-flex align-items-center justify-content-center"
-        style={{
-          position: "absolute",
-          paddingBottom: "40px",
-          hieght: "100%",
-          marginTop: "18vh",
-          backgroundColor: "aliceblue",
-        }}
-      >
-        <MDBCard
-          className="shadow-custom"
-          style={{ maxWidth: "500px", minWidth: "350px" }}
-          data-aos="zoom-out-up"
+      <div className="d-flex align-items-center justify-content-center">
+        <MDBContainer
+          className="d-flex align-items-center justify-content-center"
+          style={{
+            position: "fixed",
+            hieght: "100%",
+            marginTop: "calc(90vh + 11%)",
+            backgroundColor: "aliceblue",
+          }}
         >
-          <MDBCardBody className="px-5">
-            <h2 className="text-uppercase text-center mb-4">Registration</h2>
+          <MDBCard
+            className="shadow-custom"
+            style={{
+              maxWidth: "500px",
+              minWidth: "350px",
+              height: "calc(30rem + 3.5vw)",
+            }}
+            data-aos="zoom-out-up"
+          >
+            <MDBCardBody className="px-5">
+              <h2 className="text-uppercase text-center mb-4">Registration</h2>
 
-            <form onSubmit={handleSubmit}>
-              <CustomTextField
-                inputError={inputErrors.fname}
-                style={styleFirstHalf}
-                label="First Name"
-                name="firstName"
-                onChange={handleChange}
-              />
+              <form onSubmit={handleSubmit}>
+                <CustomTextField
+                  inputError={inputErrors.fname}
+                  style={styleFirstHalf}
+                  label="First Name"
+                  name="firstName"
+                  onChange={handleChange}
+                />
 
-              <CustomTextField
-                inputError={inputErrors.lname}
-                style={styleSecondHalf}
-                label="Last Name"
-                name="lastName"
-                onChange={handleChange}
-              />
+                <CustomTextField
+                  inputError={inputErrors.lname}
+                  style={styleSecondHalf}
+                  label="Last Name"
+                  name="lastName"
+                  onChange={handleChange}
+                />
 
-              <CustomTextField
-                inputError={inputErrors.email}
-                style={styleFull}
-                label="Email"
-                name="email"
-                onChange={handleChange}
-              />
+                <CustomTextField
+                  inputError={inputErrors.email}
+                  style={styleFull}
+                  label="Email"
+                  name="email"
+                  onChange={handleChange}
+                />
 
-              <CustomToolTip
-                handleTooltipClose={handleTooltipClose}
-                open={open}
-                title={passwordToottipTitle}
-                tooltipElement={TooltipPasswordField}
-              />
+                <CustomToolTip
+                  handleTooltipClose={handleTooltipClose}
+                  open={open}
+                  title={passwordToottipTitle}
+                  tooltipElement={TooltipPasswordField}
+                />
 
-              <CustomPasswordField
-                inputError={inputErrors.confirmpassword}
-                style={styleFull}
-                id="confirmpassword"
-                label="Confirm Password"
-                name="confirmpassword"
-                handleChange={handleChange}
-              />
+                <CustomPasswordField
+                  inputError={inputErrors.confirmpassword}
+                  style={styleFull}
+                  id="confirmpassword"
+                  label="Confirm Password"
+                  name="confirmpassword"
+                  handleChange={handleChange}
+                />
 
-              <p style={{ color: "red", textAlign: "center" }}>{error}</p>
-              <hr />
-              {"\n"}
+                <p
+                  style={{
+                    color: "red",
+                    textAlign: "center",
+                    marginLeft: "-8%",
+                    marginRight: "-8%",
+                  }}
+                >
+                  {error}
+                </p>
+                <hr />
+                {"\n"}
 
-              <button
-                className="btn btn-success"
-                style={{
-                  fontSize: 19,
-                  marginBottom: "6%",
-                  width: "100%",
-                  height: 45,
-                }}
-                type="submit"
+                <button
+                  className="btn btn-success"
+                  style={{
+                    fontSize: 19,
+                    marginBottom: "6%",
+                    width: "100%",
+                    height: 45,
+                  }}
+                  type="submit"
+                >
+                  Register
+                </button>
+              </form>
+              <div
+                style={{ marginLeft: "-1%", marginRight: "-1%" }}
+                className="mb-4 d-flex align-items-center justify-content-center"
               >
-                Register
-              </button>
-            </form>
-            <div
-              style={{ marginLeft: "-1%", marginRight: "-1%" }}
-              className="mb-4 d-flex align-items-center justify-content-center"
-            >
-              {"Already have an account?"}
+                {"Already have an account?"}
 
-              <Link to="/Login" style={{ marginLeft: "2%" }} variant="body2">
-                {"Login"}
-              </Link>
-            </div>
-          </MDBCardBody>
-        </MDBCard>
-      </MDBContainer>
+                <Link to="/Login" style={{ marginLeft: "2%" }} variant="body2">
+                  {"Login"}
+                </Link>
+              </div>
+            </MDBCardBody>
+          </MDBCard>
+        </MDBContainer>
+      </div>
 
-      <Navbar SignUp={1} data-aos/>
+      <Navbar SignUp={1} data-aos />
     </>
   );
 }
