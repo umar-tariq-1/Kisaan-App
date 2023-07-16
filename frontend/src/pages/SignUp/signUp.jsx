@@ -5,14 +5,10 @@ import React, { useEffect } from "react";
 
 import Navbar from "../../components/Navbar/navbar";
 import "./signUp.css";
-
 import AOS from "aos";
 import "aos/dist/aos.css";
-
 import { MDBContainer, MDBCard, MDBCardBody } from "mdb-react-ui-kit";
-
 import { useSnackbar } from "notistack";
-
 import CustomTextField from "../../components/Form/textfield";
 import CustomToolTip from "../../components/Tooltip/tooltip";
 import CustomPasswordField from "../../components/Form/passwordfield";
@@ -95,7 +91,7 @@ function SignUp() {
     } 
     // eslint-disable-next-line
     else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(Email)) {
-      setError("Invalid Email");
+    setError("Invalid Email");
       setinputErrors({ email: 1 });
       enqueueSnackbar("Couldn't register", { variant: "error" });
       return false;
@@ -307,7 +303,7 @@ function SignUp() {
         </MDBCard>
       </MDBContainer>
 
-      <Navbar SignUp={1} />
+      <Navbar SignUp={1} data-aos/>
     </>
   );
 }
