@@ -13,9 +13,9 @@ import { MDBContainer, MDBCard, MDBCardBody } from "mdb-react-ui-kit";
 
 import { useSnackbar } from "notistack";
 
-import CustomTextField from "../../components/Form/Textfield";
-import CustomToolTip from "../../components/Form/Tooltip";
-import CustomPasswordField from "../../components/Form/Passwordfield";
+import CustomTextField from "../../components/Form/textfield";
+import CustomToolTip from "../../components/Tooltip/tooltip";
+import CustomPasswordField from "../../components/Form/passwordfield";
 import CustomLoadingAnimation from "../../components/Loading animation/loadingAnimation";
 
 function SignUp() {
