@@ -70,7 +70,8 @@ function Login() {
         ...userData,
         email: userData.email.toLowerCase(),
       };
-      const { data } = await axios.post(url, newData);
+      const config={headers:{"Content-Type": "application/json"}, withCredentials: true}
+      const { data } = await axios.post(url, newData, config);
       //console.log(res)
       setLoading(false);
       if (data.isLoggedIn) {
@@ -156,6 +157,20 @@ function Login() {
                 Login
               </button>
             </form>
+            <button
+                className="btn btn-success"
+                style={{
+                  fontSize: 19,
+                  marginBottom: "6%",
+                  width: "100%",
+                  height: 45,
+                }} 
+                onClick={()=>{
+                 axios.post("http://localhost:3001/logout",{message:"this works"}, {headers:{"Content-Type": "application/json"}, withCredentials: true})
+                }}
+              >
+                Logout
+              </button>
             <div
               style={{ marginLeft: "-1%", marginRight: "-1%" }}
               className="mb-4 d-flex align-items-center justify-content-center"

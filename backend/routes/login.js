@@ -62,6 +62,7 @@ login.post("/", async (req, res) => {
     //console.log(token);
     res.cookie("token", token, {
       withCredentials: true,
+      secure: true,
       httpOnly: true,
       expires: cookieExpirationDate,
     });
