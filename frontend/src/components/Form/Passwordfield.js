@@ -1,4 +1,5 @@
 import { useState } from "react";
+import React from "react";
 
 import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -8,7 +9,10 @@ import IconButton from "@mui/material/IconButton";
 
 import { MdVisibilityOff, MdVisibility } from "react-icons/md";
 
-const CustomPasswordField = (props) => {
+const CustomPasswordField = React.forwardRef(function CustomPasswordField(
+  props,
+  ref
+) {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -23,6 +27,8 @@ const CustomPasswordField = (props) => {
       required
       style={props.style}
       variant="outlined"
+      {...props}
+      ref={ref}
       onClick={props.handleTooltipOpen}
     >
       <InputLabel color="success" htmlFor="outlined-adornment-password">
@@ -50,6 +56,6 @@ const CustomPasswordField = (props) => {
       />
     </FormControl>
   );
-};
+});
 
 export default CustomPasswordField;
