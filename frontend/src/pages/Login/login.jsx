@@ -171,8 +171,8 @@ function Login() {
               >
                 {"Don't have an account?"}
 
-                <Link to="/Login" style={{ marginLeft: "2%" }} variant="body2">
-                  {"Sign In"}
+                <Link to="/signup" style={{ marginLeft: "2%" }} variant="body2">
+                  {"Sign Up"}
                 </Link>
               </div>
             </MDBCardBody>

@@ -1,0 +1,91 @@
+* {
+  font-family: "SF Pro Display", sans-serif;
+  letter-spacing: 1px;
+}
+
+.sign_up_button {
+  background-color: #1b854a;
+  width: 124px;
+  height: 38px;
+  color: aliceblue;
+  border-radius: 20px;
+  transition: all 0.4s;
+  border-style: solid;
+  border-color: aliceblue;
+  border-width: 1px;
+}
+.sign_up_button:hover {
+  height: 38px;
+  color: #1b854a;
+  border-color: aliceblue;
+  background: aliceblue;
+  font-size: 21px;
+}
+
+.login_button {
+  background-color: #1b854a;
+  width: 103px;
+  height: 38px;
+  color: aliceblue;
+  border-radius: 20px;
+  transition: all 0.4s;
+  border-style: solid;
+  border-color: aliceblue;
+  border-width: 1px;
+}
+.login_button:hover {
+  height: 38px;
+  color: #1b854a;
+  border-color: aliceblue;
+  background: aliceblue;
+  font-size: 21px;
+}
+.ani1 {
+  transform: scale(0.2);
+  animation: scale 0.8s forwards cubic-bezier(0.5, 1, 0.89, 1);
+  filter: blur(12px);
+  animation-delay: 0.005s;
+}
+.ani2 {
+  transform: scale(0.2);
+  animation: scale 0.8s forwards cubic-bezier(0.5, 1, 0.89, 1);
+  filter: blur(12px);
+  animation-delay: 0.045s;
+}
+.ani3 {
+  transform: scale(0.2);
+  animation: scale 0.8s forwards cubic-bezier(0.5, 1, 0.89, 1);
+  filter: blur(12px);
+  animation-delay: 0.085s;
+}
+.ani4 {
+  transform: scale(0.2);
+  animation: scale 0.8s forwards cubic-bezier(0.5, 1, 0.89, 1);
+  filter: blur(12px);
+  animation-delay: 0.255s;
+}
+.ani5 {
+  margin-top: 25px;
+  transform: scale(0.2);
+  animation: scale 0.8s forwards cubic-bezier(0.5, 1, 0.89, 1);
+  filter: blur(12px);
+  animation-delay: 0.325s;
+}
+.ani6 {
+  margin-top: 16px;
+  transform: scale(0.2);
+  animation: scale 0.8s forwards cubic-bezier(0.5, 1, 0.89, 1);
+  filter: blur(12px);
+  animation-delay: 0.395s;
+}
+@keyframes scale {
+  90% {
+    filter: blur(7px);
+  }
+}
+@keyframes scale {
+  100% {
+    transform: scale(1);
+    filter: blur(0px);
+  }
+}
