@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom'
 import './navbar.css'
 import {FiMenu} from "react-icons/fi";
 import {FaTractor} from "react-icons/fa";
-import { FiArrowRightCircle } from "react-icons/fi";
 import{useAutoAnimate} from "@formkit/auto-animate/react";
 import OnScrolRender from '../OnScrollRender/OnScrolRender';
 
@@ -20,14 +19,7 @@ const navLinkActiveTextColor={  //for textColor
 const navLinkInactiveTextColor={}
 
 const [arrowButtonRef]= useAutoAnimate();
-const rightArrowButton=<>
-        <hr />
-        <FiArrowRightCircle
-          className="arrow-button"
-          size={36}
-          style={{ marginLeft: "40%" }}
-        />
-      </>
+
   return (
     <nav className="navbar shadow-custom">
       <div className="container">
@@ -63,7 +55,7 @@ const rightArrowButton=<>
 
           </ul>
           <div ref={arrowButtonRef} onClick={handleShowNavbar}>
-            <OnScrolRender component={rightArrowButton} limitY={200} opened={showNavbar}/>
+            <OnScrolRender opened={showNavbar} />
             </div>
         </div>
       </div>

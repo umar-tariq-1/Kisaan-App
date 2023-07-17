@@ -1,4 +1,4 @@
-import main from "./main1.jpg";
+import main from "../../utils/pictures/main.jpg";
 import styles from "./styles.module.css";
 import { Link } from "react-router-dom";
 
@@ -8,7 +8,7 @@ export default function HomeContent() {
     <>
       <div
         style={{
-          height: "550px",
+          height: "560px",
           backgroundImage: `url(${main})`,
           backgroundPosition: "center",
           backgroundSize: "cover",
@@ -16,14 +16,14 @@ export default function HomeContent() {
       >
         <div className="container h-100">
           <div className="row h-100">
-            <div className="col-md-4 text-center d-flex d-sm-flex d-md-flex justify-content-center align-items-center justify-content-md-start align-items-md-center justify-content-xl-center">
+            <div className="col-md-6 text-center d-flex d-sm-flex d-md-flex justify-content-center align-items-center justify-content-md-start align-items-md-center justify-content-xl-center">
               <div style={{ maxWidth: "390px" }}>
                 <div className={styles.ani1}>
                   <h1
-                    className="text-uppercase fw-bold"
-                    style={{ color: "aliceblue", fontSize: "300%" }}
+                    className="text-uppercase text-center fw-bold"
+                    style={{ color: "aliceblue" ,fontSize: "300%" }}
                   >
-                    Empowering
+                    Bringing farm
                   </h1>
                 </div>
                 <div className={styles.ani2}>
@@ -48,7 +48,7 @@ export default function HomeContent() {
                 </div>
                 <div className={styles.ani5}>
                   <Link
-                    to="/registration"
+                    to="/signup"
                     style={{
                       textDecoration: "none",
                     }}
