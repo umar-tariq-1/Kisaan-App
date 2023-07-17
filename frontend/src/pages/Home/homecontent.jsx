@@ -28,15 +28,15 @@ export default function HomeContent() {
                 </div>
                 <div className={styles.ani2}>
                   <h1 style={{ color: "aliceblue", fontSize: "200%" }}>
-                    Those with Learning
+                    To Your Doorstep And
                   </h1>
                 </div>
                 <div className={styles.ani3}>
                   <h1
-                    className="text-uppercase fw-bold"
-                    style={{ color: "aliceblue", fontSize: "310%" }}
+                    className="text-capitalize mb-5"
+                    style={{ color: "aliceblue", fontSize: "195%" }}
                   >
-                    Difficulties
+                    Neighbourhood stores
                   </h1>
                 </div>
                 <div className={styles.ani4}>

@@ -3,7 +3,7 @@ import { withScroll } from "react-fns";
 import { FiArrowRightCircle } from "react-icons/fi";
 
 const OnScrollRender = ({ x, y }) => {
-  if (y > 600) {
+  if (y > 580) {
 
     return (<>
         <hr />
