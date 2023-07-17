@@ -53,7 +53,7 @@ export default function HomeContent() {
                       textDecoration: "none",
                     }}
                   >
-                    <a className="btn btn-success btn-lg me-2" role="button">
+                    <a className="btn btn-success btn-lg mt-3 me-2" role="button">
                       Get Started
                     </a>
                   </Link>
