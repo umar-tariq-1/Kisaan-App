@@ -1,19 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home/home";
+import Home from "./pages/Home/Home";
 import SignUp from "./pages/SignUp/signUp";
 import Login from "./pages/Login/login";
 import Contact from "./pages/Contact/contact";
 import About from "./pages/About/about";
 import Dashboard from "./pages/Auth/Dashboard/Dashboard";
-
-// function getCookie(cname) {
-//   var arrayb = document.cookie.split(";");
-//   for (const item of arrayb) {
-//     if (item.startsWith("Token=")) {
-//       return item.substr(6);
-//     }
-//   }
-// }
 
 function App() {
   return (

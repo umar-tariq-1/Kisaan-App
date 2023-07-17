@@ -3,7 +3,9 @@ import { NavLink } from 'react-router-dom'
 import './navbar.css'
 import {FiMenu} from "react-icons/fi";
 import {FaTractor} from "react-icons/fa";
-
+import { FiArrowRightCircle } from "react-icons/fi";
+import{useAutoAnimate} from "@formkit/auto-animate/react";
+import OnScrolRender from '../OnScrollRender/OnScrolRender';
 
 const Navbar = (props) => {
 const [showNavbar, setShowNavbar] = useState(0/*props.About||props.Contact||props.Login||props.SignUp*/)
@@ -17,8 +19,17 @@ const navLinkActiveTextColor={  //for textColor
 }
 const navLinkInactiveTextColor={}
 
+const [arrowButtonRef]= useAutoAnimate();
+const rightArrowButton=<>
+        <hr />
+        <FiArrowRightCircle
+          className="arrow-button"
+          size={36}
+          style={{ marginLeft: "40%" }}
+        />
+      </>
   return (
-    <nav className="navbar">
+    <nav className="navbar shadow-custom">
       <div className="container">
         <div style={{display:'flex'}} className="logo">
           <FaTractor size={60}/>
@@ -27,7 +38,7 @@ const navLinkInactiveTextColor={}
         <div className={`menu-icon  ${showNavbar && 'pressed'}`} onClick={handleShowNavbar}>
             <FiMenu size={45}/>
         </div>
-        <div className={`nav-elements  ${showNavbar && 'active'}`}>
+        <div className={`nav-elements rounded ${showNavbar && 'active shadow-custom'}`}>
           <ul>
             
             <li className={`padd ${props.Home && 'active-link'}`}>
@@ -35,7 +46,7 @@ const navLinkInactiveTextColor={}
             </li>
 
             <li className={`padd ${props.SignUp && 'active-link'}`}>
-              <NavLink style={(props.SignUp && !showNavbar)? navLinkActiveTextColor: navLinkInactiveTextColor} to='/signup'>Sign Up</NavLink>
+              <NavLink style={(props.SignUp && !showNavbar)? navLinkActiveTextColor: navLinkInactiveTextColor} to='/signup'>SignUp</NavLink>
             </li>
            
             <li className={`padd ${props.Login && 'active-link'}`}>
@@ -51,6 +62,9 @@ const navLinkInactiveTextColor={}
             </li>
 
           </ul>
+          <div ref={arrowButtonRef} onClick={handleShowNavbar}>
+            <OnScrolRender component={rightArrowButton} limitY={200} opened={showNavbar}/>
+            </div>
         </div>
       </div>
     </nav>

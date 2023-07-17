@@ -44,39 +44,39 @@
   transform: scale(0.2);
   animation: scale 0.8s forwards cubic-bezier(0.5, 1, 0.89, 1);
   filter: blur(12px);
-  animation-delay: 0.005s;
+  animation-delay: 0.01s;
 }
 .ani2 {
   transform: scale(0.2);
   animation: scale 0.8s forwards cubic-bezier(0.5, 1, 0.89, 1);
   filter: blur(12px);
-  animation-delay: 0.045s;
+  animation-delay: 0.05s;
 }
 .ani3 {
   transform: scale(0.2);
   animation: scale 0.8s forwards cubic-bezier(0.5, 1, 0.89, 1);
   filter: blur(12px);
-  animation-delay: 0.085s;
+  animation-delay: 0.09s;
 }
 .ani4 {
   transform: scale(0.2);
   animation: scale 0.8s forwards cubic-bezier(0.5, 1, 0.89, 1);
   filter: blur(12px);
-  animation-delay: 0.255s;
+  animation-delay: 0.26s;
 }
 .ani5 {
   margin-top: 25px;
   transform: scale(0.2);
   animation: scale 0.8s forwards cubic-bezier(0.5, 1, 0.89, 1);
   filter: blur(12px);
-  animation-delay: 0.325s;
+  animation-delay: 0.33s;
 }
 .ani6 {
   margin-top: 16px;
   transform: scale(0.2);
   animation: scale 0.8s forwards cubic-bezier(0.5, 1, 0.89, 1);
   filter: blur(12px);
-  animation-delay: 0.395s;
+  animation-delay: 0.4s;
 }
 @keyframes scale {
   90% {

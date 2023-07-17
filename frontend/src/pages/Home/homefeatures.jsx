@@ -5,10 +5,12 @@ import visual from "./visual.png";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+import{withScroll} from 'react-fns';
+
+
 import {
   FaGithub,
   FaGoogle,
-  FaInstagram,
   FaLinkedinIn,
   FaTwitter,
   FaEnvelope,
@@ -37,7 +39,7 @@ export default function HomeFeatures() {
           </div>
         </div>
         </div>
-
+        
       <div style={{marginTop:"-25px",paddingBottom:"40px"}} className="container">
         
         <div className="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content-center">
@@ -78,7 +80,7 @@ export default function HomeFeatures() {
                   and decoding words. It can cause frustration, self-doubt, and
                   challenges in academic settings. However, with appropriate
                   support and accommodations, individuals with dyslexia can
-                  overcome obstacles and thrive in various aspects of life.
+                  overcome obstacles and thrive in various aspects of life.
                 </p>
               </div>
             </div>
@@ -114,34 +116,34 @@ export default function HomeFeatures() {
             style={{ backgroundColor: "#1b854a", fontSize: "23px" }}
           >
             <div className="me-2">
-              <div >Connect with us:</div>
+              <div >Connect with us:&nbsp;&nbsp;</div>
             </div>
 
             <div>
-              <a href="" className="text-white me-4">
-                <FaEnvelope />
+              <a href= "https://www.instagram.com/umar_.tariq/" className="text-white me-4">
+                <GrInstagram />
               </a>
-              <a href="" className="text-white me-4">
+              <a href="https://twitter.com/umar__tariq/" className="text-white me-4">
                 <FaTwitter />
               </a>
               {/* <a href="" className="text-white me-4">
                 <FaGoogle />
               </a> */}
-              <a href="" className="text-white me-4">
-                <GrInstagram />
+              <a href="https://github.com/umart823/" className="text-white me-4">
+                <FaGithub />
               </a>
-              <a href="" className="text-white me-4">
+              <a href="https://linkedin.com/in/umar-tariq-" className="text-white me-4">
                 <FaLinkedinIn />
               </a>
-              <a href="" class="text-white me-4">
-                <FaGithub />
+              <a href="mailto: official.umartariq@gmail.com" class="text-white me-4">
+                <FaEnvelope />
               </a>
             </div>
           </section>
           <section className="">
-            <div className="container text-center text-md-start mt-2">
+            <div className={"container text-center "/* text-md-start */ + "mt-2"}>
               <div className="row mt-3">
-                <div className="col-md-4 col-lg-4 col-xl-4 mx-auto mb-2">
+                <div className="col-md-4 col-lg-4 col-xl-4 mx-auto mb-1 mb-md-4">
                   <hr />
                   <h5 className="text-uppercase fw-bold">EduAid</h5>
                   <hr
@@ -149,12 +151,12 @@ export default function HomeFeatures() {
                     style={{ backgroundColor: "#7c4dff" }}
                     // "width: 60px; background-color: #7c4dff; height: 2px"
                   />
-                  <p>
+                  <p style={{textAlign:"justify"}}>
                     We provide a platform for students with learning
-                    difficulties to learn and grow.
+                    difficulties to learn and grow. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos nobis fugiat fugit commodi similique in inventore ex magni, excepturi aperiam eum voluptatum asperiores! Nostrum veniam ducimus neque eaque modi vero?
                   </p>
                 </div>
-                <div className="col-md-3 col-lg-3 col-xl-3 mx-auto mb-2">
+                <div className="col-md-3 col-lg-3 col-xl-3 mx-auto mb-1 mb-md-4">
                 <hr />
                   <h5 className="text-uppercase align-items-center text-center fw-bold">Useful Links</h5>
                   <hr
@@ -179,17 +181,17 @@ export default function HomeFeatures() {
                   </p>
                 </div>
 
-                <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-4">
+                <div className="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4">
                   <hr />
-                  <h5 className="text-uppercase text-sm-end fw-bold">About</h5>
+                  <h5 className={"text-uppercase text-center" /* text-sm-end */ + " fw-bold"}>About</h5>
                   <hr
                     className="mx-auto"
                     style={{ backgroundColor: "#7c4dff" }}
                     // "width: 60px; background-color: #7c4dff; height: 2px"
                   />
-                  <p className="text-sm-end">
+                  <p style={{textAlign:"justify"}}>
                     We provide a platform for students with learning
-                    difficulties to learn and grow.
+                    difficulties to learn and grow. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae, officia. Dolor consectetur iure facilis odit possimus eligendi numquam modi laboriosam inventore eveniet libero adipisci, excepturi ullam suscipit in omnis doloremque.
                   </p>
                 </div>
               </div>
@@ -200,7 +202,7 @@ export default function HomeFeatures() {
             style={{ backgroundColor: "black" }}
           >
             © 2023 Copyright:&nbsp;
-            <a className="text-light" href="http://localhost:3000">
+            <a className="text-light" href="/">
               EduAid.com
             </a>
           </div>
