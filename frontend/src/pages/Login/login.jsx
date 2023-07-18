@@ -7,7 +7,6 @@ import Navbar from "../../components/Navbar/navbar";
 import "./login.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { MDBContainer, MDBCard, MDBCardBody } from "mdb-react-ui-kit";
 import { useSnackbar } from "notistack";
 import CustomTextField from "../../components/Form/textfield";
 import CustomPasswordField from "../../components/Form/passwordfield";
@@ -102,9 +101,7 @@ function Login() {
   }, []);
 
   const styleFull = {
-    width: "104%",
-    marginLeft: "-2%",
-    marginRight: "-2%",
+    width: "100%",
     marginBottom: "3%",
   };
 
@@ -112,8 +109,8 @@ function Login() {
     <>
       {loading && <CustomLoadingAnimation />}
       <div className="d-flex align-items-center justify-content-center">
-        <MDBContainer
-          className="d-flex align-items-center justify-content-center"
+        <div
+          className="container d-flex align-items-center justify-content-center"
           style={{
             position: "fixed",
             hieght: "100%",
@@ -121,13 +118,13 @@ function Login() {
             backgroundColor: "aliceblue",
           }}
         >
-          <MDBCard
-            className="shadow-custom"
+          <div
+            className="shadow-custom card"
             style={{ maxWidth: "500px", minWidth: "350px" }}
             data-aos="zoom-out-up"
           >
-            <MDBCardBody className="px-5">
-              <h2 className="text-uppercase text-center mb-4">Login</h2>
+            <div className="card-body px-4 px-md-5">
+              <h2 className="text-uppercase fw-bold text-center mb-4"  style={{fontFamily:'Titillium Web, sans-serif',fontSize:"200%"}}>Login</h2>
 
               <form onSubmit={handleSubmit}>
                 <CustomTextField
@@ -147,17 +144,20 @@ function Login() {
                   handleChange={handleChange}
                 />
 
-                <p style={{ color: "red", textAlign: "center" }}>{error}</p>
+                <p style={{color: "red",
+                    textAlign: "center",
+                    marginLeft: "-8%",
+                    marginRight: "-8%",
+                    letterSpacing:"0px"}}>{error}</p>
                 <hr />
-                {"\n"}
 
                 <button
-                  className="btn btn-success"
+                  className="btn btn-success mb-4"
                   style={{
-                    fontSize: 19,
-                    marginBottom: "6%",
-                    width: "100%",
+                    fontSize: 21,
+                    width: "100%",  
                     height: 45,
+                    letterSpacing:"0px"
                   }}
                   type="submit"
                 >
@@ -166,18 +166,18 @@ function Login() {
               </form>
 
               <div
-                style={{ marginLeft: "-1%", marginRight: "-1%" }}
-                className="mb-4 d-flex align-items-center justify-content-center"
+                style={{ fontSize:"105%",marginLeft: "-1%", marginRight: "-1%", letterSpacing:"0px" }}
+                className="mb-2 mb-md-1 d-flex align-items-center justify-content-center"
               >
                 {"Don't have an account?"}
 
-                <Link to="/signup" style={{ marginLeft: "2%" }} variant="body2">
+                <Link to="/signup" style={{ marginLeft: "2%",marginBottom:"2px"}}>
                   {"Sign Up"}
                 </Link>
               </div>
-            </MDBCardBody>
-          </MDBCard>
-        </MDBContainer>
+            </div>
+          </div>
+        </div>
       </div>
 
       <Navbar Login={1} />

@@ -21,29 +21,29 @@ export default function HomeContent() {
                 <div className={styles.ani1}>
                   <h1
                     className="text-uppercase text-center fw-bold"
-                    style={{ color: "aliceblue" ,fontSize: "275%" }}
+                    style={{ color: "aliceblue" ,fontFamily:'Titillium Web, sans-serif',fontSize: "285%" }}
                   >
                     Bringing farm
                   </h1>
                 </div>
                 <div className={styles.ani2}>
-                  <h1 style={{ color: "aliceblue", fontSize: "200%" }}>
+                  <h1 style={{ color: "aliceblue",fontFamily:'Titillium Web, sans-serif' ,fontSize: "200%" }}>
                     To Your Doorstep And
                   </h1>
                 </div>
                 <div className={styles.ani3}>
                   <h1
                     className="text-capitalize mb-5"
-                    style={{ color: "aliceblue", fontSize: "195%" }}
+                    style={{ color: "aliceblue",fontFamily:'Titillium Web, sans-serif', fontSize: "190%" }}
                   >
                     Neighbourhood stores
                   </h1>
                 </div>
                 <div className={styles.ani4}>
-                  <p style={{ color: "aliceblue", fontSize: "120%" }}>
-                    We are a team of passionate individuals who want to help
+                  <p style={{ color: "aliceblue",fontFamily:'Titillium Web, sans-serif' ,fontSize: "130%" }}>
+                    We are a team of passionate individuals who {/* want to help
                     people with learning difficulties. We want to help them
-                    overcome their difficulties and achieve their dreams.
+                    overcome their difficulties and achieve their dreams. */} are committed to bridge the gap between farmers and merket, empowering both. {/* them to reach wider audience and ensure fair prices */}{/*  Our mission is to bridge the gap between farmers and market. */}
                   </p>
                 </div>
                 <div className={styles.ani5}>
@@ -53,7 +53,7 @@ export default function HomeContent() {
                       textDecoration: "none",
                     }}
                   >
-                    <a className="btn btn-success btn-lg mt-3 me-2" role="button">
+                    <a className="btn btn-success btn-lg mt-4 me-2" role="button">
                       Get Started
                     </a>
                   </Link>

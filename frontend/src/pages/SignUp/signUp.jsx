@@ -7,7 +7,6 @@ import Navbar from "../../components/Navbar/navbar";
 import "./signUp.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { MDBContainer, MDBCard, MDBCardBody } from "mdb-react-ui-kit";
 import { useSnackbar } from "notistack";
 import CustomTextField from "../../components/Form/textfield";
 import CustomToolTip from "../../components/Tooltip/tooltip";
@@ -168,26 +167,23 @@ function SignUp() {
   }, []);
 
   const styleFirstHalf = {
-    width: "51.5%",
+    width: "49.5%",
+    marginTop: "1%",
     marginBottom: "3%",
-    marginTop: "4%",
-    marginLeft: "-2%",
+
   };
   const styleSecondHalf = {
-    width: "51.5%",
+    width: "49.5%",
     marginBottom: "3%",
-    marginLeft: "1%",
-    marginTop: "4%",
-    marginRight: "-2%",
+    marginLeft:'1%',
+    marginTop: "1%",
   };
   const styleFull = {
-    width: "104%",
-    marginLeft: "-2%",
-    marginRight: "-2%",
+    width: "100%",
     marginBottom: "3%",
   };
   const passwordToottipTitle = (
-    <>
+    <div style={{letterSpacing:"0px"}}>
       <>Password must have:</>
       <br />
       <>• 6-20 characters</>
@@ -197,7 +193,7 @@ function SignUp() {
       <>• 1 uppercase letter,</>
       <br />
       <>• 1 lowercase letter</>
-    </>
+    </div>
   );
   const TooltipPasswordField = (
     <CustomPasswordField
@@ -215,28 +211,27 @@ function SignUp() {
   return (
     <>
       {loading && <CustomLoadingAnimation />}
+      <Navbar SignUp={1} data-aos />
 
-      <div className="d-flex align-items-center justify-content-center">
-        <MDBContainer
-          className="d-flex align-items-center justify-content-center"
+        <div
+          className="container mt-md-2 mt-4 d-flex align-items-center justify-content-center"
           style={{
-            position: "fixed",
-            hieght: "100%",
-            marginTop: "calc(90vh + 11%)",
             backgroundColor: "aliceblue",
+            paddingBottom:"45px"
           }}
         >
-          <MDBCard
-            className="shadow-custom"
+          <div
+            className="shadow-custom card"
             style={{
               maxWidth: "500px",
               minWidth: "350px",
-              height: "calc(30rem + 3.5vw)",
+              marginTop:'3.5vh',
+              
             }}
             data-aos="zoom-out-up"
           >
-            <MDBCardBody className="px-5">
-              <h2 className="text-uppercase text-center mb-4">Registration</h2>
+            <div className=" card-body px-4 px-md-5">
+              <h2 className="text-uppercase fw-bold text-center mb-4" style={{fontFamily:'Titillium Web, sans-serif',fontSize:"200%"}}>Registration</h2>
 
               <form onSubmit={handleSubmit}>
                 <CustomTextField
@@ -285,20 +280,20 @@ function SignUp() {
                     textAlign: "center",
                     marginLeft: "-8%",
                     marginRight: "-8%",
+                    letterSpacing:"0px"
                   }}
                 >
                   {error}
                 </p>
                 <hr />
-                {"\n"}
 
                 <button
-                  className="btn btn-success"
+                  className="btn btn-success mb-4"
                   style={{
-                    fontSize: 19,
-                    marginBottom: "6%",
-                    width: "100%",
+                    fontSize: 21,
+                    width: "100%",  
                     height: 45,
+                    letterSpacing:"0px"
                   }}
                   type="submit"
                 >
@@ -306,21 +301,18 @@ function SignUp() {
                 </button>
               </form>
               <div
-                style={{ marginLeft: "-1%", marginRight: "-1%" }}
-                className="mb-4 d-flex align-items-center justify-content-center"
+                style={{ fontSize:"105%",marginLeft: "-1%", marginRight: "-1%", letterSpacing:"0px" }}
+                className="mb-2 mb-md-1 d-flex align-items-center justify-content-center"
               >
                 {"Already have an account?"}
 
-                <Link to="/Login" style={{ marginLeft: "2%" }} variant="body2">
+                <Link to="/Login" style={{ marginLeft: "2%",marginBottom:"2px"}}>
                   {"Login"}
                 </Link>
               </div>
-            </MDBCardBody>
-          </MDBCard>
-        </MDBContainer>
-      </div>
-
-      <Navbar SignUp={1} data-aos />
+            </div>
+          </div>
+        </div>
     </>
   );
 }
