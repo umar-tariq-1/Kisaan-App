@@ -1,7 +1,8 @@
+import ResponsiveDrawer from "../../components/Drawer/Drawer";
 import Navbar from "../../components/Navbar/navbar";
 
 function About() {
-  return <Navbar About={1} />;
+  return <ResponsiveDrawer />;
 }
 
 export default About;

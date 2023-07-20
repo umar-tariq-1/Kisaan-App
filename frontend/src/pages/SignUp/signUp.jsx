@@ -149,12 +149,8 @@ function SignUp() {
       navigate("/login");
     } catch (error) {
       setLoading(false);
-      if (error.response) {
-        if (error.response.data) {
-          if (error.response.data.message) {
-            setError(error.response.data.message);
-          }
-        }
+      if (error?.response?.data?.message) {
+        setError(error.response.data.message);
       } else {
         setError("Server not working. Try again later");
       }
