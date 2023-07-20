@@ -12,6 +12,7 @@ export default function HomeContent() {
           backgroundImage: `url(${main})`,
           backgroundPosition: "center",
           backgroundSize: "cover",
+          letterSpacing:"1px"
         }}
       >
         <div className="container h-100">
@@ -41,9 +42,7 @@ export default function HomeContent() {
                 </div>
                 <div className={styles.ani4}>
                   <p style={{ color: "aliceblue",fontFamily:'Titillium Web, sans-serif' ,fontSize: "130%" }}>
-                    We are a team of passionate individuals who {/* want to help
-                    people with learning difficulties. We want to help them
-                    overcome their difficulties and achieve their dreams. */} are committed to bridge the gap between farmers and merket, empowering both. {/* them to reach wider audience and ensure fair prices */}{/*  Our mission is to bridge the gap between farmers and market. */}
+                    We are a team of passionate individuals who are committed to bridge the gap between farmers and merket, empowering both. {/* them to reach wider audience and ensure fair prices */}{/*  Our mission is to bridge the gap between farmers and market. */}
                   </p>
                 </div>
                 <div className={styles.ani5}>
@@ -53,9 +52,9 @@ export default function HomeContent() {
                       textDecoration: "none",
                     }}
                   >
-                    <a className="btn btn-success btn-lg mt-4 me-2" role="button">
+                    <button className="btn btn-success btn-lg mt-4 me-2" style={{fontSize:"20px"}}>
                       Get Started
-                    </a>
+                    </button>
                   </Link>
                 </div>
               </div>

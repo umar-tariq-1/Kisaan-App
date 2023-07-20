@@ -11,7 +11,7 @@ import { useSnackbar } from "notistack";
 import CustomTextField from "../../components/Form/textfield";
 import CustomToolTip from "../../components/Tooltip/tooltip";
 import CustomPasswordField from "../../components/Form/passwordfield";
-import CustomLoadingAnimation from "../../components/Loading animation/loadingAnimation";
+import CustomLoadingAnimation from "../../components/LoadingAnimation/loadingAnimation";
 
 function SignUp() {
   const [userData, setuserData] = useState({
@@ -183,7 +183,7 @@ function SignUp() {
     marginBottom: "3%",
   };
   const passwordToottipTitle = (
-    <div style={{letterSpacing:"0px"}}>
+    <div>
       <>Password must have:</>
       <br />
       <>• 6-20 characters</>
@@ -231,7 +231,7 @@ function SignUp() {
             data-aos="zoom-out-up"
           >
             <div className=" card-body px-4 px-md-5">
-              <h2 className="text-uppercase fw-bold text-center mb-4" style={{fontFamily:'Titillium Web, sans-serif',fontSize:"200%"}}>Registration</h2>
+              <h2 className="text-uppercase fw-bold text-center mb-4" style={{letterSpacing:"1px",fontFamily:'Titillium Web, sans-serif',fontSize:"200%"}}>Registration</h2>
 
               <form onSubmit={handleSubmit}>
                 <CustomTextField
@@ -280,7 +280,6 @@ function SignUp() {
                     textAlign: "center",
                     marginLeft: "-8%",
                     marginRight: "-8%",
-                    letterSpacing:"0px"
                   }}
                 >
                   {error}
@@ -293,7 +292,6 @@ function SignUp() {
                     fontSize: 21,
                     width: "100%",  
                     height: 45,
-                    letterSpacing:"0px"
                   }}
                   type="submit"
                 >
@@ -301,7 +299,7 @@ function SignUp() {
                 </button>
               </form>
               <div
-                style={{ fontSize:"105%",marginLeft: "-1%", marginRight: "-1%", letterSpacing:"0px" }}
+                style={{ fontSize:"105%",marginLeft: "-1%", marginRight: "-1%" }}
                 className="mb-2 mb-md-1 d-flex align-items-center justify-content-center"
               >
                 {"Already have an account?"}

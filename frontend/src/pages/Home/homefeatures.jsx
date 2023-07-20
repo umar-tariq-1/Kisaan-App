@@ -1,16 +1,13 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import adhd from "./adhd.png";
 import dyslexia from "./dyslexia.png";
 import visual from "./visual.png";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-import{withScroll} from 'react-fns';
-
-
 import {
   FaGithub,
-  FaGoogle,
   FaLinkedinIn,
   FaTwitter,
   FaEnvelope,
@@ -27,7 +24,7 @@ export default function HomeFeatures() {
   return (
     <div
       id="tutorial"
-      style={{ paddingTop: "30px", backgroundColor: "aliceblue" }}
+      style={{ paddingTop: "30px", backgroundColor: "aliceblue",letterSpacing:"1px" }}
     >
       <div className="mt-4 py-4 py-xl-5">
         <div className="row-6 mb-5">
@@ -98,7 +95,7 @@ export default function HomeFeatures() {
                   information despite intact vision. It can result in an
                   inability to recognize familiar objects, faces, or shapes.
                   However, other sensory modalities remain intact, highlighting
-                  the specific impairment in visual perception.
+                  the specific impairment in visual perception.
                 </p>
               </div>
             </div>
@@ -126,9 +123,6 @@ export default function HomeFeatures() {
               <a href="https://twitter.com/umar__tariq/" className="text-white me-4">
                 <FaTwitter />
               </a>
-              {/* <a href="" className="text-white me-4">
-                <FaGoogle />
-              </a> */}
               <a href="https://github.com/umart823/" className="text-white me-4">
                 <FaGithub />
               </a>
@@ -141,22 +135,21 @@ export default function HomeFeatures() {
             </div>
           </section>
           <section className="">
-            <div className={"container text-center "/* text-md-start */ + "mt-2"}>
+            <div className={"container text-center mt-2"}>
               <div className="row mt-3">
-                <div className="col-md-4 col-lg-4 col-xl-4 mx-auto mb-1 mb-md-4">
+                <div className="col-md-4 col-lg-4 col-xl-4 mx-auto mb-0 mb-md-4">
                   <hr />
-                  <h5 className="text-uppercase fw-bold">EduAid</h5>
+                  <h5 className="text-uppercase fw-bold">Kisaan App</h5>
                   <hr
                     className="mx-auto"
                     style={{ backgroundColor: "#7c4dff" }}
                     // "width: 60px; background-color: #7c4dff; height: 2px"
                   />
                   <p style={{textAlign:"justify"}}>
-                    We provide a platform for students with learning
-                    difficulties to learn and grow. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos nobis fugiat fugit commodi similique in inventore ex magni, excepturi aperiam eum voluptatum asperiores! Nostrum veniam ducimus neque eaque modi vero?
+                    We provide a platform for farmers and vendors, through which they are being connected to avoid shortness of crops caused because of middlemen and to ensure the fair prices of crops due to which farmers, vendors and buyers would be happy. 
                   </p>
                 </div>
-                <div className="col-md-3 col-lg-3 col-xl-3 mx-auto mb-1 mb-md-4">
+                <div className="col-md-3 col-lg-3 col-xl-3 mx-auto mb-0 mb-md-4">
                 <hr />
                   <h5 className="text-uppercase align-items-center text-center fw-bold">Useful Links</h5>
                   <hr
@@ -165,33 +158,32 @@ export default function HomeFeatures() {
                     // "width: 60px; background-color: #7c4dff; height: 2px"
                   />
                   <p>
-                    <a href="#!" className="text-dark text-center text-decoration-none">
-                      <h6 className="fw-normal">Take Test</h6>
-                    </a>
+                    <Link to="/signup" style={{textDecoration:"none"}}>
+                      <h6 className="h5  text-dark text-center fw-normal">Sign Up</h6>
+                    </Link>
                   </p>
                   <p>
-                    <a href="#!" className="text-dark text-center text-decoration-none">
-                      <h6 className="fw-normal">Sign Up</h6>
-                    </a>
+                    <Link to="/login" style={{textDecoration:"none"}}>
+                      <h6 className="h5 text-dark text-center fw-normal">Login</h6>
+                    </Link>
                   </p>
                   <p>
-                    <a href="#!" className="text-dark text-center text-decoration-none">
-                      <h6 className="fw-normal">Login</h6>
-                    </a>
+                    <Link to="/contact" style={{textDecoration:"none"}}>
+                      <h6 className="h5  text-dark text-center  fw-normal">Contact</h6>
+                    </Link>
                   </p>
                 </div>
 
-                <div className="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4">
+                <div className="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4 ">
                   <hr />
-                  <h5 className={"text-uppercase text-center" /* text-sm-end */ + " fw-bold"}>About</h5>
+                  <h5 className={"text-uppercase text-center fw-bold"}>About</h5>
                   <hr
                     className="mx-auto"
                     style={{ backgroundColor: "#7c4dff" }}
                     // "width: 60px; background-color: #7c4dff; height: 2px"
                   />
                   <p style={{textAlign:"justify"}}>
-                    We provide a platform for students with learning
-                    difficulties to learn and grow. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae, officia. Dolor consectetur iure facilis odit possimus eligendi numquam modi laboriosam inventore eveniet libero adipisci, excepturi ullam suscipit in omnis doloremque.
+                    We are a team of passionate individuals who believe in the hardwork of farmers and are committed to bridge the gap between farmers and merket, empowering them to reach wider audience and ensure fair prices.
                   </p>
                 </div>
               </div>
@@ -203,7 +195,7 @@ export default function HomeFeatures() {
           >
             © 2023 Copyright:&nbsp;
             <a className="text-light" href="/">
-              EduAid.com
+              KisaanApp.com
             </a>
           </div>
         </footer>
