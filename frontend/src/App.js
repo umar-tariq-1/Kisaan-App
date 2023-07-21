@@ -5,10 +5,12 @@ import Login from "./pages/Login/login";
 import Contact from "./pages/Contact/contact";
 import About from "./pages/About/about";
 import Dashboard from "./pages/Auth/Dashboard/Dashboard";
+import ScrollToTop from "./utils/ScrollToTop/ScrollToTop";
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" exact Component={Home} />
         <Route path="/signup" Component={SignUp} />

@@ -9,12 +9,12 @@ import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import { FiMenu } from "react-icons/fi";
+import { IoStorefrontOutline } from "react-icons/io5";
+import CustomListItem from "./CustomListItem";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 220;
 
@@ -34,40 +34,61 @@ function ResponsiveDrawer(props) {
     }
   };
 
+  const navigate = useNavigate();
+
   const drawer = (
     <div>
       <Toolbar />
       <Divider />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton
-              sx={text === "Starred" ? { background: "lightGreen" } : {}}
-              onClick={closeDrawer}
-            >
-              <ListItemIcon>
-                {index % 2 === 0 ? <>InboxIcon</> : <>MailIcon</>}
-              </ListItemIcon>
-              <ListItemText
-                primaryTypographyProps={{ fontSize: "21px" }}
-                primary={text}
-              />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem key={text} disablePadding onClick={closeDrawer}>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <>InboxIcon</> : <>MailIcon</>}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <CustomListItem
+          text="Dashboard"
+          icon={1}
+          handleClick={() => {
+            navigate("/");
+          }}
+          closeDrawer={closeDrawer}
+        />
+        <CustomListItem
+          text="All Products"
+          icon={2}
+          handleClick={() => {
+            navigate("/");
+          }}
+          closeDrawer={closeDrawer}
+        />
+        <CustomListItem
+          text="My Products"
+          icon={3}
+          handleClick={() => {
+            navigate("/");
+          }}
+          closeDrawer={closeDrawer}
+        />
+        <CustomListItem
+          text="Settings"
+          icon={4}
+          handleClick={() => {
+            navigate("/");
+          }}
+          closeDrawer={closeDrawer}
+        />
+        <CustomListItem
+          text="My Profile"
+          icon={5}
+          handleClick={() => {
+            navigate("/");
+          }}
+          closeDrawer={closeDrawer}
+        />
+        <CustomListItem
+          text="Logout"
+          icon={6}
+          handleClick={() => {
+            navigate("/");
+          }}
+          closeDrawer={closeDrawer}
+        />
       </List>
     </div>
   );
@@ -81,29 +102,49 @@ function ResponsiveDrawer(props) {
       <AppBar
         position="fixed"
         sx={{
-          background: "#123456",
+          background: "#1b854a",
+          height: "66px",
           zIndex: (theme) => theme.zIndex.drawer + 1,
         }}
       >
         <Toolbar>
           <IconButton
-            color="inherit"
+            color="rgb(33, 37, 41)"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
+            sx={{ ml: "2px", mr: 2, display: { md: "none" } }}
           >
-            <>MenuIcon</>
+            <FiMenu size={48} />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Responsive drawer
-          </Typography>
+
+          <div className="d-none d-lg-flex mt-2 ms-5">
+            <IoStorefrontOutline color="rgb(33, 37, 41)" size={40} />
+            <h2
+              style={{
+                fontFamily: "Titillium Web, sans-serif",
+                color: "rgb(33, 37, 41)",
+              }}
+              className="h2 ms-3"
+            >
+              KisaanApp Store
+            </h2>
+          </div>
+          {/* <Typography color={"rgb(33, 37, 41)"} variant="h5" component="div">
+            <Icon sx={{ ml: 2, display: { xs: "none", md: "inline" } }}>
+              <IoStorefrontOutline color="rgb(33, 37, 41)" size={40} />
+            </Icon>
+            &nbsp;&nbsp;KisaanApp Admin
+          </Typography> */}
         </Toolbar>
       </AppBar>
 
       <Box
         component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        sx={{
+          width: { md: drawerWidth },
+          flexShrink: { md: 0 },
+        }}
         aria-label="mailbox folders"
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -113,11 +154,12 @@ function ResponsiveDrawer(props) {
           open={mobileOpen}
           onClose={handleDrawerToggle}
           sx={{
-            display: { xs: "block", sm: "none" },
+            display: { xs: "block", md: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
-              marginTop: "56px",
+              marginTop: { xs: "5px", sm: "-3px" },
+              height: { xs: "calc(100% - 5px)", sm: "calc(100% + 3px)" },
             },
           }}
         >
@@ -127,11 +169,11 @@ function ResponsiveDrawer(props) {
         <Drawer
           variant="permanent"
           sx={{
-            display: { xs: "none", sm: "block" },
+            display: { xs: "none", md: "block" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
-              marginTop: "65px",
+              marginTop: "2px",
             },
           }}
           open
@@ -145,7 +187,7 @@ function ResponsiveDrawer(props) {
         sx={{
           flexGrow: 1,
           p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          width: { md: `calc(100% - ${drawerWidth}px)` },
         }}
       >
         <Toolbar />
