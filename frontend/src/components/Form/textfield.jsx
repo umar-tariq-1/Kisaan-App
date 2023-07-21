@@ -1,4 +1,5 @@
 import { TextField } from "@mui/material";
+import { FaHome } from "react-icons/fa";
 
 const CustomTextField = (props) => {
   return (
@@ -7,7 +8,7 @@ const CustomTextField = (props) => {
       style={props.style}
       color="success"
       type="text"
-      label={props.label}
+      label={<>{props.icon}&nbsp;&nbsp;{props.label}</>}
       name={props.name}
       onChange={props.onChange}
       required

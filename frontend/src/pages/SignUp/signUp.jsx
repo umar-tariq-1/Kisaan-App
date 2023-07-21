@@ -12,6 +12,8 @@ import CustomTextField from "../../components/Form/textfield";
 import CustomToolTip from "../../components/Tooltip/tooltip";
 import CustomPasswordField from "../../components/Form/passwordfield";
 import CustomLoadingAnimation from "../../components/LoadingAnimation/loadingAnimation";
+import {FaLock, FaUserAlt} from 'react-icons/fa'
+import {TbMailFilled} from 'react-icons/tb'
 
 function SignUp() {
   const [userData, setuserData] = useState({
@@ -199,6 +201,7 @@ function SignUp() {
       style={styleFull}
       id="password"
       label="Password"
+      icon={<FaLock size={17} />}
       name="password"
       handleChange={handleChange}
     />
@@ -234,6 +237,7 @@ function SignUp() {
                   inputError={inputErrors.fname}
                   style={styleFirstHalf}
                   label="First Name"
+                  icon={<FaUserAlt />}
                   name="firstName"
                   onChange={handleChange}
                 />
@@ -242,6 +246,7 @@ function SignUp() {
                   inputError={inputErrors.lname}
                   style={styleSecondHalf}
                   label="Last Name"
+                  icon={<FaUserAlt />}
                   name="lastName"
                   onChange={handleChange}
                 />
@@ -250,6 +255,7 @@ function SignUp() {
                   inputError={inputErrors.email}
                   style={styleFull}
                   label="Email"
+                  icon={<TbMailFilled  size={21}/>}
                   name="email"
                   onChange={handleChange}
                 />
@@ -266,6 +272,7 @@ function SignUp() {
                   style={styleFull}
                   id="confirmpassword"
                   label="Confirm Password"
+                  icon={<FaLock size={17} />}
                   name="confirmpassword"
                   handleChange={handleChange}
                 />
@@ -293,7 +300,9 @@ function SignUp() {
                 >
                   Register
                 </button>
+              
               </form>
+              
               <div
                 style={{ fontSize:"105%",marginLeft: "-1%", marginRight: "-1%" }}
                 className="mb-2 mb-md-1 d-flex align-items-center justify-content-center"
@@ -304,6 +313,7 @@ function SignUp() {
                   {"Login"}
                 </Link>
               </div>
+
             </div>
           </div>
         </div>

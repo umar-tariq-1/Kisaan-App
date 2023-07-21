@@ -41,11 +41,17 @@ function ResponsiveDrawer(props) {
       <List>
         {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton onClick={closeDrawer}>
+            <ListItemButton
+              sx={text === "Starred" ? { background: "lightGreen" } : {}}
+              onClick={closeDrawer}
+            >
               <ListItemIcon>
                 {index % 2 === 0 ? <>InboxIcon</> : <>MailIcon</>}
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText
+                primaryTypographyProps={{ fontSize: "21px" }}
+                primary={text}
+              />
             </ListItemButton>
           </ListItem>
         ))}
@@ -74,7 +80,10 @@ function ResponsiveDrawer(props) {
       {/* <CssBaseline /> */}
       <AppBar
         position="fixed"
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{
+          background: "#123456",
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+        }}
       >
         <Toolbar>
           <IconButton

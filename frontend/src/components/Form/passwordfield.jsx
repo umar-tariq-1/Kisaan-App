@@ -32,7 +32,7 @@ const CustomPasswordField = React.forwardRef(function CustomPasswordField(
       onClick={props.handleTooltipOpen}
     >
       <InputLabel color="success" htmlFor="outlined-adornment-password">
-        {props.label}
+        {<>{props.icon}&nbsp;&nbsp;{props.label}</>}
       </InputLabel>
       <OutlinedInput
         color="success"
@@ -50,7 +50,7 @@ const CustomPasswordField = React.forwardRef(function CustomPasswordField(
             </IconButton>
           </InputAdornment>
         }
-        label={props.label}
+        label={<>{props.icon}&nbsp;{props.label}</>}
         name={props.name}
         onChange={props.handleChange}
       />

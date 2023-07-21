@@ -11,6 +11,8 @@ import { useSnackbar } from "notistack";
 import CustomTextField from "../../components/Form/textfield";
 import CustomPasswordField from "../../components/Form/passwordfield";
 import CustomLoadingAnimation from "../../components/LoadingAnimation/loadingAnimation";
+import {FaLock} from 'react-icons/fa'
+import {TbMailFilled} from 'react-icons/tb'
 
 function Login() {
   const [userData, setuserData] = useState({
@@ -127,6 +129,7 @@ function Login() {
                   inputError={inputErrors.email}
                   style={styleFull}
                   label="Email"
+                  icon={<TbMailFilled size={21} />}
                   name="email"
                   onChange={handleChange}
                 />
@@ -136,6 +139,7 @@ function Login() {
                   style={styleFull}
                   id="password"
                   label="Password"
+                  icon={<FaLock size={17} />}
                   name="password"
                   handleChange={handleChange}
                 />
@@ -159,7 +163,7 @@ function Login() {
                   Login
                 </button>
               </form>
-
+              
               <div
                 style={{ fontSize:"105%",marginLeft: "-1%", marginRight: "-1%" }}
                 className="mb-2 mb-md-1 d-flex align-items-center justify-content-center"
@@ -170,6 +174,7 @@ function Login() {
                   {"Sign Up"}
                 </Link>
               </div>
+
             </div>
           </div>
         </div>
