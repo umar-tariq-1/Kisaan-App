@@ -1,26 +1,31 @@
-import * as React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import HomeContent from "../../pages/Home/homecontent";
-import HomeFeatures from "../../pages/Home/homefeatures";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
+// import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import { FiMenu } from "react-icons/fi";
 import { IoStorefrontOutline } from "react-icons/io5";
 import CustomListItem from "./CustomListItem";
-import { useNavigate } from "react-router-dom";
+import { MdDashboard } from "react-icons/md";
+import { CgProfile } from "react-icons/cg";
+import { FaListUl } from "react-icons/fa";
+import { IoSettingsOutline } from "react-icons/io5";
+import { TbLogout } from "react-icons/tb";
+import { BsBasketFill, BsBasket3Fill } from "react-icons/bs";
+
+// import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 220;
 
 function ResponsiveDrawer(props) {
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [active, setActive] = useState({ dashboard: true });
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -34,58 +39,83 @@ function ResponsiveDrawer(props) {
     }
   };
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const drawer = (
-    <div>
+    <div
+      style={{ fontFamily: "Titillium Web, sans-serif" }}
+      className="text-secondary"
+    >
       <Toolbar />
       <Divider />
       <List>
         <CustomListItem
           text="Dashboard"
-          icon={1}
+          active={active.dashboard}
+          icon={<MdDashboard />}
           handleClick={() => {
-            navigate("/");
+            setActive({ dashboard: true });
+            // navigate("/");
           }}
           closeDrawer={closeDrawer}
         />
         <CustomListItem
           text="All Products"
-          icon={2}
+          active={active.allProducts}
+          icon={<BsBasket3Fill />}
           handleClick={() => {
-            navigate("/");
+            setActive({ allProducts: true });
+            // navigate("/");
+          }}
+          closeDrawer={closeDrawer}
+        />
+        <CustomListItem
+          text="Categories"
+          active={active.categories}
+          icon={<FaListUl size={22} />}
+          handleClick={() => {
+            setActive({ categories: true });
+            // navigate("/");
           }}
           closeDrawer={closeDrawer}
         />
         <CustomListItem
           text="My Products"
-          icon={3}
+          active={active.myProduct}
+          icon={<BsBasketFill />}
           handleClick={() => {
-            navigate("/");
-          }}
-          closeDrawer={closeDrawer}
-        />
-        <CustomListItem
-          text="Settings"
-          icon={4}
-          handleClick={() => {
-            navigate("/");
+            setActive({ myProduct: true });
+            // navigate("/");
           }}
           closeDrawer={closeDrawer}
         />
         <CustomListItem
           text="My Profile"
-          icon={5}
+          active={active.myProfile}
+          icon={<CgProfile />}
           handleClick={() => {
-            navigate("/");
+            setActive({ myProfile: true });
+            // navigate("/");
+          }}
+          closeDrawer={closeDrawer}
+        />
+        <CustomListItem
+          text="Settings"
+          active={active.settings}
+          icon={<IoSettingsOutline />}
+          handleClick={() => {
+            setActive({ settings: true });
+            // navigate("/");
           }}
           closeDrawer={closeDrawer}
         />
         <CustomListItem
           text="Logout"
-          icon={6}
+          active={active.logout}
+          icon={<TbLogout size={26} />}
           handleClick={() => {
-            navigate("/");
+            setActive({ logout: true });
+            // navigate("/");
           }}
           closeDrawer={closeDrawer}
         />
@@ -130,12 +160,6 @@ function ResponsiveDrawer(props) {
               KisaanApp Store
             </h2>
           </div>
-          {/* <Typography color={"rgb(33, 37, 41)"} variant="h5" component="div">
-            <Icon sx={{ ml: 2, display: { xs: "none", md: "inline" } }}>
-              <IoStorefrontOutline color="rgb(33, 37, 41)" size={40} />
-            </Icon>
-            &nbsp;&nbsp;KisaanApp Admin
-          </Typography> */}
         </Toolbar>
       </AppBar>
 
@@ -158,8 +182,8 @@ function ResponsiveDrawer(props) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
-              marginTop: { xs: "5px", sm: "-3px" },
-              height: { xs: "calc(100% - 5px)", sm: "calc(100% + 3px)" },
+              marginTop: { xs: "8px", sm: "0px" },
+              height: { xs: "calc(100% - 8px)", sm: "calc(100% - 0px)" },
             },
           }}
         >
@@ -174,6 +198,7 @@ function ResponsiveDrawer(props) {
               boxSizing: "border-box",
               width: drawerWidth,
               marginTop: "2px",
+              background: "rgba(182,251,203,0.1)",
             },
           }}
           open
@@ -188,40 +213,12 @@ function ResponsiveDrawer(props) {
           flexGrow: 1,
           p: 3,
           width: { md: `calc(100% - ${drawerWidth}px)` },
+          background: "rgba(182,251,203,0.1)",
         }}
       >
         <Toolbar />
-        <HomeContent />
-        <HomeFeatures />
-        {/* <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography> */}
+
+        {/* Main content here */}
       </Box>
     </Box>
   );
