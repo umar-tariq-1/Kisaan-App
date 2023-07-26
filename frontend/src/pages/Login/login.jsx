@@ -80,7 +80,7 @@ function Login() {
       //console.log(res)
       setLoading(false);
       if (data.isLoggedIn) {
-        enqueueSnackbar("LoggedIn successfully", { variant: "success" });
+        enqueueSnackbar("Logged in successfully", { variant: "success" });
         navigate("/dashboard");
       }
     } catch (error) {

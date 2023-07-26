@@ -4,8 +4,8 @@ import SignUp from "./pages/SignUp/signUp";
 import Login from "./pages/Login/login";
 import Contact from "./pages/Contact/contact";
 import About from "./pages/About/about";
-import Dashboard from "./pages/Auth/Dashboard/Dashboard";
 import ScrollToTop from "./utils/ScrollToTop/ScrollToTop";
+import MainPage from "../src/pages/Auth/MainPage/MainPage";
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
         <Route path="/login" Component={Login} />
         <Route path="/about" Component={About} />
         <Route path="/contact" Component={Contact} />
-        <Route path="/dashboard" Component={Dashboard} />
+        <Route path="/dashboard" Component={MainPage} />
       </Routes>
     </Router>
   );

@@ -1,11 +1,11 @@
-import React from "react-router-dom";
+import React from "react";
 
-const Dashboard = () => {
+const Settings = () => {
   return (
     <div className="d-flex justify-content-center align-items-center h1">
-      Dashboard
+      Settings
     </div>
   );
 };
 
-export default Dashboard;
+export default Settings;

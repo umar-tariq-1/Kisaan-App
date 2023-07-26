@@ -1,12 +1,8 @@
-import { Drawer } from "@mui/material";
 import Navbar from "../../components/Navbar/navbar";
-import ResponsiveDrawer from "../../components/Drawer/Drawer";
 
 function Contact() {
   return (
-  <>
-  <ResponsiveDrawer/>
-  </>);
+  <><Navbar Contact={1} /><div className="d-flex justify-content-center h1">Contact</div></>);
 
 }
 

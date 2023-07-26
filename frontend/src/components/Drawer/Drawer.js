@@ -17,8 +17,11 @@ import { FaListUl } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
 import { TbLogout } from "react-icons/tb";
 import { BsBasketFill, BsBasket3Fill } from "react-icons/bs";
+import CustomLoadingAnimation from "../LoadingAnimation/loadingAnimation";
+import { useSnackbar } from "notistack";
 
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const drawerWidth = 220;
 
@@ -26,6 +29,32 @@ function ResponsiveDrawer(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [active, setActive] = useState({ dashboard: true });
+  const [isLoading, setIsLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleLogout = async () => {
+    try {
+      setIsLoading(true);
+      var { data } = await axios.post(
+        "http://localhost:3001/logout",
+        { message: "logout" },
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      setIsLoading(false);
+      enqueueSnackbar("Logged out successfully.", { variant: "success" });
+    } catch (err) {
+      setIsLoading(false);
+      if (!data) {
+        enqueueSnackbar("Couldn't logout. You are not logged in.", {
+          variant: "error",
+        });
+      }
+    }
+    navigate("/login");
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -39,7 +68,7 @@ function ResponsiveDrawer(props) {
     }
   };
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const drawer = (
     <div
@@ -81,10 +110,10 @@ function ResponsiveDrawer(props) {
         />
         <CustomListItem
           text="My Products"
-          active={active.myProduct}
+          active={active.myProducts}
           icon={<BsBasketFill />}
           handleClick={() => {
-            setActive({ myProduct: true });
+            setActive({ myProducts: true });
             // navigate("/");
           }}
           closeDrawer={closeDrawer}
@@ -113,10 +142,7 @@ function ResponsiveDrawer(props) {
           text="Logout"
           active={active.logout}
           icon={<TbLogout size={26} />}
-          handleClick={() => {
-            setActive({ logout: true });
-            // navigate("/");
-          }}
+          handleClick={handleLogout}
           closeDrawer={closeDrawer}
         />
       </List>
@@ -127,100 +153,114 @@ function ResponsiveDrawer(props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: "flex" }}>
-      {/* <CssBaseline /> */}
-      <AppBar
-        position="fixed"
-        sx={{
-          background: "#1b854a",
-          height: "66px",
-          zIndex: (theme) => theme.zIndex.drawer + 1,
-        }}
-      >
-        <Toolbar>
-          <IconButton
-            color="rgb(33, 37, 41)"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ ml: "2px", mr: 2, display: { md: "none" } }}
-          >
-            <FiMenu size={48} />
-          </IconButton>
+    <>
+      {isLoading && <CustomLoadingAnimation />}
 
-          <div className="d-none d-lg-flex mt-2 ms-5">
-            <IoStorefrontOutline color="rgb(33, 37, 41)" size={40} />
-            <h2
-              style={{
-                fontFamily: "Titillium Web, sans-serif",
-                color: "rgb(33, 37, 41)",
-              }}
-              className="h2 ms-3"
+      <Box sx={{ display: "flex" }}>
+        {/* <CssBaseline /> */}
+        <AppBar
+          position="fixed"
+          sx={{
+            background: "#1b854a",
+            height: "66px",
+            zIndex: (theme) => theme.zIndex.drawer + 1,
+          }}
+        >
+          <Toolbar>
+            <IconButton
+              color="rgb(33, 37, 41)"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ ml: "2px", mr: 2, display: { md: "none" } }}
             >
-              KisaanApp Store
-            </h2>
-          </div>
-        </Toolbar>
-      </AppBar>
+              <FiMenu size={48} />
+            </IconButton>
 
-      <Box
-        component="nav"
-        sx={{
-          width: { md: drawerWidth },
-          flexShrink: { md: 0 },
-        }}
-        aria-label="mailbox folders"
-      >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
+            <div className="d-none d-lg-flex mt-2 ms-5">
+              <IoStorefrontOutline color="rgb(33, 37, 41)" size={40} />
+              <h2
+                style={{
+                  fontFamily: "Titillium Web, sans-serif",
+                  color: "rgb(33, 37, 41)",
+                }}
+                className="h2 ms-3"
+              >
+                KisaanApp Store
+              </h2>
+            </div>
+          </Toolbar>
+        </AppBar>
+
+        <Box
+          component="nav"
           sx={{
-            display: { xs: "block", md: "none" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-              marginTop: { xs: "8px", sm: "0px" },
-              height: { xs: "calc(100% - 8px)", sm: "calc(100% - 0px)" },
-            },
+            width: { md: drawerWidth },
+            flexShrink: { md: 0 },
+          }}
+          aria-label="mailbox folders"
+        >
+          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+          <Drawer
+            container={container}
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            sx={{
+              display: { xs: "block", md: "none" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+                marginTop: { xs: "8px", sm: "0px" },
+                height: { xs: "calc(100% - 8px)", sm: "calc(100% - 0px)" },
+              },
+            }}
+          >
+            {drawer}
+          </Drawer>
+
+          <Drawer
+            variant="permanent"
+            sx={{
+              display: { xs: "none", md: "block" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+                marginTop: "2px",
+                background: "rgba(182,251,203,0.1)",
+              },
+            }}
+            open
+          >
+            {drawer}
+          </Drawer>
+        </Box>
+
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            p: 3,
+            width: { md: `calc(100% - ${drawerWidth}px)` },
+            background: "rgba(182,251,203,0.1)",
           }}
         >
-          {drawer}
-        </Drawer>
+          <Toolbar />
 
-        <Drawer
-          variant="permanent"
-          sx={{
-            display: { xs: "none", md: "block" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-              marginTop: "2px",
-              background: "rgba(182,251,203,0.1)",
-            },
-          }}
-          open
-        >
-          {drawer}
-        </Drawer>
+          {active.dashboard
+            ? props.Dashboard
+            : active.allProducts
+            ? props.AllProducts
+            : active.categories
+            ? props.Categories
+            : active.myProducts
+            ? props.MyProducts
+            : active.myProfile
+            ? props.MyProfile
+            : props.Settings}
+        </Box>
       </Box>
-
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          width: { md: `calc(100% - ${drawerWidth}px)` },
-          background: "rgba(182,251,203,0.1)",
-        }}
-      >
-        <Toolbar />
-
-        {/* Main content here */}
-      </Box>
-    </Box>
+    </>
   );
 }
 
