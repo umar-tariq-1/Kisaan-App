@@ -13,8 +13,11 @@ const CustomListItem = (props) => {
           props.active
             ? {
                 borderRadius: "3px",
+                borderLeft: 5,
+                borderColor: "#0d522c",
                 background: "rgba(182,251,203,0.7)",
                 color: "black",
+                transition: "all 0.25s ease",
                 "&:hover": {
                   background: "rgb(182,251,203)",
                   color: "black",
@@ -22,6 +25,7 @@ const CustomListItem = (props) => {
               }
             : {
                 color: "#000000ba",
+                transition: "all 0.15s ease",
                 "&:hover": {
                   color: "black",
                 },

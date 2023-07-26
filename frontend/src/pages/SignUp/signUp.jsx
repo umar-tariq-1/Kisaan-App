@@ -309,7 +309,7 @@ function SignUp() {
               >
                 {"Already have an account?"}
 
-                <Link to="/Login" style={{ marginLeft: "2%",marginBottom:"2px"}}>
+                <Link to="/Login" style={{ marginLeft: "2%",marginBottom:"2px", textDecoration:"none"}}>
                   {"Login"}
                 </Link>
               </div>

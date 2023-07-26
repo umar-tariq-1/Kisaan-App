@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import adhd from "./adhd.png";
-import dyslexia from "./dyslexia.png";
-import visual from "./visual.png";
+import moneyPic from "../../utils/pictures/money.png";
+import checkPic from "../../utils/pictures/check.png";
+import searchPic from "../../utils/pictures/search.png";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -29,9 +29,9 @@ export default function HomeFeatures() {
       <div className="mt-4 py-4 py-xl-5">
         <div className="row-6 mb-5">
           <div className="col-10 col-md-8 col-xl-3 text-center mx-auto">
-            <h1 className="mb-2">Learning Plans</h1>
+            <h1 className="mb-2">Salient Features</h1>
             <p data-aos="zoom-in-up">
-              Carefully catered plans for students with learning difficulties.
+              Carefully catered necessary features for user friendly environment.
             </p>
           </div>
         </div>
@@ -41,20 +41,27 @@ export default function HomeFeatures() {
         
         <div className="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content-center">
           <div className="col">
-            <div className="text-center d-flex flex-column align-items-center">
+            <div className="text-center d-flex flex-column align-items-center align-items-xl-center">
               <div className="bs-icon-lg bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-3 bs-icon">
-                <img src={adhd} alt="" data-aos="zoom-in-up" />
+                <img style={{height:'93px',width:'93px'}} src={checkPic} alt="" data-aos="zoom-in-up" />
               </div>
               <div className="px-3">
-                <h4 data-aos="zoom-in-up">ADHD</h4>
+                <h4 data-aos="zoom-in-up">Featured Products</h4>
                 <p data-aos="zoom-in-up">
-                  ADHD (Attention-Deficit/Hyperactivity Disorder) is a
-                  neurodevelopmental disorder characterized by persistent
-                  patterns of inattention, hyperactivity, and impulsivity that
-                  can impact daily functioning. It often leads to difficulties
-                  in focusing, organizing tasks, and maintaining self-control.
-                  With proper management and support, individuals with ADHD can
-                  learn effective strategies and lead fulfilling lives.
+                  Showcase a selection of the freshest and most in-demand crops from local farmers and highlights unique qualities and benefits in their product with brief description. This section can rotate or be regularly updated to highlight different crops, promoting diversity and attracting the attention of potential buyers. 
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="col">
+            <div className="text-center d-flex flex-column align-items-center">
+              <div className="bs-icon-lg bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-3 bs-icon">
+                <img style={{height:'93px',width:'107px'}} src={moneyPic} alt="" data-aos="zoom-in-up" />
+              </div>
+              <div className="px-3">
+                <h4 data-aos="zoom-in-up">Real-time Market Prices</h4>
+                <p data-aos="zoom-in-up">
+                  Provide a real-time or regularly updated section that displays the current market prices of various crops. This information is crucial for both farmers and buyers as it helps them make informed decisions about when to sell or buy specific crops. Also ensure the fair prices of all crops.
                 </p>
               </div>
             </div>
@@ -63,39 +70,16 @@ export default function HomeFeatures() {
             <div className="text-center d-flex flex-column align-items-center align-items-xl-center">
               <div className="bs-icon-lg bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-3 bs-icon">
                 <img
-                  style={{ width: "96px", height: "96px" }}
-                  src={dyslexia}
+                  style={{height:'92px',width:'92px'}}
+                  src={searchPic}
                   alt=""
                   data-aos="zoom-in-up"
                 />
               </div>
               <div className="px-3">
-                <h4 data-aos="zoom-in">Dyslexia</h4>
+                <h4 data-aos="zoom-in">Intuitive Search</h4>
                 <p data-aos="zoom-in">
-                  Dyslexia is a learning disorder that affects reading, writing,
-                  and spelling skills due to difficulties in processing language
-                  and decoding words. It can cause frustration, self-doubt, and
-                  challenges in academic settings. However, with appropriate
-                  support and accommodations, individuals with dyslexia can
-                  overcome obstacles and thrive in various aspects of life.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="col">
-            <div className="text-center d-flex flex-column align-items-center align-items-xl-center">
-              <div className="bs-icon-lg bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-3 bs-icon">
-                <img src={visual} alt="" data-aos="zoom-in-up" />
-              </div>
-              <div className="px-3">
-                <h4 data-aos="zoom-in-up">Visual Agnosia</h4>
-                <p data-aos="zoom-in-up">
-                  Visual Agnosia is a neurological condition where individuals
-                  have difficulty recognizing and interpreting visual
-                  information despite intact vision. It can result in an
-                  inability to recognize familiar objects, faces, or shapes.
-                  However, other sensory modalities remain intact, highlighting
-                  the specific impairment in visual perception.
+                  Implement filters and sorting options to help users refine their search results based on criteria such as crop type, price range, location, and more. Additionally, use descriptive and concise labels for navigation buttons and categories to minimize confusion and improve the overall user experience.
                 </p>
               </div>
             </div>
@@ -190,7 +174,7 @@ export default function HomeFeatures() {
             </div>
           </section>
           <div
-            className="text-center text-light p-3"
+            className="text-center text-light p-3 p-md-2"
             style={{ backgroundColor: "black" }}
           >
             © 2023 Copyright:&nbsp;

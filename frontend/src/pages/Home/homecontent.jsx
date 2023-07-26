@@ -1,4 +1,4 @@
-import main from "../../utils/pictures/main7.jpg";
+import main from "../../utils/pictures/main.jpg";
 import styles from "./styles.module.css";
 import { Link } from "react-router-dom";
 
