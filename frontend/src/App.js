@@ -18,6 +18,7 @@ function App() {
         <Route path="/about" Component={About} />
         <Route path="/contact" Component={Contact} />
         <Route path="/dashboard" Component={MainPage} />
+        {/* <Route path="/*" Component={Page404} /> */}
       </Routes>
     </Router>
   );
