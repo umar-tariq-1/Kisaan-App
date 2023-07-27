@@ -20,7 +20,7 @@ app.use("/register", register);
 app.use("/login", login);
 app.use("/", authorization);
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3001;
 const CONN_URL = process.env.DB_CONN_URL;
 
 connectToMongoDBAtlas(CONN_URL);
