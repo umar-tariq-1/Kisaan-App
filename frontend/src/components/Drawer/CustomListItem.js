@@ -17,7 +17,7 @@ const CustomListItem = (props) => {
                 borderColor: "#0d522c",
                 background: "rgba(182,251,203,0.7)",
                 color: "black",
-                transition: "all 0.2s ease-out",
+                transition: "all 0.16s ease-out",
                 "&:hover": {
                   background: "rgb(182,251,203)",
                   color: "black",
