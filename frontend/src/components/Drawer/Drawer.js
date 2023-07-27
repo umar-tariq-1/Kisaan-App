@@ -33,10 +33,11 @@ function ResponsiveDrawer(props) {
   const { enqueueSnackbar } = useSnackbar();
 
   const handleLogout = async () => {
+    const url = process.env.REACT_APP_BASE_URL + "/logout";
     try {
       setIsLoading(true);
       var { data } = await axios.post(
-        "http://localhost:3001/logout",
+        url,
         { message: "logout" },
         {
           headers: { "Content-Type": "application/json" },

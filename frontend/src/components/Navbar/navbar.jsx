@@ -5,11 +5,10 @@ import { useNavigate } from "react-router-dom";
 import './navbar.css'
 import {FiMenu} from "react-icons/fi";
 import {FaTractor} from "react-icons/fa";
-import{useAutoAnimate} from "@formkit/auto-animate/react";
-import OnScrolRender from '../OnScrollRender/OnScrolRender';
+import { FiArrowRightCircle } from "react-icons/fi";
 
 const Navbar = (props) => {
-const [showNavbar, setShowNavbar] = useState(0/*props.About||props.Contact||props.Login||props.SignUp*/)
+const [showNavbar, setShowNavbar] = useState(false)
 
   const handleShowNavbar = () => {
     setShowNavbar(!showNavbar)
@@ -22,17 +21,15 @@ const navLinkActiveTextColor={  //for textColor
 }
 const navLinkInactiveTextColor={}
 
-const [arrowButtonRef]= useAutoAnimate();
-
   return (
     <nav className="navbar shadow-custom">
       <div className="container">
         <div style={{display:'flex'}} className="logo">
-          <FaTractor size={60}/>
+          <FaTractor size={58}/>
           <h2 style={{marginTop:8,marginLeft:15}}>KISAAN APP</h2>
         </div>
         <div className={`menu-icon  ${showNavbar && 'pressed'}`} onClick={handleShowNavbar}>
-            <FiMenu size={45}/>
+            <FiMenu color='#212529c0' size={43}/>
         </div>
         <div className={`nav-elements rounded ${showNavbar && 'active shadow-custom'}`}>
           <ul>
@@ -58,8 +55,12 @@ const [arrowButtonRef]= useAutoAnimate();
             </li>
 
           </ul>
-          <div ref={arrowButtonRef} onClick={handleShowNavbar}>
-            <OnScrolRender opened={showNavbar} />
+          <div style={{paddingBottom:"17px"}} className='close-navbar-button' onClick={handleShowNavbar}>
+            <hr />
+        <FiArrowRightCircle
+          size={36}
+          style={{ marginLeft: "40%" }}
+        />
             </div>
         </div>
       </div>

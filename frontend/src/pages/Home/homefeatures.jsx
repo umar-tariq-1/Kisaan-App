@@ -90,7 +90,7 @@ export default function HomeFeatures() {
       <div style={{ marginTop: "20px" }}>
         <footer
           className="text-center text-lg-start text-dark"
-          style={{ backgroundColor: "#5cac81" }}
+          style={{ backgroundColor: "#5cac81b6" }}
         >
           <section
             className="d-flex justify-content-around align-content-around flex-wrap p-2 text-white"
