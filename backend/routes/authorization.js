@@ -2,9 +2,7 @@ const express = require("express");
 const { authorize, getAuthorizedUser } = require("../middlewares/authorize");
 const authorization = express.Router();
 
-authorization.post("/dashboard", authorize);
-
-authorization.post("/dashboard", (req, res) => {
+authorization.post("/dashboard", authorize, (req, res) => {
   const authorizedUser = getAuthorizedUser();
   // console.log(authorizedUser);
   delete authorizedUser.password;
@@ -13,16 +11,14 @@ authorization.post("/dashboard", (req, res) => {
   return res.status(200).send({ authorizedUser, isLoggedIn: true });
 });
 
-authorization.post("/logout", authorize);
-
-authorization.post("/logout", (req, res) => {
+authorization.post("/logout", authorize, (req, res) => {
   /* const authorizedUser = getAuthorizedUser();
   // console.log(authorizedUser);
   delete authorizedUser.password;
   delete authorizedUser._id; */
   return res
     .clearCookie("token", { httpOnly: true })
-    .send({ message: "LoggedOut successfully!", isLoggedIn: false })
+    .send({ message: "Logged out successfully!", isLoggedIn: false })
     .status(200);
 });
 

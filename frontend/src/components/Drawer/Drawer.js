@@ -44,18 +44,18 @@ function ResponsiveDrawer(props) {
           withCredentials: true,
         }
       );
-      localStorage.removeItem("isLoggedIn");
-      localStorage.setItem("isLoggedIn", "false");
       setIsLoading(false);
       enqueueSnackbar("Logged out successfully.", { variant: "success" });
     } catch (err) {
       setIsLoading(false);
       if (!data) {
-        enqueueSnackbar("Couldn't logout. You are not logged in.", {
+        enqueueSnackbar("You are not logged in.", {
           variant: "error",
         });
       }
     }
+    localStorage.removeItem("isLoggedIn");
+    localStorage.setItem("isLoggedIn", "false");
     navigate("/login");
   };
 

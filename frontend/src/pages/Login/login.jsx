@@ -80,8 +80,8 @@ function Login() {
       //console.log(res)
       setLoading(false);
       if (data.isLoggedIn) {
-        localStorage.setItem('isLoggedIn',JSON.stringify(data.isLoggedIn))
         enqueueSnackbar("Logged in successfully", { variant: "success" });
+        localStorage.setItem('isLoggedIn',JSON.stringify(data.isLoggedIn));
         navigate("/dashboard");
       }
     } catch (error) {

@@ -57,8 +57,8 @@ login.post("/", async (req, res) => {
     var loggedInUser = { ...foundUser._doc };
     delete loggedInUser.password;
     delete loggedInUser._id;
-    const token = createToken(foundUser._id);
-    var cookieExpirationDate = new Date(Date.now() + 3600000);
+    var cookieExpirationDate = new Date(Date.now() + 1000 * 60 * 60 * 24);
+    const token = createToken(foundUser._id, "24h");
     //console.log(token);
     res.cookie("token", token, {
       withCredentials: true,
