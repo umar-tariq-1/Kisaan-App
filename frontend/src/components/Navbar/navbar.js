@@ -22,6 +22,8 @@ const Navbar = (props) => {
   };
   const navLinkInactiveTextColor = {};
 
+  const isLoggedIn = JSON.parse(localStorage.getItem("isLoggedIn"));
+
   return (
     <nav className="navbar shadow-custom">
       <div className="container">
@@ -79,9 +81,6 @@ const Navbar = (props) => {
 
             <li
               onClick={() => {
-                const isLoggedIn = JSON.parse(
-                  localStorage.getItem("isLoggedIn")
-                );
                 if (isLoggedIn) {
                   navigate("/dashboard");
                 } else {
@@ -96,7 +95,6 @@ const Navbar = (props) => {
                     ? navLinkActiveTextColor
                     : navLinkInactiveTextColor
                 }
-                to="/login"
               >
                 Login
               </NavLink>
