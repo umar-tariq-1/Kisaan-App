@@ -44,6 +44,8 @@ function ResponsiveDrawer(props) {
           withCredentials: true,
         }
       );
+      localStorage.removeItem("isLoggedIn");
+      localStorage.setItem("isLoggedIn", "false");
       setIsLoading(false);
       enqueueSnackbar("Logged out successfully.", { variant: "success" });
     } catch (err) {

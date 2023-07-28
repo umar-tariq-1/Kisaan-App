@@ -211,25 +211,22 @@ function SignUp() {
     <>
       {loading && <CustomLoadingAnimation />}
       <Navbar SignUp={1} data-aos />
-
+      <div className="d-flex mt-lg-5 align-items-center justify-contennt-center" style={{height:'calc(90vh - 70px)',width:"100%", position:"fixed"}}>
         <div
-          className="container mt-md-2 mt-4 d-flex align-items-center justify-content-center"
+          className="container pb-4 pb-md-0 mx-auto"
           style={{
             backgroundColor: "aliceblue",
-            paddingBottom:"45px"
           }}
         >
           <div
-            className="shadow-custom card"
+            className="shadow-custom card mx-auto"
             style={{
               maxWidth: "500px",
               minWidth: "350px",
-              marginTop:'3.5vh',
-              
             }}
             data-aos="zoom-out-up"
           >
-            <div className=" card-body px-4 px-md-5">
+            <div className="card-body px-4 px-md-5">
               <h2 className="text-uppercase fw-bold text-center mb-4" style={{letterSpacing:"1px",fontFamily:'Titillium Web, sans-serif',fontSize:"200%"}}>Registration</h2>
 
               <form onSubmit={handleSubmit}>
@@ -316,6 +313,7 @@ function SignUp() {
 
             </div>
           </div>
+        </div>
         </div>
     </>
   );
