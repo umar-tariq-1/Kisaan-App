@@ -56,13 +56,14 @@ register.post("/", async (req, res) => {
     lastName: userData.lastName,
     email: userData.email,
     password: userData.password,
+    products: [],
   });
 
   try {
     await createdUser.save();
     res.status(201).send({ message: "User registered successfully" }); //201 indicates successful creation
   } catch (error) {
-    res.send({ message: "internal server error " }).status(500); //500 indicates server side error
+    res.send({ message: "internal server error" }).status(500); //500 indicates server side error
     return;
   }
 });

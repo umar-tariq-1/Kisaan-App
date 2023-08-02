@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-function connectToMongoDBAtlas(conn_URL, PORT) {
+function connectToMongoDBAtlas(conn_URL) {
   mongoose
     .connect(conn_URL, {
       useNewUrlParser: true,
@@ -8,11 +8,13 @@ function connectToMongoDBAtlas(conn_URL, PORT) {
     })
     .then(() => {
       console.log(
-        `Backend running on port: ${process.env.PORT} and Connected to Database...`
+        `Backend running on port: ${
+          process.env.PORT || 3001
+        } and Connected to Database...`
       );
     })
     .catch((err) => {
-      console.log(err);
+      console.log("Error while connecting to Database...\n");
       return;
     });
 }
