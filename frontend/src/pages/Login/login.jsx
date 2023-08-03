@@ -86,6 +86,10 @@ function Login() {
       }
     } catch (error) {
       setLoading(false);
+      if(localStorage.isLoggedIn){
+      localStorage.removeItem("isLoggedIn");
+      localStorage.setItem("isLoggedIn", "false");
+      }
       if (error?.response?.data?.message) {
             setError(error.response.data.message);
       } else {

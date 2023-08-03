@@ -8,17 +8,26 @@ const addProduct = express.Router();
 addProduct.post("/", authorize, async (req, res) => {
   const authorizedUser = getAuthorizedUser();
   const user = await User.findById(authorizedUser._id);
+  const { name, description, quantity, price, address, images } = req.body;
+
+  //images storing logic and store images names in image variable as an array
+
   if (
-    req.body.name &&
-    req.body.description &&
-    req.body.productQuantity &&
-    req.body.price
+    name &&
+    description &&
+    quantity &&
+    price &&
+    address &&
+    images &&
+    (quantity === "Bulk" || quantity === "Few")
   ) {
     const createdProduct = new product({
-      name: req.body.name,
-      description: req.body.description,
-      productQuantity: req.body.productQuantity,
-      price: req.body.price,
+      name,
+      description,
+      quantity,
+      price,
+      address,
+      images,
       creator: authorizedUser._id,
     });
     try {
@@ -35,8 +44,11 @@ addProduct.post("/", authorize, async (req, res) => {
       res.send({ message: "internal server error" }).status(500); //500 indicates server side error
       return;
     }
+  } else if (quantity !== "Bulk" && quantity !== "Few") {
+    res.send({ message: "Incorrect details entered." }).status(422);
+    return;
   } else {
-    res.send({ message: "Incomplete details entered." }).status(422); //500 indicates server side error
+    res.send({ message: "Incomplete details entered." }).status(422);
     return;
   }
 });
