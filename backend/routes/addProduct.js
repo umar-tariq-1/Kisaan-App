@@ -1,12 +1,44 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const { authorize, getAuthorizedUser } = require("../middlewares/authorize");
+const multer = require("multer");
+const path = require("path");
 const User = require("../models/user");
 const product = require("../models/product");
 const addProduct = express.Router();
 
-addProduct.post("/", authorize, async (req, res) => {
-  const authorizedUser = getAuthorizedUser();
+// Create a storage configuration for multer
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/");
+  },
+  filename: function (req, file, cb) {
+    // Use Date.now() to ensure a unique filename for each image
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(
+      null,
+      file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname)
+    );
+  },
+});
+// Create the multer upload object
+const upload = multer({ storage: storage });
+
+addProduct.post(
+  "/",
+  upload.array("image", 5) /* authorize */,
+  async (req, res) => {
+    const files = req.files;
+    if (!files || files.length === 0) {
+      return res
+        .status(400)
+        .json({ error: "Please upload at least one valid image file." });
+    }
+    // Process the uploaded images and save them// In this example, we're simply sending back the filenames as a response
+    const uploadedImages = files.map((file) => file.filename);
+    res.status(200).json({ images: uploadedImages });
+
+    /* const authorizedUser = getAuthorizedUser();
   const user = await User.findById(authorizedUser._id);
   const { name, description, quantity, price, address, images } = req.body;
 
@@ -50,7 +82,8 @@ addProduct.post("/", authorize, async (req, res) => {
   } else {
     res.send({ message: "Incomplete details entered." }).status(422);
     return;
+  } */
   }
-});
+);
 
 module.exports = addProduct;
