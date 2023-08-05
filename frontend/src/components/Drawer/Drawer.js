@@ -54,7 +54,6 @@ function ResponsiveDrawer(props) {
         });
       }
     }
-    localStorage.removeItem("isLoggedIn");
     localStorage.setItem("isLoggedIn", "false");
     navigate("/login");
   };
