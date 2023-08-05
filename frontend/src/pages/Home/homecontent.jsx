@@ -2,11 +2,23 @@ import { Link } from "react-router-dom";
 import React from "react";
 import main from "../../utils/pictures/main.webp";
 import styles from "./styles.module.css";
+import useImagePreloader from "../../hooks/useImagePreloader/useImagePreloader";
+import CustomLoadingAnimation from "../../components/LoadingAnimation/loadingAnimation";
+// import Navbar from "../../components/Navbar/navbar";
+
+
+const preloadSrcList=[main];
+
 
 export default function HomeContent() {
+  const { imagesPreloaded } = useImagePreloader(preloadSrcList);
 
+   if (!imagesPreloaded) {
+    return <CustomLoadingAnimation overlayColor={"rgba(0,0,0,0.1)"} />;
+  }
   return (
     <>
+      {/* <Navbar Home={1} /> */}
       <div
         style={{
           height: "560px",

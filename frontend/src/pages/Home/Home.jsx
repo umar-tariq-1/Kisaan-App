@@ -1,6 +1,6 @@
-import Navbar from "../../components/Navbar/navbar";
 import HomeContent from "./homecontent";
 import HomeFeatures from "./homefeatures";
+import Navbar from "../../components/Navbar/navbar";
 
 export default function Home() {
   return (

@@ -5,6 +5,8 @@ import checkPic from "../../utils/pictures/check.png";
 import searchPic from "../../utils/pictures/search.png";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import useImagePreloader from "../../hooks/useImagePreloader/useImagePreloader";
+
 
 import {
   FaGithub,
@@ -17,10 +19,18 @@ import {
   GrInstagram
 } from "react-icons/gr";
 
+const preloadSrcList=[moneyPic,checkPic,searchPic];
+
 export default function HomeFeatures() {
+  const { imagesPreloaded } = useImagePreloader(preloadSrcList);
+
   useEffect(() => {
     AOS.init({ duration: 1200 });
   }, []);
+
+   if (!imagesPreloaded) {
+    return <></>;
+  }
   return (
     <div
       id="tutorial"
