@@ -1,6 +1,7 @@
-import main from "../../utils/pictures/main.jpg";
-import styles from "./styles.module.css";
 import { Link } from "react-router-dom";
+import React from "react";
+import main from "../../utils/pictures/main.webp";
+import styles from "./styles.module.css";
 
 export default function HomeContent() {
 

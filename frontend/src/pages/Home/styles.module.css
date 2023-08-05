@@ -70,13 +70,7 @@
   filter: blur(12px);
   animation-delay: 0.33s;
 }
-.ani6 {
-  margin-top: 16px;
-  transform: scale(0.2);
-  animation: scale 0.8s forwards cubic-bezier(0.5, 1, 0.89, 1);
-  filter: blur(12px);
-  animation-delay: 0.4s;
-}
+
 @keyframes scale {
   90% {
     filter: blur(7px);

@@ -1,9 +1,9 @@
 import { DotLoaderOverlay } from "react-spinner-overlay";
 
-const CustomLoadingAnimation = () => {
+const CustomLoadingAnimation = (props) => {
   return (
     <DotLoaderOverlay
-      overlayColor="rgba(0, 0, 0, 0.7)"
+      overlayColor={props.overlayColor || "rgba(0, 0, 0, 0.7)"}
       color="#1b854a"
       size={20}
       between={13}
