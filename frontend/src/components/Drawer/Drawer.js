@@ -36,7 +36,7 @@ function ResponsiveDrawer(props) {
     const url = process.env.REACT_APP_BASE_URL + "/logout";
     try {
       setIsLoading(true);
-      var { data } = await axios.post(
+      await axios.post(
         url,
         { message: "logout" },
         {
@@ -46,16 +46,22 @@ function ResponsiveDrawer(props) {
       );
       setIsLoading(false);
       enqueueSnackbar("Logged out successfully.", { variant: "success" });
+      localStorage.setItem("isLoggedIn", "false");
+      navigate("/login");
     } catch (err) {
       setIsLoading(false);
-      if (!data) {
-        enqueueSnackbar("You are not logged in.", {
+      if (err?.response?.data?.message) {
+        enqueueSnackbar(err?.response?.data?.message, {
+          variant: "error",
+        });
+        localStorage.setItem("isLoggedIn", "false");
+        navigate("/login");
+      } else {
+        enqueueSnackbar("Server not working. Try again later", {
           variant: "error",
         });
       }
     }
-    localStorage.setItem("isLoggedIn", "false");
-    navigate("/login");
   };
 
   const handleDrawerToggle = () => {

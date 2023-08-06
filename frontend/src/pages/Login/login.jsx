@@ -86,11 +86,9 @@ function Login() {
       }
     } catch (error) {
       setLoading(false);
-      if(localStorage.isLoggedIn){
-      localStorage.setItem("isLoggedIn", "false");
-      }
       if (error?.response?.data?.message) {
-            setError(error.response.data.message);
+        setError(error.response.data.message);
+        localStorage.setItem("isLoggedIn", "false");
       } else {
         setError("Server not working. Try again later");
       }

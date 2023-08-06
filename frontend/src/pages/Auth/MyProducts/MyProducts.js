@@ -71,6 +71,7 @@ const MyProducts = () => {
     }
   }; */
 
+  const [uploadClicked, setUploadClicked] = useState(false);
   const [selectedImages, setSelectedImages] = useState([]);
   const [uploadProgress, setUploadProgress] = useState({});
 
@@ -91,6 +92,7 @@ const MyProducts = () => {
   };
 
   const handleImageUpload = () => {
+    setUploadClicked(true);
     if (selectedImages.length > 0) {
       selectedImages.forEach((image) => {
         const formData = new FormData();
@@ -129,13 +131,15 @@ const MyProducts = () => {
         onChange={handleImageChange}
       />
       <button onClick={handleImageUpload}>Upload Images</button>
-      <div>
-        {selectedImages.map((image) => (
-          <p key={image.name}>
-            {image.name} - {uploadProgress[image.name] || 0}%
-          </p>
-        ))}
-      </div>
+      {uploadClicked && (
+        <div>
+          {selectedImages.map((image) => (
+            <p key={image.name}>
+              {image.name} - {uploadProgress[image.name] || 0}%
+            </p>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

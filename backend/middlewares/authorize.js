@@ -14,17 +14,16 @@ module.exports.authorize = async (req, res, next) => {
     }
   } catch (err) {
     return res.status(401).send({
-      message: "Didn't get cookies in request header",
+      message: "Sorry, didn't get cookie in request",
       isLoggedIn: false,
     });
   }
   jwt.verify(token, process.env.TOKEN_KEY, async (err, data) => {
     if (err) {
-      res.status(401).send({
-        message: "Request time out. Please login again!",
+      return res.clearCookie("token", { httpOnly: true }).status(401).send({
+        message: "Access token expired. Please login again!",
         isLoggedIn: false,
       });
-      return;
     } else {
       const user = await User.findById(data.id);
 
@@ -33,9 +32,10 @@ module.exports.authorize = async (req, res, next) => {
 
         next();
       } else {
-        return res
-          .status(401)
-          .send({ message: "Authorization failed", isLoggedIn: false });
+        return res.status(401).send({
+          message: "Sorry, you are not authorized for this",
+          isLoggedIn: false,
+        });
       }
     }
   });
