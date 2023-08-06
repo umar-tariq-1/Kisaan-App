@@ -14,11 +14,8 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     // Use Date.now() to ensure a unique filename for each image
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(
-      null,
-      file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname)
-    );
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e5);
+    cb(null, uniqueSuffix + path.extname(file.originalname));
   },
 });
 // Create the multer upload object
@@ -26,7 +23,7 @@ const upload = multer({ storage: storage });
 
 addProduct.post(
   "/",
-  upload.array("image", 5) /* authorize */,
+  upload.array("image", 4) /* authorize */,
   async (req, res) => {
     const files = req.files;
     if (!files || files.length === 0) {

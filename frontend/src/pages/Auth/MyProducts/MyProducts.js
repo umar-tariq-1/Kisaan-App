@@ -1,79 +1,10 @@
-/* import React from "react";
-
-const MyProducts = () => {
-  return (
-    <div className="d-flex justify-content-center align-items-center h1">
-      My Products
-    </div>
-  );
-};
-
-export default MyProducts; */
-
 import React, { useState } from "react";
 import axios from "axios";
 
 const MyProducts = () => {
-  /* const [selectedImages, setSelectedImages] = useState([]);
-  const [uploadProgress, setUploadProgress] = useState([]);
-
-  const handleImageChange = (e) => {
-    const files = e.target.files;
-    const newSelectedImages = [];
-    for (let i = 0; i < files.length; i++) {
-      if (files[i].type.startsWith("image/")) {
-        newSelectedImages.push(files[i]);
-      } else {
-        alert(`File ${files[i].name} is not a valid image. Skipping.`);
-      }
-    }
-    setSelectedImages((prevSelectedImages) => [
-      ...prevSelectedImages,
-      ...newSelectedImages,
-    ]);
-  };
-
-  const handleImageUpload = () => {
-    if (selectedImages.length > 0) {
-      selectedImages.forEach((image, index) => {
-        const formData = new FormData();
-        formData.append(`image`, image);
-
-        const config = {
-          onUploadProgress: (progressEvent) => {
-            const progress = Math.round(
-              (progressEvent.loaded * 100) / progressEvent.total
-            );
-            setUploadProgress((prevProgress) => ({
-              ...prevProgress,
-              [image.name]: progress,
-            }));
-          },
-        };
-
-        // Perform the image upload using Fetch API
-        // Replace 'your-upload-url' with your server endpoint
-        fetch("http://localhost:3001/addProduct", {
-          method: "POST",
-          body: formData,
-          ...config,
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("Image uploaded:", data);
-          })
-          .catch((error) => {
-            console.error("Error uploading image:", error);
-          });
-      });
-    } else {
-      alert("Please select at least one image before uploading.");
-    }
-  }; */
-
-  const [uploadClicked, setUploadClicked] = useState(false);
   const [selectedImages, setSelectedImages] = useState([]);
   const [uploadProgress, setUploadProgress] = useState({});
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const handleImageChange = (e) => {
     const files = e.target.files;
@@ -85,6 +16,25 @@ const MyProducts = () => {
         alert(`File ${files[i].name} is not a valid image. Skipping.`);
       }
     }
+    // document.getElementById("imagesInputSelect").value = null;
+    // document.getElementById("imagesInputAdd").value = null;
+    e.target.value = null;
+    setSelectedImages([...newSelectedImages]);
+  };
+
+  const handleAddImages = (e) => {
+    const files = e.target.files;
+    const newSelectedImages = [];
+    for (let i = 0; i < files.length; i++) {
+      if (files[i].type.startsWith("image/")) {
+        newSelectedImages.push(files[i]);
+      } else {
+        alert(`File ${files[i].name} is not a valid image. Skipping.`);
+      }
+    }
+    // document.getElementById("imagesInputAdd").value = null;
+    // document.getElementById("imagesInputSelect").value = null;
+    e.target.value = null;
     setSelectedImages((prevSelectedImages) => [
       ...prevSelectedImages,
       ...newSelectedImages,
@@ -92,8 +42,8 @@ const MyProducts = () => {
   };
 
   const handleImageUpload = () => {
-    setUploadClicked(true);
     if (selectedImages.length > 0) {
+      setButtonDisabled(true);
       selectedImages.forEach((image) => {
         const formData = new FormData();
         formData.append("image", image);
@@ -115,9 +65,17 @@ const MyProducts = () => {
             console.log(`Image ${image.name} uploaded successfully.`);
           })
           .catch((error) => {
-            console.error(`Error uploading ${image.name}.`);
+            setButtonDisabled(true);
+            alert(`Error uploading ${image.name}.\n` + error);
           });
       });
+      // document.getElementById("imagesInputSelect").value = null;
+      // document.getElementById("imagesInputAdd").value = null;
+      setTimeout(() => {
+        setSelectedImages([]);
+        setUploadProgress({});
+        setButtonDisabled(false);
+      }, 1000);
     } else {
       alert("Please select at least one image before uploading.");
     }
@@ -125,21 +83,58 @@ const MyProducts = () => {
   return (
     <div>
       <input
+        id="imagesInputSelect"
         type="file"
         accept="image/*"
         multiple
         onChange={handleImageChange}
+        className="d-none"
       />
-      <button onClick={handleImageUpload}>Upload Images</button>
-      {uploadClicked && (
-        <div>
-          {selectedImages.map((image) => (
-            <p key={image.name}>
-              {image.name} - {uploadProgress[image.name] || 0}%
-            </p>
-          ))}
-        </div>
-      )}
+      <button
+        className={`btn btn-primary ${buttonDisabled && "disabled"} mx-2 mb-4`}
+        onClick={() => {
+          document.getElementById("imagesInputSelect").click();
+        }}
+      >
+        Choose Images
+      </button>
+      <input
+        id="imagesInputAdd"
+        type="file"
+        accept="image/*"
+        multiple
+        onChange={handleAddImages}
+        className="d-none"
+      />
+      <button
+        className={`btn btn-primary ${buttonDisabled && "disabled"} mx-2 mb-4`}
+        onClick={() => {
+          document.getElementById("imagesInputAdd").click();
+        }}
+      >
+        Add Images
+      </button>
+      <button
+        className={`btn btn-primary ${buttonDisabled && "disabled"} mx-2 mb-4`}
+        onClick={handleImageUpload}
+      >
+        Upload Images
+      </button>
+      <button
+        className={`btn btn-primary ${buttonDisabled && "disabled"} mx-2 mb-4`}
+        onClick={() => {
+          setSelectedImages([]);
+        }}
+      >
+        Clear Images
+      </button>
+      <div>
+        {selectedImages.map((image) => (
+          <p key={image.name}>
+            {image.name} - {uploadProgress[image.name] || 0}%
+          </p>
+        ))}
+      </div>
     </div>
   );
 };
