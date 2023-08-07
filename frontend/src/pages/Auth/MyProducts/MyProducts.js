@@ -1,23 +1,30 @@
 import React, { useState } from "react";
 import axios from "axios";
+import LoadingBar from "../../../components/LoadingBar/LoadingBar";
+import { useSnackbar } from "notistack";
 
 const MyProducts = () => {
   const [selectedImages, setSelectedImages] = useState([]);
-  const [uploadProgress, setUploadProgress] = useState({});
+  const [uploadProgress, setUploadProgress] = useState(0);
   const [buttonDisabled, setButtonDisabled] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleImageChange = (e) => {
     const files = e.target.files;
     const newSelectedImages = [];
     for (let i = 0; i < files.length; i++) {
       if (files[i].type.startsWith("image/")) {
-        newSelectedImages.push(files[i]);
+        if (
+          !newSelectedImages.find((file) => {
+            return file.name === files[i].name;
+          })
+        ) {
+          newSelectedImages.push(files[i]);
+        }
       } else {
         alert(`File ${files[i].name} is not a valid image. Skipping.`);
       }
     }
-    // document.getElementById("imagesInputSelect").value = null;
-    // document.getElementById("imagesInputAdd").value = null;
     e.target.value = null;
     setSelectedImages([...newSelectedImages]);
   };
@@ -27,13 +34,18 @@ const MyProducts = () => {
     const newSelectedImages = [];
     for (let i = 0; i < files.length; i++) {
       if (files[i].type.startsWith("image/")) {
-        newSelectedImages.push(files[i]);
+        if (
+          !selectedImages.find((file) => {
+            return file.name === files[i].name;
+          })
+        ) {
+          newSelectedImages.push(files[i]);
+          console.log(newSelectedImages);
+        }
       } else {
         alert(`File ${files[i].name} is not a valid image. Skipping.`);
       }
     }
-    // document.getElementById("imagesInputAdd").value = null;
-    // document.getElementById("imagesInputSelect").value = null;
     e.target.value = null;
     setSelectedImages((prevSelectedImages) => [
       ...prevSelectedImages,
@@ -41,47 +53,54 @@ const MyProducts = () => {
     ]);
   };
 
-  const handleImageUpload = () => {
-    if (selectedImages.length > 0) {
+  const handleImageUploadOptimized = async () => {
+    if (selectedImages.length > 0 && selectedImages.length < 5) {
       setButtonDisabled(true);
+      var formData = new FormData();
       selectedImages.forEach((image) => {
-        const formData = new FormData();
         formData.append("image", image);
-
-        const config = {
-          onUploadProgress: (progressEvent) => {
-            const progress = (progressEvent.loaded / progressEvent.total) * 100;
-            setUploadProgress((prevUploadProgress) => ({
-              ...prevUploadProgress,
-              [image.name]: progress.toFixed(2),
-            }));
-          },
-        };
-
-        // Perform the image upload using Axios
-        axios
-          .post("http://localhost:3001/addProduct", formData, config)
-          .then((response) => {
-            console.log(`Image ${image.name} uploaded successfully.`);
-          })
-          .catch((error) => {
-            setButtonDisabled(true);
-            alert(`Error uploading ${image.name}.\n` + error);
-          });
       });
-      // document.getElementById("imagesInputSelect").value = null;
-      // document.getElementById("imagesInputAdd").value = null;
+      const config = {
+        onUploadProgress: (progressEvent) => {
+          const progress = (progressEvent.loaded / progressEvent.total) * 100;
+          setUploadProgress(progress.toFixed(0));
+        },
+        withCredentials: true,
+      };
+
+      // Perform the image upload using Axios
+      try {
+        await axios.post("http://localhost:3001/addProduct", formData, config);
+        enqueueSnackbar("Images uploaded successfully", {
+          variant: "success",
+        });
+      } catch (error) {
+        setButtonDisabled(true);
+        enqueueSnackbar(
+          error?.response?.data?.message ||
+            "Server not working. Try again later",
+          { variant: "error" }
+        );
+      }
+
       setTimeout(() => {
         setSelectedImages([]);
-        setUploadProgress({});
+        setUploadProgress(0);
         setButtonDisabled(false);
-      }, 1000);
-    } else {
-      alert("Please select at least one image before uploading.");
+      }, 700);
+    } else if (!(selectedImages.length > 0)) {
+      enqueueSnackbar("Select atleast 1 image before uploading", {
+        variant: "error",
+      });
+    } else if (selectedImages.length > 4) {
+      enqueueSnackbar("Select atmost 4 images before uploading", {
+        variant: "error",
+      });
     }
   };
+
   return (
-    <div>
+    <>
       <input
         id="imagesInputSelect"
         type="file"
@@ -116,7 +135,7 @@ const MyProducts = () => {
       </button>
       <button
         className={`btn btn-primary ${buttonDisabled && "disabled"} mx-2 mb-4`}
-        onClick={handleImageUpload}
+        onClick={handleImageUploadOptimized}
       >
         Upload Images
       </button>
@@ -129,13 +148,14 @@ const MyProducts = () => {
         Clear Images
       </button>
       <div>
-        {selectedImages.map((image) => (
-          <p key={image.name}>
-            {image.name} - {uploadProgress[image.name] || 0}%
-          </p>
+        {selectedImages.map((image, index) => (
+          <p key={Date.now().toString() + index.toString()}>{image.name}</p>
         ))}
       </div>
-    </div>
+      {buttonDisabled && (
+        <LoadingBar value={Number(uploadProgress)} width="80%" />
+      )}
+    </>
   );
 };
 

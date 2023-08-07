@@ -1,10 +1,8 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const cors = require("cors");
 const connectToMongoDBAtlas = require("./utils/DBconnection");
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
-const jwt = require("jsonwebtoken");
 const ImageKit = require("imagekit");
 const fs = require("fs");
 

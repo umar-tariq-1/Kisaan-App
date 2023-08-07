@@ -21,21 +21,23 @@ const storage = multer.diskStorage({
 // Create the multer upload object
 const upload = multer({ storage: storage });
 
-addProduct.post(
-  "/",
-  upload.array("image", 4) /* authorize */,
-  async (req, res) => {
-    const files = req.files;
-    if (!files || files.length === 0) {
-      return res
-        .status(400)
-        .json({ error: "Please upload at least one valid image file." });
-    }
-    // Process the uploaded images and save them// In this example, we're simply sending back the filenames as a response
-    const uploadedImages = files.map((file) => file.filename);
-    res.status(200).json({ images: uploadedImages });
+addProduct.post("/", authorize, upload.array("image", 4), async (req, res) => {
+  const files = req.files;
+  if (!files || files.length === 0) {
+    return res
+      .status(400)
+      .json({ error: "Please upload atleast one valid image file." });
+  }
+  if (files.length > 4) {
+    return res
+      .status(400)
+      .json({ error: "Please upload atmost four valid image file." });
+  }
+  // Process the uploaded images and save them// In this example, we're simply sending back the filenames as a response
+  const uploadedImages = files.map((file) => file.filename);
+  res.status(200).json({ images: uploadedImages });
 
-    /* const authorizedUser = getAuthorizedUser();
+  /* const authorizedUser = getAuthorizedUser();
   const user = await User.findById(authorizedUser._id);
   const { name, description, quantity, price, address, images } = req.body;
 
@@ -80,7 +82,6 @@ addProduct.post(
     res.send({ message: "Incomplete details entered." }).status(422);
     return;
   } */
-  }
-);
+});
 
 module.exports = addProduct;
