@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense, lazy, useEffect } from "react";
 import { lazyWithPreload } from "react-lazy-with-preload";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./utils/ScrollToTop/ScrollToTop";
@@ -16,7 +16,7 @@ const ContactComponent = lazyWithPreload(() =>
   import("./pages/Contact/contact")
 );
 const AboutComponent = lazyWithPreload(() => import("./pages/About/about"));
-const MainPageComponent = lazyWithPreload(() =>
+const MainPageComponent = lazy(() =>
   import("../src/pages/Auth/MainPage/MainPage")
 );
 
