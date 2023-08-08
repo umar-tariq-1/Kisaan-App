@@ -7,6 +7,12 @@ const MyProducts = () => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [address, setAddress] = useState("");
+  const [price, setPrice] = useState("");
+
   const { enqueueSnackbar } = useSnackbar();
 
   const handleImageChange = (e) => {
@@ -40,37 +46,45 @@ const MyProducts = () => {
           })
         ) {
           newSelectedImages.push(files[i]);
-          console.log(newSelectedImages);
         }
       } else {
         alert(`File ${files[i].name} is not a valid image. Skipping.`);
       }
     }
     e.target.value = null;
-    setSelectedImages((prevSelectedImages) => [
-      ...prevSelectedImages,
-      ...newSelectedImages,
-    ]);
+    setSelectedImages([...newSelectedImages, ...selectedImages]);
   };
 
   const handleImageUploadOptimized = async () => {
     if (selectedImages.length > 0 && selectedImages.length < 5) {
       setButtonDisabled(true);
       var formData = new FormData();
-      selectedImages.forEach((image) => {
-        formData.append("image", image);
-      });
+      for (let i = 0; i < selectedImages.length; i++) {
+        formData.append(`image`, selectedImages[i]);
+      }
+
       const config = {
         onUploadProgress: (progressEvent) => {
           const progress = (progressEvent.loaded / progressEvent.total) * 100;
           setUploadProgress(progress.toFixed(0));
         },
         withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       };
 
       // Perform the image upload using Axios
       try {
-        await axios.post("http://localhost:3001/addProduct", formData, config);
+        var jsonData = { name, address, quantity, description, price };
+        formData.append("data", JSON.stringify(jsonData));
+
+        const { data } = await axios.post(
+          "http://localhost:3001/addProduct",
+          formData,
+          config
+        );
+        console.log(data);
         enqueueSnackbar("Images uploaded successfully", {
           variant: "success",
         });
@@ -101,6 +115,49 @@ const MyProducts = () => {
 
   return (
     <>
+      <div className="App">
+        <h1>Product Form</h1>
+        <div>
+          <label>Name:</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Description:</label>
+          <input
+            type="text"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Quantity:</label>
+          <input
+            type="text"
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Address:</label>
+          <input
+            type="text"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Price:</label>
+          <input
+            type="number"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+          />
+        </div>
+      </div>
       <input
         id="imagesInputSelect"
         type="file"
@@ -137,7 +194,7 @@ const MyProducts = () => {
         className={`btn btn-primary ${buttonDisabled && "disabled"} mx-2 mb-4`}
         onClick={handleImageUploadOptimized}
       >
-        Upload Images
+        Upload Product
       </button>
       <button
         className={`btn btn-primary ${buttonDisabled && "disabled"} mx-2 mb-4`}

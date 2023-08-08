@@ -1,87 +1,117 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const { authorize, getAuthorizedUser } = require("../middlewares/authorize");
+const { addProductValidation } = require("../middlewares/addProductValidation");
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
+const ImageKit = require("imagekit");
 const User = require("../models/user");
 const product = require("../models/product");
+
 const addProduct = express.Router();
 
+var imagekit = new ImageKit({
+  publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
+  privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
+  urlEndpoint: "https://ik.imagekit.io/umartariq/",
+});
+
+var locallyStoredImages = [];
+var images = [];
+
 // Create a storage configuration for multer
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
-    // Use Date.now() to ensure a unique filename for each image
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e5);
+    locallyStoredImages.push(uniqueSuffix + path.extname(file.originalname));
     cb(null, uniqueSuffix + path.extname(file.originalname));
   },
 });
+
 // Create the multer upload object
+
 const upload = multer({ storage: storage });
 
-addProduct.post("/", authorize, upload.array("image", 4), async (req, res) => {
-  const files = req.files;
-  if (!files || files.length === 0) {
-    return res
-      .status(400)
-      .json({ error: "Please upload atleast one valid image file." });
-  }
-  if (files.length > 4) {
-    return res
-      .status(400)
-      .json({ error: "Please upload atmost four valid image file." });
-  }
-  // Process the uploaded images and save them// In this example, we're simply sending back the filenames as a response
-  const uploadedImages = files.map((file) => file.filename);
-  res.status(200).json({ images: uploadedImages });
-
-  /* const authorizedUser = getAuthorizedUser();
-  const user = await User.findById(authorizedUser._id);
-  const { name, description, quantity, price, address, images } = req.body;
-
-  //images storing logic and store images names in image variable as an array
-
-  if (
-    name &&
-    description &&
-    quantity &&
-    price &&
-    address &&
-    images &&
-    (quantity === "Bulk" || quantity === "Few")
-  ) {
-    const createdProduct = new product({
-      name,
-      description,
-      quantity,
-      price,
-      address,
-      images,
-      creator: authorizedUser._id,
-    });
+addProduct.post(
+  "/",
+  authorize,
+  /* addProductValidation, */
+  upload.array("image", 4),
+  async (req, res) => {
     try {
-      const sess = await mongoose.startSession();
-      sess.startTransaction();
-      await createdProduct.save({ session: sess });
-      user.products.push(createdProduct);
-      await user.save({ session: sess });
-      await sess.commitTransaction();
-      res
-        .status(201)
-        .send({ message: "Product added successfully", createdProduct }); //201 indicates successful creation
+      const authorizedUser = getAuthorizedUser();
+      const user = await User.findById(authorizedUser._id);
+
+      const jsonData = JSON.parse(req.body.data);
+      const { name, description, quantity, price, address } = jsonData;
+      const imageKitResponses = [];
+
+      for (let i = 0; i < locallyStoredImages.length; i++) {
+        var imageFile = fs.readFileSync("./uploads/" + locallyStoredImages[i]);
+        imagekit.upload(
+          {
+            file: imageFile,
+            fileName: Math.round(Math.random() * 1e8).toString(),
+            folder: "productImages",
+          },
+          (error, result) => {
+            if (error) {
+              console.log("Error uploading an image.\n");
+              console.log(error);
+            } else {
+              images.push(result.name);
+              console.log(result);
+            }
+          }
+        );
+      }
+
+      if (
+        name &&
+        description &&
+        quantity &&
+        price &&
+        address &&
+        images &&
+        (quantity === "Bulk" || quantity === "Few")
+      ) {
+        console.log(images);
+        const createdProduct = new product({
+          name,
+          description,
+          quantity,
+          price,
+          address,
+          images,
+          creator: authorizedUser._id,
+        });
+
+        try {
+          const sess = await mongoose.startSession();
+          sess.startTransaction();
+          await createdProduct.save({ session: sess });
+          user.products.push(createdProduct);
+          await user.save({ session: sess });
+          await sess.commitTransaction();
+          res
+            .status(201)
+            .send({ message: "Product added successfully", createdProduct }); //201 indicates successful creation
+        } catch (error) {
+          console.log(error);
+          res.send({ message: "Internal server error" }).status(500); //500 indicates server side error
+          return;
+        }
+      }
     } catch (error) {
-      res.send({ message: "internal server error" }).status(500); //500 indicates server side error
-      return;
+      console.log(error);
+      return res.status(500).send({ message: "Internal server error" });
     }
-  } else if (quantity !== "Bulk" && quantity !== "Few") {
-    res.send({ message: "Incorrect details entered." }).status(422);
-    return;
-  } else {
-    res.send({ message: "Incomplete details entered." }).status(422);
-    return;
-  } */
-});
+  }
+);
 
 module.exports = addProduct;

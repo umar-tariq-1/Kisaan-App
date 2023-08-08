@@ -8,7 +8,7 @@ const productSchema = new Schema({
   quantity: { type: String, required: true },
   price: { type: Number, required: true },
   createdAt: { type: Date, required: true, default: Date.now() },
-  images: [{ type: String, required: true }],
+  images: [String],
   address: { type: String, required: true },
   creator: { type: Schema.Types.ObjectId, required: true, ref: "User" },
 });

@@ -3,8 +3,6 @@ const cors = require("cors");
 const connectToMongoDBAtlas = require("./utils/DBconnection");
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
-const ImageKit = require("imagekit");
-const fs = require("fs");
 
 // const imageFile = fs.readFileSync("./uploads/main.jpg");
 // var imagekit = new ImageKit({
@@ -13,7 +11,7 @@ const fs = require("fs");
 //   urlEndpoint: "https://ik.imagekit.io/umartariq/",
 // });
 // imagekit.upload(
-//   { file: imageFile, fileName: "main.jpg", folder: "try" },
+//   { file: imageFile, fileName: "main.jpg", folder: "productImages" },
 //   (error, result) => {
 //     if (error) {
 //       console.log(error);
@@ -32,6 +30,7 @@ const app = express();
 
 app.use("*", cors({ origin: true, credentials: true }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/register", register);
