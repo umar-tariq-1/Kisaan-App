@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 // import CssBaseline from "@mui/material/CssBaseline";
@@ -28,7 +27,6 @@ const drawerWidth = 220;
 function ResponsiveDrawer(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [active, setActive] = useState({ dashboard: true });
   const [isLoading, setIsLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
 
@@ -88,67 +86,60 @@ function ResponsiveDrawer(props) {
       <List>
         <CustomListItem
           text="Dashboard"
-          active={active.dashboard}
+          active={props.Dashboard}
           icon={<MdDashboard />}
           handleClick={() => {
-            setActive({ dashboard: true });
-            // navigate("/");
+            navigate("/dashboard");
           }}
           closeDrawer={closeDrawer}
         />
         <CustomListItem
           text="All Products"
-          active={active.allProducts}
+          active={props.AllProducts}
           icon={<BsBasket3Fill />}
           handleClick={() => {
-            setActive({ allProducts: true });
-            // navigate("/");
+            navigate("/allProducts");
           }}
           closeDrawer={closeDrawer}
         />
         <CustomListItem
           text="Categories"
-          active={active.categories}
+          active={props.Categories}
           icon={<FaListUl size={22} />}
           handleClick={() => {
-            setActive({ categories: true });
-            // navigate("/");
+            navigate("/categories");
           }}
           closeDrawer={closeDrawer}
         />
         <CustomListItem
           text="My Products"
-          active={active.myProducts}
+          active={props.MyProducts}
           icon={<BsBasketFill />}
           handleClick={() => {
-            setActive({ myProducts: true });
-            // navigate("/");
+            navigate("/myProducts");
           }}
           closeDrawer={closeDrawer}
         />
         <CustomListItem
-          text="My Profile"
-          active={active.myProfile}
+          text="Profile"
+          active={props.Profile}
           icon={<CgProfile />}
           handleClick={() => {
-            setActive({ myProfile: true });
-            // navigate("/");
+            navigate("/profile");
           }}
           closeDrawer={closeDrawer}
         />
         <CustomListItem
           text="Settings"
-          active={active.settings}
+          active={props.Settings}
           icon={<IoSettingsOutline />}
           handleClick={() => {
-            setActive({ settings: true });
-            // navigate("/");
+            navigate("/settings");
           }}
           closeDrawer={closeDrawer}
         />
         <CustomListItem
           text="Logout"
-          active={active.logout}
           icon={<TbLogout size={26} />}
           handleClick={handleLogout}
           closeDrawer={closeDrawer}
@@ -254,8 +245,8 @@ function ResponsiveDrawer(props) {
           }}
         >
           <Toolbar />
-
-          {active.dashboard
+          {props.children}
+          {/* {active.dashboard
             ? props.Dashboard
             : active.allProducts
             ? props.AllProducts
@@ -263,21 +254,13 @@ function ResponsiveDrawer(props) {
             ? props.Categories
             : active.myProducts
             ? props.MyProducts
-            : active.myProfile
+            : active.mProfile
             ? props.MyProfile
-            : props.Settings}
+            : props.Settings} */}
         </Box>
       </Box>
     </>
   );
 }
-
-ResponsiveDrawer.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
-};
 
 export default ResponsiveDrawer;

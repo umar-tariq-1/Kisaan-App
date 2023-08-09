@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect } from "react";
+import React, { Suspense, /* lazy, */ useEffect } from "react";
 import { lazyWithPreload } from "react-lazy-with-preload";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./utils/ScrollToTop/ScrollToTop";
@@ -9,16 +9,39 @@ import CustomLoadingAnimation from "./components/LoadingAnimation/loadingAnimati
 // import Contact from "./pages/Contact/contact";
 // import About from "./pages/About/about";
 // import MainPage from "../src/pages/Auth/MainPage/MainPage";
-// const HomeComponent = lazy(() => import("./pages/Home/Home"));
+
+import Dashboard from "./pages/Auth/Dashboard/Dashboard";
+import AllProducts from "./pages/Auth/AllProducts/AllProducts";
+import MyProducts from "./pages/Auth/MyProducts/MyProducts";
+import Categories from "./pages/Auth/Categories/Categories";
+import Profile from "./pages/Auth/Profile/Profile";
+import Settings from "./pages/Auth/Settings/Settings";
+
 const SignUpComponent = lazyWithPreload(() => import("./pages/SignUp/signUp"));
 const LoginComponent = lazyWithPreload(() => import("./pages/Login/login"));
 const ContactComponent = lazyWithPreload(() =>
   import("./pages/Contact/contact")
 );
 const AboutComponent = lazyWithPreload(() => import("./pages/About/about"));
-const MainPageComponent = lazy(() =>
-  import("../src/pages/Auth/MainPage/MainPage")
-);
+
+// const DashboardComponent = lazyWithPreload(() =>
+//   import("./pages/Auth/Dashboard/Dashboard")
+// );
+// const AllProductsComponent = lazyWithPreload(() =>
+//   import("./pages/Auth/AllProducts/AllProducts")
+// );
+// const MyProductsComponent = lazyWithPreload(() =>
+//   import("./pages/Auth/MyProducts/MyProducts")
+// );
+// const CategoriesComponent = lazyWithPreload(() =>
+//   import("./pages/Auth/Categories/Categories")
+// );
+// const ProfileComponent = lazyWithPreload(() =>
+//   import("./pages/Auth/Profile/Profile")
+// );
+// const SettingsComponent = lazyWithPreload(() =>
+//   import("./pages/Auth/Settings/Settings")
+// );
 
 function App() {
   useEffect(() => {
@@ -40,7 +63,12 @@ function App() {
           <Route path="/login" Component={LoginComponent} />
           <Route path="/about" Component={AboutComponent} />
           <Route path="/contact" Component={ContactComponent} />
-          <Route path="/dashboard" Component={MainPageComponent} />
+          <Route path="/dashboard" Component={Dashboard} />
+          <Route path="/allProducts" Component={AllProducts} />
+          <Route path="/myProducts" Component={MyProducts} />
+          <Route path="/categories" Component={Categories} />
+          <Route path="/profile" Component={Profile} />
+          <Route path="/settings" Component={Settings} />
           {/* <Route path="/*" Component={Page404} /> */}
         </Routes>
       </Suspense>

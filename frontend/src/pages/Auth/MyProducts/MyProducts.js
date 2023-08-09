@@ -3,6 +3,7 @@ import axios from "axios";
 import LoadingBar from "../../../components/LoadingBar/LoadingBar";
 import CustomLoadingAnimation from "../../../components/LoadingAnimation/loadingAnimation";
 import { useSnackbar } from "notistack";
+import ResponsiveDrawer from "../../../components/Drawer/Drawer";
 
 const MyProducts = () => {
   const [selectedImages, setSelectedImages] = useState([]);
@@ -115,8 +116,8 @@ const MyProducts = () => {
   };
 
   return (
-    <>
-      <CustomLoadingAnimation />
+    <ResponsiveDrawer MyProducts={1}>
+      {/* <CustomLoadingAnimation /> */}
       <div className="App">
         <h1>Product Form</h1>
         <div>
@@ -214,7 +215,7 @@ const MyProducts = () => {
       {buttonDisabled && (
         <LoadingBar value={Number(uploadProgress)} width="80%" />
       )}
-    </>
+    </ResponsiveDrawer>
   );
 };
 
