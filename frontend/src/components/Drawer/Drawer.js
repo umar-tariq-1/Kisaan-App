@@ -171,7 +171,7 @@ function ResponsiveDrawer(props) {
           sx={{
             background: "#1b854a",
             height: "66px",
-            zIndex: (theme) => theme.zIndex.drawer + 1,
+            zIndex: 9999 /* (theme) => theme.zIndex.drawer + 1 */,
           }}
         >
           <Toolbar>

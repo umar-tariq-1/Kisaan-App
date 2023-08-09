@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import LoadingBar from "../../../components/LoadingBar/LoadingBar";
+import CustomLoadingAnimation from "../../../components/LoadingAnimation/loadingAnimation";
 import { useSnackbar } from "notistack";
 
 const MyProducts = () => {
@@ -115,6 +116,7 @@ const MyProducts = () => {
 
   return (
     <>
+      <CustomLoadingAnimation />
       <div className="App">
         <h1>Product Form</h1>
         <div>
