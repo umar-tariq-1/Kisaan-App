@@ -81,11 +81,8 @@ const MyProducts = () => {
         var jsonData = { name, address, quantity, description, price };
         formData.append("data", JSON.stringify(jsonData));
 
-        const { data } = await axios.post(
-          "http://localhost:3001/addProduct",
-          formData,
-          config
-        );
+        const url = process.env.REACT_APP_BASE_URL + "/addProduct";
+        const { data } = await axios.post(url, formData, config);
         // console.log(data);
         enqueueSnackbar("Images uploaded successfully", {
           variant: "success",
