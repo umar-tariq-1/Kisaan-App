@@ -151,17 +151,17 @@ export default function HomeFeatures() {
                     style={{ backgroundColor: "#7c4dff" }}
                     // "width: 60px; background-color: #7c4dff; height: 2px"
                   />
-                  <div className="py-3">
+                  <div className="py-2">
                     <Link to="/signup" style={{textDecoration:"none"}}>
                       <p className="h5  text-dark text-center fw-normal">Sign Up</p>
                     </Link>
                   </div>
-                  <div className="py-3">
+                  <div className="py-2">
                     <Link to="/login" style={{textDecoration:"none"}}>
                       <p className="h5 text-dark text-center fw-normal">Login</p>
                     </Link>
                   </div>
-                  <div className="py-3">
+                  <div className="py-2">
                     <Link to="/contact" style={{textDecoration:"none"}}>
                       <p className="h5  text-dark text-center  fw-normal">Contact</p>
                     </Link>
