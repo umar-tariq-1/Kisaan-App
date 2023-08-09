@@ -84,7 +84,7 @@ const MyProducts = () => {
           formData,
           config
         );
-        console.log(data);
+        // console.log(data);
         enqueueSnackbar("Images uploaded successfully", {
           variant: "success",
         });

@@ -1,7 +1,8 @@
 module.exports.addProductValidation = (req, res, next) => {
-  //   const jsonData = req.body;
-  console.log(req.body.data);
+  const files = req.files;
+  const jsonData = JSON.parse(req.body.data);
   const { name, description, quantity, price, address } = jsonData;
+  const validImages = files.every((file) => file.mimetype.startsWith("image/"));
 
   if (!(name && description && quantity && price && address && files)) {
     return res.send({ message: "Incomplete details entered" }).status(422);
@@ -11,19 +12,24 @@ module.exports.addProductValidation = (req, res, next) => {
     quantity.trim() === "" ||
     address.trim() === ""
   ) {
-    return res.send({ message: "There must be no empty field" }).status(422);
+    return res.status(422).send({ message: "There must be no empty field" });
   } else if (Number(price) < 1) {
-    return res.send({ message: "Price cannot be 0 or negative" }).status(422);
+    return res.status(422).send({ message: "Price cannot be 0 or negative" });
   } else if (quantity !== "Bulk" && quantity !== "Few") {
-    return res.send({ message: "Incorrect quantity entered" }).status(422);
+    return res.status(422).send({ message: "Incorrect quantity entered" });
   } else if (!files || files.length === 0) {
     return res
       .status(400)
-      .json({ error: "Please upload atleast one valid image file" });
+      .send({ message: "Please upload atleast one image file" });
   } else if (files.length > 4) {
     return res
       .status(400)
-      .json({ error: "Please upload atmost four valid image files" });
+      .send({ message: "Please upload atmost four image files" });
+  } else if (!validImages) {
+    return res
+      .status(400)
+      .send({ message: "Please upload valid image file/s" });
   }
+
   next();
 };

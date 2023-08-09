@@ -14,61 +14,42 @@ const addProduct = express.Router();
 var imagekit = new ImageKit({
   publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
   privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
-  urlEndpoint: "https://ik.imagekit.io/umartariq/",
+  urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT,
 });
 
-var locallyStoredImages = [];
-var images = [];
-
-// Create a storage configuration for multer
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/");
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e5);
-    locallyStoredImages.push(uniqueSuffix + path.extname(file.originalname));
-    cb(null, uniqueSuffix + path.extname(file.originalname));
-  },
-});
+// configure the multer
+const storage = multer.memoryStorage();
 
 // Create the multer upload object
-
-const upload = multer({ storage: storage });
+const upload = multer({ storage });
 
 addProduct.post(
   "/",
   authorize,
-  /* addProductValidation, */
   upload.array("image", 4),
+  addProductValidation,
   async (req, res) => {
     try {
       const authorizedUser = getAuthorizedUser();
       const user = await User.findById(authorizedUser._id);
-
+      const images = [];
+      const imageKitErrors = [];
       const jsonData = JSON.parse(req.body.data);
       const { name, description, quantity, price, address } = jsonData;
-      const imageKitResponses = [];
 
-      for (let i = 0; i < locallyStoredImages.length; i++) {
-        var imageFile = fs.readFileSync("./uploads/" + locallyStoredImages[i]);
-        imagekit.upload(
-          {
-            file: imageFile,
-            fileName: Math.round(Math.random() * 1e8).toString(),
+      for (const file of req.files) {
+        try {
+          const response = await imagekit.upload({
+            file: file.buffer,
+            fileName: Math.round(Math.random() * 1e9).toString(),
             folder: "productImages",
-          },
-          (error, result) => {
-            if (error) {
-              console.log("Error uploading an image.\n");
-              console.log(error);
-            } else {
-              images.push(result.name);
-              console.log(result);
-            }
-          }
-        );
+            useUniqueFileName: false,
+          });
+          images.push(response.name);
+        } catch (error) {
+          imageKitErrors.push(error);
+          console.log(error);
+        }
       }
 
       if (
@@ -80,7 +61,7 @@ addProduct.post(
         images &&
         (quantity === "Bulk" || quantity === "Few")
       ) {
-        console.log(images);
+        // console.log(images);
         const createdProduct = new product({
           name,
           description,

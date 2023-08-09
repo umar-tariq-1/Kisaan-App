@@ -123,7 +123,7 @@ export default function HomeFeatures() {
               <a href="https://linkedin.com/in/umar-tariq-" className="text-white me-4">
                 <FaLinkedinIn />
               </a>
-              <a href="mailto: official.umartariq@gmail.com" class="text-white me-4">
+              <a href="mailto: official.umartariq@gmail.com" className="text-white me-4">
                 <FaEnvelope />
               </a>
             </div>
@@ -151,21 +151,21 @@ export default function HomeFeatures() {
                     style={{ backgroundColor: "#7c4dff" }}
                     // "width: 60px; background-color: #7c4dff; height: 2px"
                   />
-                  <p>
+                  <div className="py-3">
                     <Link to="/signup" style={{textDecoration:"none"}}>
-                      <h6 className="h5  text-dark text-center fw-normal">Sign Up</h6>
+                      <p className="h5  text-dark text-center fw-normal">Sign Up</p>
                     </Link>
-                  </p>
-                  <p>
+                  </div>
+                  <div className="py-3">
                     <Link to="/login" style={{textDecoration:"none"}}>
-                      <h6 className="h5 text-dark text-center fw-normal">Login</h6>
+                      <p className="h5 text-dark text-center fw-normal">Login</p>
                     </Link>
-                  </p>
-                  <p>
+                  </div>
+                  <div className="py-3">
                     <Link to="/contact" style={{textDecoration:"none"}}>
-                      <h6 className="h5  text-dark text-center  fw-normal">Contact</h6>
+                      <p className="h5  text-dark text-center  fw-normal">Contact</p>
                     </Link>
-                  </p>
+                  </div>
                 </div>
 
                 <div className="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4 ">
