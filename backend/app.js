@@ -32,6 +32,9 @@ app.use("/addProduct", addProduct);
 const PORT = process.env.PORT || 3001;
 const CONN_URL = process.env.DB_CONN_URL;
 
-connectToMongoDBAtlas(CONN_URL);
-
-app.listen(PORT);
+(async () => {
+  await connectToMongoDBAtlas(CONN_URL);
+  app.listen(PORT, () => {
+    console.log(`Listening to port: ${PORT}...`);
+  });
+})();
