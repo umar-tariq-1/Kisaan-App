@@ -57,21 +57,21 @@ login.post("/", async (req, res) => {
     var loggedInUser = { ...foundUser._doc };
     delete loggedInUser.password;
     delete loggedInUser._id;
-    var cookieExpirationDate = new Date(Date.now() + 1000 * 60 * 60 * 25);
+    var cookieExpirationDate = Date.now() + 1000 * 60 * 60 * 25;
     const token = createToken(foundUser._id, "24h");
     //console.log(token);
     res.cookie("token", token, {
       withCredentials: true,
       secure: true,
       httpOnly: true,
-      expires: cookieExpirationDate,
+      maxAge: cookieExpirationDate,
     });
 
     res.status(200).send({
       message: "LoggedIn successfully!",
       loggedInUser,
       isLoggedIn: true,
-      cookieExpirationDate: `${cookieExpirationDate.toDateString()} ${cookieExpirationDate.getHours()}:${cookieExpirationDate.getMinutes()}:${cookieExpirationDate.getSeconds()}`,
+      cookieExpirationDate: new Date(cookieExpirationDate),
     });
     //console.log(token);
   } catch (err) {
