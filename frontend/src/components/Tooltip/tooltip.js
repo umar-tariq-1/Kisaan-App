@@ -30,7 +30,7 @@ const CustomToolTip = (props) => {
           TransitionComponent={Zoom}
           disableInteractive
         >
-          {props.tooltipElement}
+          {props.children}
         </CTooltip>
       </div>
     </ClickAwayListener>

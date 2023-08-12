@@ -12,8 +12,8 @@ import CustomTextField from "../../components/Form/textfield";
 import CustomToolTip from "../../components/Tooltip/tooltip";
 import CustomPasswordField from "../../components/Form/passwordfield";
 import CustomLoadingAnimation from "../../components/LoadingAnimation/loadingAnimation";
-import {FaLock, FaUserAlt} from 'react-icons/fa'
-import {TbMailFilled} from 'react-icons/tb'
+import { FaLock, FaUserAlt } from "react-icons/fa";
+import { TbMailFilled } from "react-icons/tb";
 
 function SignUp() {
   const [userData, setuserData] = useState({
@@ -35,7 +35,6 @@ function SignUp() {
   };
 
   const handleTooltipOpen = () => {
-    console.log(open);
     setOpen(true);
   };
 
@@ -168,12 +167,11 @@ function SignUp() {
     width: "49.5%",
     marginTop: "1%",
     marginBottom: "3%",
-
   };
   const styleSecondHalf = {
     width: "49.5%",
     marginBottom: "3%",
-    marginLeft:'1%',
+    marginLeft: "1%",
     marginTop: "1%",
   };
   const styleFull = {
@@ -193,25 +191,18 @@ function SignUp() {
       <>• 1 lowercase letter</>
     </div>
   );
-  const TooltipPasswordField = (
-    <CustomPasswordField
-      onClick={handleTooltipOpen}
-      handleTooltipOpen={handleTooltipOpen}
-      inputError={inputErrors.password}
-      style={styleFull}
-      id="password"
-      label="Password"
-      icon={<FaLock size={17} />}
-      name="password"
-      handleChange={handleChange}
-    />
-  );
 
   return (
     <>
       {loading && <CustomLoadingAnimation />}
       <Navbar SignUp={1} data-aos />
-      <div className="d-flex mt-lg-5 align-items-center justify-contennt-center" style={{height:'calc(90vh - 70px)',width:"100%", position:"fixed"}}>
+      <div
+        className="d-flex mt-lg-5 align-items-center justify-contennt-center"
+        style={{
+          height: "calc(90vh - 70px)",
+          width: "100%",
+        }}
+      >
         <div
           className="container pb-4 pb-md-0 mx-auto"
           style={{
@@ -227,7 +218,16 @@ function SignUp() {
             data-aos="zoom-out-up"
           >
             <div className="card-body px-4 px-md-5">
-              <h2 className="text-uppercase fw-bold text-center mb-4" style={{letterSpacing:"1px",fontFamily:'Titillium Web, sans-serif',fontSize:"200%"}}>Registration</h2>
+              <h2
+                className="text-uppercase fw-bold text-center mb-4"
+                style={{
+                  letterSpacing: "1px",
+                  fontFamily: "Titillium Web, sans-serif",
+                  fontSize: "200%",
+                }}
+              >
+                Registration
+              </h2>
 
               <form onSubmit={handleSubmit}>
                 <CustomTextField
@@ -252,7 +252,7 @@ function SignUp() {
                   inputError={inputErrors.email}
                   style={styleFull}
                   label="Email"
-                  icon={<TbMailFilled  size={21}/>}
+                  icon={<TbMailFilled size={21} />}
                   name="email"
                   onChange={handleChange}
                 />
@@ -261,8 +261,19 @@ function SignUp() {
                   handleTooltipClose={handleTooltipClose}
                   open={open}
                   title={passwordToottipTitle}
-                  tooltipElement={TooltipPasswordField}
-                />
+                >
+                  <CustomPasswordField
+                    onClick={handleTooltipOpen}
+                    handleTooltipOpen={handleTooltipOpen}
+                    inputError={inputErrors.password}
+                    style={styleFull}
+                    id="password"
+                    label="Password"
+                    icon={<FaLock size={17} />}
+                    name="password"
+                    handleChange={handleChange}
+                  />
+                </CustomToolTip>
 
                 <CustomPasswordField
                   inputError={inputErrors.confirmpassword}
@@ -290,31 +301,40 @@ function SignUp() {
                   className="btn btn-success mb-4"
                   style={{
                     fontSize: 21,
-                    width: "100%",  
+                    width: "100%",
                     height: 45,
                   }}
                   type="submit"
                 >
                   Register
                 </button>
-              
               </form>
-              
+
               <div
-                style={{ fontSize:"105%",marginLeft: "-1%", marginRight: "-1%" }}
+                style={{
+                  fontSize: "105%",
+                  marginLeft: "-1%",
+                  marginRight: "-1%",
+                }}
                 className="mb-2 mb-md-1 d-flex align-items-center justify-content-center"
               >
                 {"Already have an account?"}
 
-                <Link to="/Login" style={{ marginLeft: "2%",marginBottom:"2px", textDecoration:"none"}}>
+                <Link
+                  to="/Login"
+                  style={{
+                    marginLeft: "2%",
+                    marginBottom: "2px",
+                    textDecoration: "none",
+                  }}
+                >
                   {"Login"}
                 </Link>
               </div>
-
             </div>
           </div>
         </div>
-        </div>
+      </div>
     </>
   );
 }
