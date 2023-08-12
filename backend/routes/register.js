@@ -10,14 +10,14 @@ register.post("/", async (req, res) => {
   if (
     req.body.firstName &&
     req.body.lastName &&
-    req.body.email &&
+    req.body.phone &&
     req.body.password &&
     req.body.confirmpassword
   ) {
     userData = {
       firstName: capitalize(req.body.firstName.trim()),
       lastName: capitalize(req.body.lastName.trim()),
-      email: req.body.email.toLowerCase().trim(),
+      phone: req.body.phone.toLowerCase().trim(),
       password: req.body.password,
       confirmpassword: req.body.confirmpassword,
     };
@@ -29,7 +29,7 @@ register.post("/", async (req, res) => {
   const Error = validate(
     userData.firstName,
     userData.lastName,
-    userData.email,
+    userData.phone,
     userData.password,
     userData.confirmpassword
   );
@@ -39,7 +39,7 @@ register.post("/", async (req, res) => {
     return;
   }
 
-  const userExists = await User.findOne({ email: userData.email });
+  const userExists = await User.findOne({ phone: userData.phone });
 
   if (userExists) {
     res.status(409).send({ message: "User already exists" });
@@ -54,7 +54,7 @@ register.post("/", async (req, res) => {
   const createdUser = new User({
     firstName: userData.firstName,
     lastName: userData.lastName,
-    email: userData.email,
+    phone: userData.phone,
     password: userData.password,
     products: [],
   });

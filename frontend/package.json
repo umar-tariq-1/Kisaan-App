@@ -21,7 +21,7 @@
     "react-icons": "^4.10.1",
     "react-lazy-with-preload": "^2.2.1",
     "react-router-dom": "^6.14.1",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "react-spinner-overlay": "^0.1.33",
     "web-vitals": "^2.1.4"
   },
@@ -48,10 +48,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@tanstack/eslint-plugin-query": "^4.32.5",
-    "eslint": "^8.47.0",
-    "eslint-plugin-react": "^7.33.1"
   }
 }

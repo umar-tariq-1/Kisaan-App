@@ -8,6 +8,7 @@ const register = require("./routes/register");
 const login = require("./routes/login");
 const logout = require("./routes/logout");
 const addProduct = require("./routes/addProduct");
+const getProducts = require("./routes/getProducts");
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use("/register", register);
 app.use("/login", login);
 app.use("/logout", logout);
 app.use("/addProduct", addProduct);
+app.use("/getProducts", getProducts);
 
 const PORT = process.env.PORT || 3001;
 const CONN_URL = process.env.DB_CONN_URL;

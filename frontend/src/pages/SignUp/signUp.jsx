@@ -13,13 +13,14 @@ import CustomToolTip from "../../components/Tooltip/tooltip";
 import CustomPasswordField from "../../components/Form/passwordfield";
 import CustomLoadingAnimation from "../../components/LoadingAnimation/loadingAnimation";
 import { FaLock, FaUserAlt } from "react-icons/fa";
-import { TbMailFilled } from "react-icons/tb";
+// import { TbMailFilled } from "react-icons/tb";
+import { FaPhone } from "react-icons/fa6";
 
 function SignUp() {
   const [userData, setuserData] = useState({
     firstName: "",
     lastName: "",
-    email: "",
+    phone: "",
     password: "",
     confirmpassword: "",
   });
@@ -53,7 +54,7 @@ function SignUp() {
     return Word[0].toUpperCase() + Word.substring(1).toLowerCase();
   }
 
-  function validate(Fname, Lname, Email, Password, Confirmpassword) {
+  function validate(Fname, Lname, Phone, Password, Confirmpassword) {
     if (/\s/.test(Fname)) {
       setError("Name must not contain blank space");
       setinputErrors({ fname: 1 });
@@ -90,9 +91,13 @@ function SignUp() {
       return false;
     }
     // eslint-disable-next-line
-    else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(Email)) {
-      setError("Invalid Email");
-      setinputErrors({ email: 1 });
+    else if (
+      /* !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(Email) */ !/^\+?\d{8,15}$/.test(
+        Phone
+      )
+    ) {
+      setError("Invalid Phone Number");
+      setinputErrors({ phone: 1 });
       enqueueSnackbar("Couldn't register", { variant: "error" });
       return false;
     } else if (/\s/.test(Password)) {
@@ -122,7 +127,7 @@ function SignUp() {
       validate(
         userData.firstName,
         userData.lastName,
-        userData.email,
+        userData.phone,
         userData.password,
         userData.confirmpassword
       )
@@ -141,7 +146,7 @@ function SignUp() {
         ...userData,
         firstName: capitalize(userData.firstName),
         lastName: capitalize(userData.lastName),
-        email: userData.email.toLowerCase(),
+        phone: userData.phone.toLowerCase(),
       };
       await axios.post(url, newData);
       //console.log(res)
@@ -249,11 +254,11 @@ function SignUp() {
                 />
 
                 <CustomTextField
-                  inputError={inputErrors.email}
+                  inputError={inputErrors.phone}
                   style={styleFull}
-                  label="Email"
-                  icon={<TbMailFilled size={21} />}
-                  name="email"
+                  label="Phone Number"
+                  icon={<FaPhone size={19} />}
+                  name="phone"
                   onChange={handleChange}
                 />
 
@@ -267,6 +272,7 @@ function SignUp() {
                     handleTooltipOpen={handleTooltipOpen}
                     inputError={inputErrors.password}
                     style={styleFull}
+                    showIcon={true}
                     id="password"
                     label="Password"
                     icon={<FaLock size={17} />}
@@ -278,6 +284,7 @@ function SignUp() {
                 <CustomPasswordField
                   inputError={inputErrors.confirmpassword}
                   style={styleFull}
+                  showIcon={false}
                   id="confirmpassword"
                   label="Confirm Password"
                   icon={<FaLock size={17} />}

@@ -77,9 +77,10 @@ addProduct.post(
           user.products.push(createdProduct);
           await user.save({ session: sess });
           await sess.commitTransaction();
-          res
-            .status(201)
-            .send({ message: "Product added successfully", createdProduct }); //201 indicates successful creation
+          const data = { ...createdProduct };
+          delete data.__id;
+          delete data.creator;
+          res.status(201).send({ message: "Product added successfully", data }); //201 indicates successful creation
         } catch (error) {
           console.log(error);
           res.send({ message: "Internal server error" }).status(500); //500 indicates server side error

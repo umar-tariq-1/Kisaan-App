@@ -1,4 +1,5 @@
 import Navbar from "../../components/Navbar/navbar";
+import React from "react";
 
 function Contact() {
   return (

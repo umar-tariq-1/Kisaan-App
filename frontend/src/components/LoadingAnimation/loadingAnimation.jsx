@@ -1,4 +1,5 @@
 import { DotLoaderOverlay } from "react-spinner-overlay";
+import React from "react";
 
 const CustomLoadingAnimation = (props) => {
   return (

@@ -32,25 +32,35 @@ const CustomPasswordField = React.forwardRef(function CustomPasswordField(
       onClick={props.handleTooltipOpen}
     >
       <InputLabel color="success" htmlFor="outlined-adornment-password">
-        {<>{props.icon}&nbsp;&nbsp;{props.label}</>}
+        {
+          <>
+            {props.icon}&nbsp;&nbsp;{props.label}
+          </>
+        }
       </InputLabel>
       <OutlinedInput
         color="success"
         id={props.id}
         type={showPassword ? "text" : "password"}
         endAdornment={
-          <InputAdornment position="end">
-            <IconButton
-              aria-label="toggle password visibility"
-              onClick={handleClickShowPassword}
-              onMouseDown={handleMouseDownPassword}
-              edge="end"
-            >
-              {showPassword ? <MdVisibility /> : <MdVisibilityOff />}
-            </IconButton>
-          </InputAdornment>
+          props.showIcon ? (
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={handleClickShowPassword}
+                onMouseDown={handleMouseDownPassword}
+                edge="end"
+              >
+                {showPassword ? <MdVisibility /> : <MdVisibilityOff />}
+              </IconButton>
+            </InputAdornment>
+          ) : null
         }
-        label={<>{props.icon}&nbsp;{props.label}</>}
+        label={
+          <>
+            {props.icon}&nbsp;{props.label}
+          </>
+        }
         name={props.name}
         onChange={props.handleChange}
       />

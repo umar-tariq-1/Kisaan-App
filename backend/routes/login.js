@@ -5,9 +5,12 @@ const { createToken } = require("../utils/token");
 
 const login = express.Router();
 
-function validate(Email, Password) {
-  if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(Email)) {
+function validate(Phone, Password) {
+  /* if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(Email)) {
     return "Invalid Email";
+  } */
+  if (!Phone.match(/^\+?\d{8,15}$/)) {
+    return "Invalid Phone Number";
   } else if (!Password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)) {
     return "Incorrect Password";
   } else {
@@ -17,9 +20,9 @@ function validate(Email, Password) {
 
 login.post("/", async (req, res) => {
   try {
-    if (req.body.email && req.body.password) {
+    if (req.body.phone && req.body.password) {
       loginData = {
-        email: req.body.email.toLowerCase().trim(),
+        phone: req.body.phone.toLowerCase().trim(),
         password: req.body.password,
       };
     } else {
@@ -29,18 +32,19 @@ login.post("/", async (req, res) => {
       return;
     }
 
-    const Error = validate(loginData.email, loginData.password);
+    const Error = validate(loginData.phone, loginData.password);
     if (Error) {
       res.status(403).send({ message: Error, isLoggedIn: false }); //403 indicates validation error
       return;
     }
 
-    const foundUser = await User.findOne({ email: loginData.email });
+    const foundUser = await User.findOne(
+      { phone: loginData.phone },
+      { __v: 0, products: 0 }
+    );
 
     if (!foundUser) {
-      return res
-        .status(401)
-        .send({ message: "No user exists with entered Email" });
+      return res.status(401).send({ message: "Incorrect Phone Number" });
     }
 
     const validPassword = await bcrypt.compare(
@@ -57,21 +61,21 @@ login.post("/", async (req, res) => {
     var loggedInUser = { ...foundUser._doc };
     delete loggedInUser.password;
     delete loggedInUser._id;
-    var cookieExpirationDate = Date.now() + 1000 * 60 * 60 * 25;
+    var tokenExpirationTime = Date.now() + 1000 * 60 * 60 * 24;
     const token = createToken(foundUser._id, "24h");
     //console.log(token);
     res.cookie("token", token, {
       withCredentials: true,
       secure: true,
       httpOnly: true,
-      maxAge: cookieExpirationDate,
+      maxAge: 50 * 365 * 24 * 60 * 60 * 1000,
     });
 
     res.status(200).send({
       message: "LoggedIn successfully!",
       loggedInUser,
       isLoggedIn: true,
-      cookieExpirationDate: new Date(cookieExpirationDate),
+      tokenExpirationTime,
     });
     //console.log(token);
   } catch (err) {

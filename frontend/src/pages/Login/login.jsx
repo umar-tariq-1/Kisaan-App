@@ -11,12 +11,13 @@ import { useSnackbar } from "notistack";
 import CustomTextField from "../../components/Form/textfield";
 import CustomPasswordField from "../../components/Form/passwordfield";
 import CustomLoadingAnimation from "../../components/LoadingAnimation/loadingAnimation";
-import {FaLock} from 'react-icons/fa'
-import {TbMailFilled} from 'react-icons/tb'
+import { FaLock } from "react-icons/fa";
+// import { TbMailFilled } from "react-icons/tb";
+import { FaPhone } from "react-icons/fa6";
 
 function Login() {
   const [userData, setuserData] = useState({
-    email: "",
+    phone: "",
     password: "",
   });
 
@@ -34,11 +35,15 @@ function Login() {
     setinputErrors({});
   };
 
-  function validate(Email, Password) {
+  function validate(Phone, Password) {
     // eslint-disable-next-line
-    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(Email)) {
-      setError("Invalid Email");
-      setinputErrors({ email: 1 });
+    if (
+      /* !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(Email) */ !/^\+?\d{8,15}$/.test(
+        Phone
+      )
+    ) {
+      setError("Invalid Phone Number");
+      setinputErrors({ phone: 1 });
       enqueueSnackbar("Couldn't Login", { variant: "error" });
       return false;
     } else if (
@@ -57,7 +62,7 @@ function Login() {
   const handleSubmit = async (ev) => {
     ev.preventDefault();
 
-    if (validate(userData.email, userData.password)) {
+    if (validate(userData.phone, userData.password)) {
       setError("");
       setinputErrors({});
     } else {
@@ -70,7 +75,7 @@ function Login() {
       const url = process.env.REACT_APP_BASE_URL + "/login";
       const newData = {
         ...userData,
-        email: userData.email.toLowerCase(),
+        phone: userData.phone.toLowerCase(),
       };
       const config = {
         headers: { "Content-Type": "application/json" },
@@ -81,7 +86,8 @@ function Login() {
       setLoading(false);
       if (data.isLoggedIn) {
         enqueueSnackbar("Logged in successfully", { variant: "success" });
-        localStorage.setItem('isLoggedIn',JSON.stringify(data.isLoggedIn));
+        localStorage.setItem("isLoggedIn", JSON.stringify(data.isLoggedIn));
+        localStorage.setItem("tokenExpirationTime", JSON.stringify(data.tokenExpirationTime));
         navigate("/dashboard");
       }
     } catch (error) {
@@ -124,21 +130,31 @@ function Login() {
             data-aos="zoom-out-up"
           >
             <div className="card-body px-4 px-md-5">
-              <h2 className="text-uppercase fw-bold text-center mb-4"  style={{letterSpacing:"1px",fontFamily:'Titillium Web, sans-serif',fontSize:"200%"}}>Login</h2>
+              <h2
+                className="text-uppercase fw-bold text-center mb-4"
+                style={{
+                  letterSpacing: "1px",
+                  fontFamily: "Titillium Web, sans-serif",
+                  fontSize: "200%",
+                }}
+              >
+                Login
+              </h2>
 
               <form onSubmit={handleSubmit}>
                 <CustomTextField
-                  inputError={inputErrors.email}
+                  inputError={inputErrors.phone}
                   style={styleFull}
-                  label="Email"
-                  icon={<TbMailFilled size={21} />}
-                  name="email"
+                  label="Phone"
+                  icon={<FaPhone size={19} />}
+                  name="phone"
                   onChange={handleChange}
                 />
 
                 <CustomPasswordField
                   inputError={inputErrors.password}
                   style={styleFull}
+                  showIcon={true}
                   id="password"
                   label="Password"
                   icon={<FaLock size={17} />}
@@ -146,18 +162,23 @@ function Login() {
                   handleChange={handleChange}
                 />
 
-                <p style={{color: "red",
+                <p
+                  style={{
+                    color: "red",
                     textAlign: "center",
                     marginLeft: "-8%",
                     marginRight: "-8%",
-                    }}>{error}</p>
+                  }}
+                >
+                  {error}
+                </p>
                 <hr />
 
                 <button
                   className="btn btn-success mb-4"
                   style={{
                     fontSize: 21,
-                    width: "100%",  
+                    width: "100%",
                     height: 45,
                   }}
                   type="submit"
@@ -165,18 +186,28 @@ function Login() {
                   Login
                 </button>
               </form>
-              
+
               <div
-                style={{ fontSize:"105%",marginLeft: "-1%", marginRight: "-1%" }}
+                style={{
+                  fontSize: "105%",
+                  marginLeft: "-1%",
+                  marginRight: "-1%",
+                }}
                 className="mb-2 mb-md-1 d-flex align-items-center justify-content-center"
               >
                 {"Don't have an account?"}
 
-                <Link to="/signup" style={{ marginLeft: "2%",marginBottom:"2px", textDecoration:"none"}}>
+                <Link
+                  to="/signup"
+                  style={{
+                    marginLeft: "2%",
+                    marginBottom: "2px",
+                    textDecoration: "none",
+                  }}
+                >
                   {"Sign Up"}
                 </Link>
               </div>
-
             </div>
           </div>
         </div>
