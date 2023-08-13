@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from "react";
-import {
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBIcon,
-  MDBRipple,
-  MDBBtn,
-} from "mdb-react-ui-kit";
-import "./ecommerce-category-product.css";
+import React from "react";
+
+import { FaStar } from "react-icons/fa";
+import { FaStarHalf } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
+import { FaHeart } from "react-icons/fa6";
+
+import "./category-product.css";
 import ResponsiveDrawer from "../../../components/Drawer/Drawer";
 
 const Categories = () => {
@@ -19,293 +14,92 @@ const Categories = () => {
       {/* <div className="d-flex justify-content-center align-items-center h1">
         Categories
       </div> */}
-      <MDBContainer fluid>
-        <MDBRow className="justify-content-center mb-0">
-          <MDBCol md="12" xl="10">
-            <MDBCard className="shadow-0 border rounded-3 mt-5 mb-3">
-              <MDBCardBody>
-                <MDBRow>
-                  <MDBCol md="12" lg="3" className="mb-4 mb-lg-0">
-                    <MDBRipple
+      <div className="container-fluid">
+        <div className="row justify-content-center mb-3">
+          <div className="col-md-12 col-xl-10">
+            <div className="card shadow border rounded-3">
+              <div className="card-body">
+                <div className="row">
+                  <div className="col-md-3 col-lg-3 mb-4 mb-lg-0">
+                    {/* <MDBRipple
                       rippleColor="light"
                       rippleTag="div"
                       className="bg-image rounded hover-zoom hover-overlay"
-                    >
-                      <MDBCardImage
-                        src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(4).webp"
-                        fluid
-                        className="w-100"
-                      />
-                      <a href="#!">
-                        <div
-                          className="mask"
-                          style={{
-                            backgroundColor: "rgba(251, 251, 251, 0.15)",
-                          }}
-                        ></div>
-                      </a>
-                    </MDBRipple>
-                  </MDBCol>
-                  <MDBCol md="6">
-                    <h5>Quant trident shirts</h5>
+                    > */}
+                    <img
+                      src="https://ik.imagekit.io/umartariq/productImages/895077742"
+                      className="card-img w-100"
+                      alt="&nbsp;Loading..."
+                    />
+
+                    {/* </MDBRipple> */}
+                  </div>
+                  <div className="col-md-6">
+                    <h3>Cotton</h3>
                     <div className="d-flex flex-row">
-                      <div className="text-danger mb-1 me-2">
-                        <MDBIcon fas icon="star" />
-                        <MDBIcon fas icon="star" />
-                        <MDBIcon fas icon="star" />
-                        <MDBIcon fas icon="star" />
+                      <div className="text-warning mb-1 me-2">
+                        <FaStar size={"18px"} />
+                        <FaStar size={"18px"} />
+                        <FaStar size={"18px"} />
+                        <FaStar size={"18px"} />
+                        <FaStarHalf size={"18px"} />
                       </div>
-                      <span>310</span>
+                      <span style={{ marginTop: "3px", fontSize: "15px" }}>
+                        289
+                      </span>
                     </div>
-                    <div className="mt-1 mb-0 text-muted small">
-                      <span>100% cotton</span>
-                      <span className="text-primary"> • </span>
-                      <span>Light weight</span>
-                      <span className="text-primary"> • </span>
+                    <div className="mt-2 mb-0 text-muted ">
                       <span>
-                        Best finish
-                        <br />
+                        <FaLocationDot
+                          size={"16px"}
+                          style={{ marginTop: "-3px" }}
+                        />
                       </span>
-                    </div>
-                    <div className="mb-2 text-muted small">
-                      <span>Unique design</span>
-                      <span className="text-primary"> • </span>
-                      <span>For men</span>
-                      <span className="text-primary"> • </span>
-                      <span>
-                        Casual
-                        <br />
-                      </span>
-                    </div>
-                    <p className="text-truncate mb-4 mb-md-0">
-                      There are many variations of passages of Lorem Ipsum
-                      available, but the majority have suffered alteration in
-                      some form, by injected humour, or randomised words which
-                      don't look even slightly believable.
-                    </p>
-                  </MDBCol>
-                  <MDBCol
-                    md="6"
-                    lg="3"
-                    className="border-sm-start-none border-start"
-                  >
-                    <div className="d-flex flex-row align-items-center mb-1">
-                      <h4 className="mb-1 me-1">$13.99</h4>
-                      <span className="text-danger">
-                        <s>$20.99</s>
-                      </span>
-                    </div>
-                    <h6 className="text-success">Free shipping</h6>
-                    <div className="d-flex flex-column mt-4">
-                      <MDBBtn color="primary" size="sm">
-                        Details
-                      </MDBBtn>
-                      <MDBBtn
-                        outline
-                        color="primary"
-                        size="sm"
-                        className="mt-2"
-                      >
-                        Add to wish list
-                      </MDBBtn>
-                    </div>
-                  </MDBCol>
-                </MDBRow>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-        </MDBRow>
-        <MDBRow className="justify-content-center mb-3">
-          <MDBCol md="12" xl="10">
-            <MDBCard className="shadow-0 border rounded-3">
-              <MDBCardBody>
-                <MDBRow>
-                  <MDBCol md="12" lg="3" className="mb-4 mb-lg-0">
-                    <MDBRipple
-                      rippleColor="light"
-                      rippleTag="div"
-                      className="bg-image rounded hover-zoom hover-overlay"
-                    >
-                      <MDBCardImage
-                        src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/new/img(4).webp"
-                        fluid
-                        className="w-100"
-                      />
-                      <a href="#!">
-                        <div
-                          className="mask"
-                          style={{
-                            backgroundColor: "rgba(251, 251, 251, 0.15)",
-                          }}
-                        ></div>
-                      </a>
-                    </MDBRipple>
-                  </MDBCol>
-                  <MDBCol md="6">
-                    <h5>Quant olap shirts</h5>
-                    <div className="d-flex flex-row">
-                      <div className="text-danger mb-1 me-2">
-                        <MDBIcon fas icon="star" />
-                        <MDBIcon fas icon="star" />
-                        <MDBIcon fas icon="star" />
-                        <MDBIcon fas icon="star" />
-                      </div>
-                      <span>289</span>
-                    </div>
-                    <div className="mt-1 mb-0 text-muted small">
-                      <span>100% cotton</span>
-                      <span className="text-primary"> • </span>
+                      <span className="ms-2">Lahore</span>
+                      {/* <span className="text-primary"> • </span>
                       <span>Light weight</span>
                       <span classNAme="text-primary"> • </span>
                       <span>
                         Best finish
                         <br />
-                      </span>
+                      </span> */}
                     </div>
-                    <div className="mb-2 text-muted small">
-                      <span>Unique design</span>
-                      <span className="text-primary"> • </span>
-                      <span>For men</span>
-                      <span className="text-primary"> • </span>
-                      <span>
-                        Casual
-                        <br />
-                      </span>
-                    </div>
-                    <p className="text-truncate mb-4 mb-md-0">
+                    <p className="text-truncate w-100 mt-3 mb-4 mb-md-0">
                       There are many variations of passages of Lorem Ipsum
                       available, but the majority have suffered alteration in
                       some form, by injected humour, or randomised words which
                       don't look even slightly believable.
                     </p>
-                  </MDBCol>
-                  <MDBCol
-                    md="6"
-                    lg="3"
-                    className="border-sm-start-none border-start"
-                  >
+                  </div>
+                  <div className="col-md-6 col-lg-3 border-sm-start-none border-start">
                     <div className="d-flex flex-row align-items-center mb-1">
-                      <h4 className="mb-1 me-1">$14.99</h4>
-                      <span className="text-danger">
+                      <h4 className="mb-1 me-1">14.99/-</h4>
+                      {/* <span className="text-danger">
                         <s>$21.99</s>
-                      </span>
+                      </span> */}
                     </div>
-                    <h6 className="text-success">Free shipping</h6>
+                    {/* <h6 className="text-success">Free shipping</h6> */}
                     <div className="d-flex flex-column mt-4">
-                      <MDBBtn color="primary" size="sm">
+                      <div className="d-none d-md-block btn btn-success btn-sm">
                         Details
-                      </MDBBtn>
-                      <MDBBtn
-                        outline
-                        color="primary"
-                        size="sm"
-                        className="mt-2"
-                      >
-                        Add to wish list
-                      </MDBBtn>
-                    </div>
-                  </MDBCol>
-                </MDBRow>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-        </MDBRow>
-        <MDBRow className="justify-content-center mb-3">
-          <MDBCol md="12" xl="10">
-            <MDBCard className="shadow-0 border rounded-3">
-              <MDBCardBody>
-                <MDBRow>
-                  <MDBCol md="12" lg="3" className="mb-4 mb-lg-0">
-                    <MDBRipple
-                      rippleColor="light"
-                      rippleTag="div"
-                      className="bg-image rounded hover-zoom hover-overlay"
-                    >
-                      <MDBCardImage
-                        src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/new/img(5).webp"
-                        fluid
-                        className="w-100"
-                      />
-                      <a href="#!">
-                        <div
-                          className="mask"
-                          style={{
-                            backgroundColor: "rgba(251, 251, 251, 0.15)",
-                          }}
-                        ></div>
-                      </a>
-                    </MDBRipple>
-                  </MDBCol>
-                  <MDBCol md="6">
-                    <h5>Quant ruybi shirts</h5>
-                    <div className="d-flex flex-row">
-                      <div className="text-danger mb-1 me-2">
-                        <MDBIcon fas icon="star" />
-                        <MDBIcon fas icon="star" />
-                        <MDBIcon fas icon="star" />
-                        <MDBIcon fas icon="star" />
                       </div>
-                      <span>145</span>
-                    </div>
-                    <div className="mt-1 mb-0 text-muted small">
-                      <span>100% cotton</span>
-                      <span className="text-primary"> • </span>
-                      <span>Light weight</span>
-                      <span className="text-primary"> • </span>
-                      <span>
-                        Best finish
-                        <br />
-                      </span>
-                    </div>
-                    <div className="mb-2 text-muted small">
-                      <span>Unique design</span>
-                      <span className="text-primary"> • </span>
-                      <span>For women</span>
-                      <span className="text-primary"> • </span>
-                      <span>
-                        Casual
-                        <br />
-                      </span>
-                    </div>
-                    <p className="text-truncate mb-4 mb-md-0">
-                      There are many variations of passages of Lorem Ipsum
-                      available, but the majority have suffered alteration in
-                      some form, by injected humour, or randomised words which
-                      don't look even slightly believable.
-                    </p>
-                  </MDBCol>
-                  <MDBCol
-                    md="6"
-                    lg="3"
-                    className="border-sm-start-none border-start"
-                  >
-                    <div className="d-flex flex-row align-items-center mb-1">
-                      <h4 className="mb-1 me-1">$17.99</h4>
-                      <span className="text-danger">
-                        <s>$25.99</s>
-                      </span>
-                    </div>
-                    <h6 className="text-success">Free shipping</h6>
-                    <div className="d-flex flex-column mt-4">
-                      <MDBBtn color="primary" size="sm">
+                      <div className="d-block d-md-none btn btn-success">
                         Details
-                      </MDBBtn>
-                      <MDBBtn
-                        outline
-                        color="primary"
-                        size="sm"
-                        className="mt-2"
-                      >
-                        Add to wish list
-                      </MDBBtn>
+                      </div>
+                      <div className="btn btn-outline-success btn-sm mt-2">
+                        Add to favourites&nbsp;{" "}
+                        <span>
+                          <FaHeart style={{ marginBottom: "2px" }} />
+                        </span>
+                      </div>
                     </div>
-                  </MDBCol>
-                </MDBRow>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </ResponsiveDrawer>
   );
 };
