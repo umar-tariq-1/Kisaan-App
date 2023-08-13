@@ -13,9 +13,9 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 // import MainPage from "../src/pages/Auth/MainPage/MainPage";
 
 import Dashboard from "./pages/Auth/Dashboard/Dashboard";
-import AllProducts from "./pages/Auth/AllProducts/AllProducts";
+import Products from "./pages/Auth/Products/Products";
 import MyProducts from "./pages/Auth/MyProducts/MyProducts";
-import Categories from "./pages/Auth/Categories/Categories";
+import Favourites from "./pages/Auth/Favourites/Favourites";
 import Profile from "./pages/Auth/Profile/Profile";
 import Settings from "./pages/Auth/Settings/Settings";
 
@@ -29,14 +29,14 @@ const AboutComponent = lazyWithPreload(() => import("./pages/About/about"));
 // const DashboardComponent = lazyWithPreload(() =>
 //   import("./pages/Auth/Dashboard/Dashboard")
 // );
-// const AllProductsComponent = lazyWithPreload(() =>
-//   import("./pages/Auth/AllProducts/AllProducts")
+// const ProductsComponent = lazyWithPreload(() =>
+//   import("./pages/Auth/Products/Products")
 // );
 // const MyProductsComponent = lazyWithPreload(() =>
 //   import("./pages/Auth/MyProducts/MyProducts")
 // );
-// const CategoriesComponent = lazyWithPreload(() =>
-//   import("./pages/Auth/Categories/Categories")
+// const FavouritesComponent = lazyWithPreload(() =>
+//   import("./pages/Auth/Favourites/Favourites")
 // );
 // const ProfileComponent = lazyWithPreload(() =>
 //   import("./pages/Auth/Profile/Profile")
@@ -73,9 +73,9 @@ function App() {
             <Route path="/about" Component={AboutComponent} />
             <Route path="/contact" Component={ContactComponent} />
             <Route path="/dashboard" Component={Dashboard} />
-            <Route path="/allProducts" Component={AllProducts} />
+            <Route path="/products" Component={Products} />
             <Route path="/myProducts" Component={MyProducts} />
-            <Route path="/categories" Component={Categories} />
+            <Route path="/favourites" Component={Favourites} />
             <Route path="/profile" Component={Profile} />
             <Route path="/settings" Component={Settings} />
             {/* <Route path="/*" Component={Page404} /> */}

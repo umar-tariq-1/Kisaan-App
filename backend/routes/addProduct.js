@@ -46,6 +46,7 @@ addProduct.post(
           images.push(response.name);
         } catch (error) {
           imageKitErrors.push(error);
+          res.status(409).send({ message: error.message });
           console.log(error);
         }
       }
@@ -77,9 +78,10 @@ addProduct.post(
           user.products.push(createdProduct);
           await user.save({ session: sess });
           await sess.commitTransaction();
-          const data = { ...createdProduct };
-          delete data.__id;
+          const data = { ...createdProduct._doc };
+          delete data._id;
           delete data.creator;
+          delete data.__v;
           res.status(201).send({ message: "Product added successfully", data }); //201 indicates successful creation
         } catch (error) {
           console.log(error);

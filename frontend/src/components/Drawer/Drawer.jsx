@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 // import CssBaseline from "@mui/material/CssBaseline";
@@ -15,14 +15,15 @@ import { CgProfile } from "react-icons/cg";
 import { FaListUl } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
 import { TbLogout } from "react-icons/tb";
-import { BsBasketFill, BsBasket3Fill } from "react-icons/bs";
+import { BsBasketFill } from "react-icons/bs";
+import { FaHeart } from "react-icons/fa6";
 import CustomLoadingAnimation from "../LoadingAnimation/loadingAnimation";
 import { useSnackbar } from "notistack";
 
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const drawerWidth = 220;
+const drawerWidth = 210;
 
 function ResponsiveDrawer(props) {
   const { window } = props;
@@ -102,22 +103,22 @@ function delay(ms) {
           }}
           closeDrawer={closeDrawer}
         />
-        <CustomListItem
-          text="All Products"
-          active={props.AllProducts}
-          icon={<BsBasket3Fill />}
+         <CustomListItem
+          text="Products"
+          active={props.Products}
+          icon={<FaListUl size={22} style={{marginBottom:"2px"}} />}
           handleClick={() => {
-            delay(280).then(() => {navigate("/allProducts");})
+            delay(280).then(() => {navigate("/products");})
             
           }}
           closeDrawer={closeDrawer}
         />
         <CustomListItem
-          text="Categories"
-          active={props.Categories}
-          icon={<FaListUl size={22} />}
+          text="Favourites"
+          active={props.Favourites}
+          icon={<FaHeart size={22} />}
           handleClick={() => {
-            delay(280).then(() => {navigate("/categories");})
+            delay(280).then(() => {navigate("/favourites");})
             
           }}
           closeDrawer={closeDrawer}
@@ -125,7 +126,7 @@ function delay(ms) {
         <CustomListItem
           text="My Products"
           active={props.MyProducts}
-          icon={<BsBasketFill />}
+          icon={<BsBasketFill style={{marginBottom:"3px"}} />}
           handleClick={() => {
             delay(280).then(() => {navigate("/myProducts");})
             
@@ -180,27 +181,27 @@ function delay(ms) {
           closeDrawer={closeDrawer}
         />
         <CustomListItem
-          text="All Products"
-          active={props.AllProducts}
-          icon={<BsBasket3Fill />}
+          text="Products"
+          active={props.Products}
+          icon={<FaListUl size={22} style={{marginBottom:"2px"}} />}
           handleClick={() => {
-            navigate("/allProducts")
+            navigate("/products")
           }}
           closeDrawer={closeDrawer}
         />
         <CustomListItem
-          text="Categories"
-          active={props.Categories}
-          icon={<FaListUl size={22} />}
+          text="Favourites"
+          active={props.Favourites}
+          icon={<FaHeart size={22} style={{marginBottom:"2px"}} />}
           handleClick={() => {
-            navigate("/categories")
+            navigate("/favourites")
           }}
           closeDrawer={closeDrawer}
         />
         <CustomListItem
           text="My Products"
           active={props.MyProducts}
-          icon={<BsBasketFill />}
+          icon={<BsBasketFill style={{marginBottom:"3px"}} />}
           handleClick={() => {
            navigate("/myProducts")
           }}
