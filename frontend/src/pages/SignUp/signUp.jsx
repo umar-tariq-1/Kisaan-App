@@ -211,7 +211,7 @@ function SignUp() {
         <div
           className="container pb-4 pb-md-0 mx-auto"
           style={{
-            backgroundColor: "aliceblue",
+            backgroundColor: "#eee",
           }}
         >
           <div

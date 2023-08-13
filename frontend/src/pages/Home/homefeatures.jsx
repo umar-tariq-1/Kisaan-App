@@ -28,7 +28,7 @@ export default function HomeFeatures() {
       id="tutorial"
       style={{
         paddingTop: "30px",
-        backgroundColor: "aliceblue",
+        backgroundColor: "#eee",
         letterSpacing: "1px",
       }}
     >

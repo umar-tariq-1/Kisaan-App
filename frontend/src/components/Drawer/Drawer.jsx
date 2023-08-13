@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 // import CssBaseline from "@mui/material/CssBaseline";
@@ -29,6 +29,8 @@ function ResponsiveDrawer(props) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
+
+
 
   const handleLogout = async () => {
     const url = process.env.REACT_APP_BASE_URL + "/logout";
@@ -70,15 +72,21 @@ function ResponsiveDrawer(props) {
     if (mobileOpen) {
       setTimeout(function () {
         setMobileOpen(false);
-      }, 95);
+      }, 80);
     }
   };
 
+  // useEffect(closeDrawer,[])
+
   const navigate = useNavigate();
 
-  const drawer = (
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+  const mobileDrawer = (
     <div
-      style={{ fontFamily: "Titillium Web, sans-serif" }}
+      style={{ fontFamily: "Titillium Web, sans-serif",backgroundColor:"white" }}
       className="text-secondary"
     >
       <Toolbar />
@@ -89,7 +97,8 @@ function ResponsiveDrawer(props) {
           active={props.Dashboard}
           icon={<MdDashboard />}
           handleClick={() => {
-            navigate("/dashboard");
+            delay(280).then(() => {navigate("/dashboard");})
+            
           }}
           closeDrawer={closeDrawer}
         />
@@ -98,7 +107,8 @@ function ResponsiveDrawer(props) {
           active={props.AllProducts}
           icon={<BsBasket3Fill />}
           handleClick={() => {
-            navigate("/allProducts");
+            delay(280).then(() => {navigate("/allProducts");})
+            
           }}
           closeDrawer={closeDrawer}
         />
@@ -107,7 +117,8 @@ function ResponsiveDrawer(props) {
           active={props.Categories}
           icon={<FaListUl size={22} />}
           handleClick={() => {
-            navigate("/categories");
+            delay(280).then(() => {navigate("/categories");})
+            
           }}
           closeDrawer={closeDrawer}
         />
@@ -116,7 +127,8 @@ function ResponsiveDrawer(props) {
           active={props.MyProducts}
           icon={<BsBasketFill />}
           handleClick={() => {
-            navigate("/myProducts");
+            delay(280).then(() => {navigate("/myProducts");})
+            
           }}
           closeDrawer={closeDrawer}
         />
@@ -125,7 +137,8 @@ function ResponsiveDrawer(props) {
           active={props.Profile}
           icon={<CgProfile />}
           handleClick={() => {
-            navigate("/profile");
+            delay(280).then(() => {navigate("/profile");})
+            
           }}
           closeDrawer={closeDrawer}
         />
@@ -134,7 +147,80 @@ function ResponsiveDrawer(props) {
           active={props.Settings}
           icon={<IoSettingsOutline />}
           handleClick={() => {
-            navigate("/settings");
+            delay(280).then(() => {navigate("/settings");})
+            
+          }}
+          closeDrawer={closeDrawer}
+        />
+        <CustomListItem
+          text="Logout"
+          icon={<TbLogout size={26} />}
+          handleClick={handleLogout}
+          closeDrawer={closeDrawer}
+        />
+      </List>
+    </div>
+  );
+
+  const pcDrawer = (
+    <div
+      style={{ fontFamily: "Titillium Web, sans-serif",backgroundColor:"white" }}
+      className="text-secondary"
+    >
+      <Toolbar />
+      <Divider />
+      <List>
+        <CustomListItem
+          text="Dashboard"
+          active={props.Dashboard}
+          icon={<MdDashboard />}
+          handleClick={() => {
+            navigate("/dashboard")
+          }}
+          closeDrawer={closeDrawer}
+        />
+        <CustomListItem
+          text="All Products"
+          active={props.AllProducts}
+          icon={<BsBasket3Fill />}
+          handleClick={() => {
+            navigate("/allProducts")
+          }}
+          closeDrawer={closeDrawer}
+        />
+        <CustomListItem
+          text="Categories"
+          active={props.Categories}
+          icon={<FaListUl size={22} />}
+          handleClick={() => {
+            navigate("/categories")
+          }}
+          closeDrawer={closeDrawer}
+        />
+        <CustomListItem
+          text="My Products"
+          active={props.MyProducts}
+          icon={<BsBasketFill />}
+          handleClick={() => {
+           navigate("/myProducts")
+          }}
+          closeDrawer={closeDrawer}
+        />
+        <CustomListItem
+          text="Profile"
+          active={props.Profile}
+          icon={<CgProfile />}
+          handleClick={() => {
+            navigate("/profile")
+          }}
+          closeDrawer={closeDrawer}
+        />
+        <CustomListItem
+          text="Settings"
+          active={props.Settings}
+          icon={<IoSettingsOutline />}
+          handleClick={() => {
+           navigate("/settings")
           }}
           closeDrawer={closeDrawer}
         />
@@ -210,15 +296,17 @@ function ResponsiveDrawer(props) {
               "& .MuiDrawer-paper": {
                 boxSizing: "border-box",
                 width: drawerWidth,
+                backgroundColor:"white",
                 marginTop: { xs: "8px", sm: "0px" },
                 height: { xs: "calc(100% - 8px)", sm: "calc(100% - 0px)" },
               },
             }}
           >
-            {drawer}
+            {mobileDrawer}
           </Drawer>
 
           <Drawer
+          className="shadow-custom"
             variant="permanent"
             sx={{
               display: { xs: "none", md: "block" },
@@ -226,12 +314,12 @@ function ResponsiveDrawer(props) {
                 boxSizing: "border-box",
                 width: drawerWidth,
                 marginTop: "2px",
-                background: "rgba(182,251,203,0.1)",
+                background: "white",
               },
             }}
             open
           >
-            {drawer}
+            {pcDrawer}
           </Drawer>
         </Box>
 
@@ -240,7 +328,7 @@ function ResponsiveDrawer(props) {
           sx={{
             flexGrow: 1,
             p: 3,
-            width: { md: `calc(100% - ${drawerWidth}px)` },
+            width: { xs:"100%", md: `calc(100% - ${drawerWidth}px)` },
             background: "rgba(182,251,203,0.1)",
           }}
         >
