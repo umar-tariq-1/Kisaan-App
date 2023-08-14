@@ -23,7 +23,7 @@ const AllProducts = () => {
     return <h2>Loading...</h2>;
   } */
   return (
-    <ResponsiveDrawer AllProducts={1}>
+    <ResponsiveDrawer Products={1}>
       <div className="container-fluid">
         <ProductCard
           image="327167969"
