@@ -7,3 +7,17 @@ body {
     border-left: none !important;
   }
 }
+
+.image-div {
+  overflow: hidden;
+}
+
+.image-div img {
+  transition: all 0.3s ease-out;
+}
+
+.image-div:hover img {
+  transform: scale(1.035, 1.035);
+  border-radius: 8px;
+  cursor: pointer;
+}

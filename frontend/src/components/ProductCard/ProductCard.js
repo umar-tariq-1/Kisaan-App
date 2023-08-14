@@ -17,7 +17,7 @@ const ProductCard = (props) => {
         <div className="card shadow border rounded-3">
           <div className="card-body">
             <div className="row">
-              <div className="col-md-4 col-lg-3 mb-4 mb-lg-0">
+              <div className="col-md-4 col-lg-3 mb-4 mb-lg-0 image-div">
                 {/* <MDBRipple
                       rippleColor="light"
                       rippleTag="div"
@@ -29,7 +29,6 @@ const ProductCard = (props) => {
                   loading="lazy"
                   alt="&nbsp;Loading..."
                 />
-
                 {/* </MDBRipple> */}
               </div>
               <div className="col-md-8 col-lg-6">

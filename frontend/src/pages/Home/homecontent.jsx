@@ -65,7 +65,7 @@ export default function HomeContent() {
                       textDecoration: "none",
                     }}
                   >
-                    <button className="btn btn-success btn-lg mt-4 me-2" style={{fontSize:"20px"}}>
+                    <button className="btn btn-success btn-lg shadow-lg mt-4 me-2" style={{fontSize:"20px"}}>
                       Get Started
                     </button>
                   </Link>

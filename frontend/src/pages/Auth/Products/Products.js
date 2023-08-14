@@ -1,29 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import ResponsiveDrawer from "../../../components/Drawer/Drawer";
 import ProductCard from "../../../components/ProductCard/ProductCard";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import CustomRefreshAnimation from "../../../components/CustomRefreshAnimation/CustomRefreshAnimation";
 
 const AllProducts = () => {
-  /*  const { isLoading, data } = useQuery({
+  const [enable, setEnable] = useState(false);
+  const { isFetching, isLoading, data } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
       return await axios.get("http://localhost:3001/getProducts", {
         withCredentials: true,
       });
     },
+    refetchOnWindowFocus: false,
     onSuccess: (data) => {
-      console.log(data);
+      console.log(data.data);
     },
     onError: (error) => {
       console.log(error);
     },
+    onSettled: () => {
+      setEnable(false);
+    },
+    enabled: enable,
   });
-  if (isLoading) {
-    return <h2>Loading...</h2>;
-  } */
+
   return (
     <ResponsiveDrawer Products={1}>
+      {isLoading && <CustomRefreshAnimation />}
       <div className="container-fluid">
         <ProductCard
           image="327167969"
@@ -34,6 +40,14 @@ const AllProducts = () => {
           price={1200}
           ratingsCount={109}
         />
+      </div>
+      <div
+        className="btn btn-primary"
+        onClick={() => {
+          setEnable(true);
+        }}
+      >
+        Fetch
       </div>
     </ResponsiveDrawer>
   );
