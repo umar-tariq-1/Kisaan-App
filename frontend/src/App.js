@@ -74,7 +74,7 @@ function App() {
             <Route path="/contact" Component={ContactComponent} />
             <Route path="/dashboard" Component={Dashboard} />
             <Route path="/products" Component={Products} />
-            <Route path="/myProducts" Component={MyProducts} />
+            <Route path="/my-products" Component={MyProducts} />
             <Route path="/favourites" Component={Favourites} />
             <Route path="/profile" Component={Profile} />
             <Route path="/settings" Component={Settings} />

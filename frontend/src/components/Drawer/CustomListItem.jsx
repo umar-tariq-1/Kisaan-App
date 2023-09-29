@@ -12,20 +12,20 @@ const CustomListItem = (props) => {
         sx={
           props.active
             ? {
+                transition: "all 0.15s ease-out",
                 borderRadius: "3px",
                 borderLeft: 5,
                 borderColor: "#0d522c",
                 background: "rgba(182,251,203,0.7)",
                 color: "black",
-                transition: "all 0.16s ease-out",
                 "&:hover": {
                   background: "rgb(182,251,203)",
                   color: "black",
                 },
               }
             : {
-                color: "#000000ba",
                 transition: "all 0.15s ease",
+                color: "#000000ba",
                 "&:hover": {
                   color: "black",
                 },
@@ -42,7 +42,7 @@ const CustomListItem = (props) => {
           {props.icon}
         </Icon>
         <ListItemText
-          primaryTypographyProps={{ fontSize: "22px", marginLeft: 2 }}
+          primaryTypographyProps={{ fontSize: "21px", marginLeft: 2 }}
           primary={props.text}
         />
       </ListItemButton>

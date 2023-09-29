@@ -113,7 +113,7 @@ const MyProducts = () => {
   };
 
   return (
-    <ResponsiveDrawer MyProducts={1}>
+    <ResponsiveDrawer active={{ MyProducts: true }}>
       {/* <CustomLoadingAnimation /> */}
       <div className="App">
         <h1>Product Form</h1>

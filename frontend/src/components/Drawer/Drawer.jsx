@@ -1,15 +1,3 @@
-import React, { useState } from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-// import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import Toolbar from "@mui/material/Toolbar";
-import { FiMenu } from "react-icons/fi";
-import { IoStorefrontOutline } from "react-icons/io5";
-import CustomListItem from "./CustomListItem";
 import { MdDashboard } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { FaListUl } from "react-icons/fa";
@@ -17,7 +5,19 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { TbLogout } from "react-icons/tb";
 import { BsBasketFill } from "react-icons/bs";
 import { FaHeart } from "react-icons/fa6";
+import React, { useState,useEffect } from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+// import CssBaseline from "@mui/material/CssBaseline";
+import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import Toolbar from "@mui/material/Toolbar";
+import { IoStorefrontOutline } from "react-icons/io5";
+import CustomListItem from "./CustomListItem";
 import CustomLoadingAnimation from "../LoadingAnimation/loadingAnimation";
+import "./Drawer.css";
+import HamburgerButton from "../HamburgerButton/HamburgerButton";
 import { useSnackbar } from "notistack";
 
 import { useNavigate } from "react-router-dom";
@@ -30,7 +30,12 @@ function ResponsiveDrawer(props) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
+  const [active, setActive] = useState(props.active);
 
+  // Update state when props change
+  useEffect(() => {
+    setActive(props.active);
+  }, [props.active]);
 
 
   const handleLogout = async () => {
@@ -95,61 +100,55 @@ function delay(ms) {
       <List>
         <CustomListItem
           text="Dashboard"
-          active={props.Dashboard}
+          active={active.Dashboard}
           icon={<MdDashboard />}
           handleClick={() => {
             delay(280).then(() => {navigate("/dashboard");})
-            
           }}
           closeDrawer={closeDrawer}
         />
          <CustomListItem
           text="Products"
-          active={props.Products}
+          active={active.Products}
           icon={<FaListUl size={22} style={{marginBottom:"2px"}} />}
           handleClick={() => {
             delay(280).then(() => {navigate("/products");})
-            
           }}
           closeDrawer={closeDrawer}
         />
         <CustomListItem
           text="Favourites"
-          active={props.Favourites}
+          active={active.Favourites}
           icon={<FaHeart size={22} />}
           handleClick={() => {
             delay(280).then(() => {navigate("/favourites");})
-            
           }}
           closeDrawer={closeDrawer}
         />
         <CustomListItem
           text="My Products"
-          active={props.MyProducts}
+          active={active.MyProducts}
           icon={<BsBasketFill style={{marginBottom:"3px"}} />}
           handleClick={() => {
-            delay(280).then(() => {navigate("/myProducts");})
-            
+            delay(280).then(() => {navigate("/my-products");})
           }}
           closeDrawer={closeDrawer}
         />
         <CustomListItem
           text="Profile"
-          active={props.Profile}
+          active={active.Profile}
           icon={<CgProfile />}
           handleClick={() => {
             delay(280).then(() => {navigate("/profile");})
-            
           }}
           closeDrawer={closeDrawer}
         />
         <CustomListItem
           text="Settings"
-          active={props.Settings}
+          active={active.Settings}
           icon={<IoSettingsOutline />}
           handleClick={() => {
             delay(280).then(() => {navigate("/settings");})
-            
           }}
           closeDrawer={closeDrawer}
         />
@@ -166,62 +165,69 @@ function delay(ms) {
   const pcDrawer = (
     <div
       style={{ fontFamily: "Titillium Web, sans-serif",backgroundColor:"white" }}
-      className="text-secondary"
+      className="text-secondary mt-1"
     >
       <Toolbar />
       <Divider />
-      <List>
+      <List sx={{px:1}}>
         <CustomListItem
           text="Dashboard"
-          active={props.Dashboard}
+          active={active?.Dashboard}
           icon={<MdDashboard />}
           handleClick={() => {
-            navigate("/dashboard")
+            setActive({Dashboard : true})
+            delay(160).then(() => {navigate("/dashboard")})
           }}
           closeDrawer={closeDrawer}
         />
         <CustomListItem
           text="Products"
-          active={props.Products}
+          active={active?.Products}
           icon={<FaListUl size={22} style={{marginBottom:"2px"}} />}
           handleClick={() => {
-            navigate("/products")
+            setActive({Products : true})
+            delay(160).then(() => {navigate("/products")})
           }}
           closeDrawer={closeDrawer}
         />
         <CustomListItem
           text="Favourites"
-          active={props.Favourites}
+          active={active?.Favourites}
           icon={<FaHeart size={22} style={{marginBottom:"2px"}} />}
           handleClick={() => {
-            navigate("/favourites")
+            setActive({Favourites : true})
+            delay(160).then(() => {navigate("/favourites")})
           }}
           closeDrawer={closeDrawer}
         />
-        <CustomListItem
+         <CustomListItem
           text="My Products"
-          active={props.MyProducts}
+          active={active?.MyProducts}
           icon={<BsBasketFill style={{marginBottom:"3px"}} />}
           handleClick={() => {
-           navigate("/myProducts")
+            setActive({MyProducts : true})
+            delay(160).then(() => {navigate("/my-products");})
+            
           }}
           closeDrawer={closeDrawer}
         />
         <CustomListItem
           text="Profile"
-          active={props.Profile}
+          active={active?.Profile}
           icon={<CgProfile />}
           handleClick={() => {
-            navigate("/profile")
+            setActive({Profile : true})
+            delay(160).then(() => {navigate("/profile")})
           }}
           closeDrawer={closeDrawer}
         />
         <CustomListItem
           text="Settings"
-          active={props.Settings}
+          active={active?.Settings}
           icon={<IoSettingsOutline />}
           handleClick={() => {
-           navigate("/settings")
+            setActive({Settings : true})
+           delay(160).then(() => {navigate("/settings")})
           }}
           closeDrawer={closeDrawer}
         />
@@ -245,27 +251,20 @@ function delay(ms) {
       <Box sx={{ display: "flex" }}>
         {/* <CssBaseline /> */}
         <AppBar
-          position="fixed"
+          position="absolute"
           sx={{
+            position:{md:"fixed"},
             background: "#1b854a",
-            height: "66px",
-            zIndex: 9999 /* (theme) => theme.zIndex.drawer + 1 */,
+            height: {xs:"70px",md:"65px"},
+            zIndex: 1290 /* (theme) => theme.zIndex.drawer + 1 */,  
           }}
         >
           <Toolbar>
-            <IconButton
-              color="rgb(33, 37, 41)"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ ml: "2px", mr: 2, display: { md: "none" } }}
-            >
-              <FiMenu size={48} />
-            </IconButton>
-
-            <div className="d-none d-lg-flex mt-2 ms-5">
+            
+            <div style={{height:"70px"}} className="d-flex justify-content-between w-100">
+            <div className="d-flex mt-3 ms-md-5">
               <IoStorefrontOutline color="rgb(33, 37, 41)" size={40} />
-              <h2
+               <h2
                 style={{
                   fontFamily: "Titillium Web, sans-serif",
                   color: "rgb(33, 37, 41)",
@@ -274,6 +273,15 @@ function delay(ms) {
               >
                 KisaanApp Store
               </h2>
+              </div>
+              <div className="justify-content-center mt-2">
+            <div
+          className={`menu-icon shadow align-items-center justify-content-center ${mobileOpen && "pressed"}`}
+          style={{width:"52px",marginTop:"2px"}}
+        >
+            <HamburgerButton handleShowNavbar={handleDrawerToggle} showNavbar={mobileOpen} />
+            </div>
+            </div>
             </div>
           </Toolbar>
         </AppBar>
@@ -293,13 +301,14 @@ function delay(ms) {
             open={mobileOpen}
             onClose={handleDrawerToggle}
             sx={{
+              zIndex:1289,
               display: { xs: "block", md: "none" },
               "& .MuiDrawer-paper": {
                 boxSizing: "border-box",
                 width: drawerWidth,
                 backgroundColor:"white",
-                marginTop: { xs: "8px", sm: "0px" },
-                height: { xs: "calc(100% - 8px)", sm: "calc(100% - 0px)" },
+                marginTop: { xs: "12px", sm: "0px" },
+                height: { xs: "calc(100% - 12px)", sm: "calc(100% - 0px)" },
               },
             }}
           >
@@ -313,8 +322,8 @@ function delay(ms) {
               display: { xs: "none", md: "block" },
               "& .MuiDrawer-paper": {
                 boxSizing: "border-box",
-                width: drawerWidth,
-                marginTop: "2px",
+                width: drawerWidth+15,
+                marginTop: "6px",
                 background: "white",
               },
             }}
@@ -328,24 +337,14 @@ function delay(ms) {
           component="main"
           sx={{
             flexGrow: 1,
-            p: 3,
+            px:{md:3},
+            py:{xs:4,md:3},
             width: { xs:"100%", md: `calc(100% - ${drawerWidth}px)` },
             background: "rgba(182,251,203,0.1)",
           }}
         >
           <Toolbar />
           {props.children}
-          {/* {active.dashboard
-            ? props.Dashboard
-            : active.allProducts
-            ? props.AllProducts
-            : active.categories
-            ? props.Categories
-            : active.myProducts
-            ? props.MyProducts
-            : active.mProfile
-            ? props.MyProfile
-            : props.Settings} */}
         </Box>
       </Box>
     </>

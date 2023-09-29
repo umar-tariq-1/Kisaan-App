@@ -28,7 +28,7 @@ const AllProducts = () => {
   });
 
   return (
-    <ResponsiveDrawer Products={1}>
+    <ResponsiveDrawer active={{ Products: true }}>
       {isLoading && <CustomRefreshAnimation />}
       <div className="container-fluid">
         <ProductCard
