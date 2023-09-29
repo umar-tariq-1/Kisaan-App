@@ -1,8 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const { authorize } = require("../middlewares/authorize");
-const User = require("../models/user");
-const product = require("../models/product");
+const { authorize } = require("../../middlewares/authorize");
+const User = require("../../models/user");
+const product = require("../../models/product");
 
 const getProducts = express.Router();
 

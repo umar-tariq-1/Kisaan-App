@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect } from "react";
 
+// import form_img from "../../utils/pictures/logo-form.png";
 import Navbar from "../../components/Navbar/navbar";
 import "./login.css";
 import AOS from "aos";
@@ -12,7 +13,7 @@ import CustomTextField from "../../components/Form/textfield";
 import CustomPasswordField from "../../components/Form/passwordfield";
 import CustomLoadingAnimation from "../../components/LoadingAnimation/loadingAnimation";
 import { FaLock } from "react-icons/fa";
-// import { TbMailFilled } from "react-icons/tb";
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { FaPhone } from "react-icons/fa6";
 
 function Login() {
@@ -24,21 +25,21 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
   const [inputErrors, setinputErrors] = useState({});
+  const [parent] = useAutoAnimate();
   const { enqueueSnackbar } = useSnackbar();
 
   // eslint-disable-next-line
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setuserData({ ...userData, [e.target.name]: e.target.value.trim() });
+    setuserData({ ...userData, [e.target.name]: e.target.value.toString().trim() });
     setError("");
     setinputErrors({});
   };
 
   function validate(Phone, Password) {
-    // eslint-disable-next-line
     if (
-      /* !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(Email) */ !/^\+?\d{8,15}$/.test(
+      !/^\+?\d{8,15}$/.test(
         Phone
       )
     ) {
@@ -62,6 +63,13 @@ function Login() {
   const handleSubmit = async (ev) => {
     ev.preventDefault();
 
+    if(userData.phone===""){
+        setError("Phone must not be empty");
+        setinputErrors({ phone: 1 });
+        enqueueSnackbar("Couldn't login", { variant: "error" });
+        return;
+    }
+
     if (validate(userData.phone, userData.password)) {
       setError("");
       setinputErrors({});
@@ -75,7 +83,7 @@ function Login() {
       const url = process.env.REACT_APP_BASE_URL + "/login";
       const newData = {
         ...userData,
-        phone: userData.phone.toLowerCase(),
+        phone: userData.phone,
       };
       const config = {
         headers: { "Content-Type": "application/json" },
@@ -114,18 +122,18 @@ function Login() {
   return (
     <>
       {loading && <CustomLoadingAnimation />}
-      <div className="d-flex align-items-center justify-content-center">
+      <Navbar Login={1} />
+      <div style={{
+          width: "100%",
+        }} className="d-flex align-items-center justify-content-center custom-login-center">
         <div
-          className="container d-flex align-items-center justify-content-center"
+          className="container pb-5 mx-auto"
           style={{
-            position: "fixed",
-            hieght: "100%",
-            marginTop: "calc(85vh + 11%)",
             backgroundColor: "#eee",
           }}
         >
           <div
-            className="shadow-custom card"
+            className="shadow-custom card mx-auto"
             style={{ maxWidth: "500px", minWidth: "350px" }}
             data-aos="zoom-out-up"
           >
@@ -135,12 +143,12 @@ function Login() {
                 style={{
                   letterSpacing: "1px",
                   fontFamily: "Titillium Web, sans-serif",
-                  fontSize: "200%",
+                  fontSize: "220%",
                 }}
               >
                 Login
               </h2>
-
+              {/* <img className="ps-md-2 pe-md-3" style={{width:"66%",marginLeft:"16.25%"}} src={form_img} alt=" Loading" /><hr style={{marginTop:"9px"}} /> */}
               <form onSubmit={handleSubmit}>
                 <CustomTextField
                   inputError={inputErrors.phone}
@@ -148,6 +156,7 @@ function Login() {
                   label="Phone"
                   icon={<FaPhone size={19} />}
                   name="phone"
+                  type="number"
                   onChange={handleChange}
                 />
 
@@ -169,6 +178,7 @@ function Login() {
                     marginLeft: "-8%",
                     marginRight: "-8%",
                   }}
+                  ref={parent}
                 >
                   {error}
                 </p>
@@ -213,7 +223,6 @@ function Login() {
         </div>
       </div>
 
-      <Navbar Login={1} />
     </>
   );
 }

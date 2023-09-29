@@ -1,11 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const { authorize, getAuthorizedUser } = require("../middlewares/authorize");
-const { addProductValidation } = require("../middlewares/addProductValidation");
+const { authorize, getAuthorizedUser } = require("../../middlewares/authorize");
+const {
+  addProductValidation,
+} = require("../../middlewares/addProductValidation");
 const multer = require("multer");
 const ImageKit = require("imagekit");
-const User = require("../models/user");
-const product = require("../models/product");
+const User = require("../../models/user");
+const product = require("../../models/product");
 
 const addProduct = express.Router();
 

@@ -2,8 +2,8 @@ import React,{ useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
+import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 import "./navbar.css";
-// import { FiMenu } from "react-icons/fi";
 import { FaTractor } from "react-icons/fa";
 import { FiArrowRightCircle } from "react-icons/fi";
 import HamburgerButton from "../HamburgerButton/HamburgerButton";
@@ -24,8 +24,10 @@ const Navbar = (props) => {
   const navLinkInactiveTextColor = {};
 
   const isLoggedIn = JSON.parse(localStorage.getItem("isLoggedIn"));
+  const tokenExpirationTime = JSON.parse(localStorage.getItem("tokenExpirationTime"));
 
   return (
+    <ClickAwayListener onClickAway={()=>setShowNavbar(false)}>
     <nav className="navbar shadow-custom">
       <div className="container">
         <div style={{ display: "flex" }} className="logo">
@@ -38,7 +40,6 @@ const Navbar = (props) => {
         >
           <HamburgerButton handleShowNavbar={handleShowNavbar} showNavbar={showNavbar} />
           
-          {/* <FiMenu color="#212529c0" size={43} /> */}
         </div>
         <div
           className={`nav-elements rounded ${
@@ -84,9 +85,11 @@ const Navbar = (props) => {
 
             <li
               onClick={() => {
-                if (isLoggedIn) {
+                if (isLoggedIn && Date.now() < tokenExpirationTime) {
                   navigate("/dashboard");
                 } else {
+                  localStorage.setItem("isLoggedIn","false");
+                  localStorage.setItem("tokenExpirationTime","null");
                   navigate("/login");
                 }
               }}
@@ -150,6 +153,7 @@ const Navbar = (props) => {
         </div>
       </div>
     </nav>
+    </ClickAwayListener>
   );
 };
 

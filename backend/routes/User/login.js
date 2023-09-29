@@ -1,7 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
-const User = require("../models/user");
-const { createToken } = require("../utils/token");
+const User = require("../../models/user");
+const { createToken } = require("../../utils/token");
 
 const login = express.Router();
 
@@ -22,7 +22,7 @@ login.post("/", async (req, res) => {
   try {
     if (req.body.phone && req.body.password) {
       loginData = {
-        phone: req.body.phone.toLowerCase().trim(),
+        phone: req.body.phone.trim(),
         password: req.body.password,
       };
     } else {
@@ -40,7 +40,7 @@ login.post("/", async (req, res) => {
 
     const foundUser = await User.findOne(
       { phone: loginData.phone },
-      { __v: 0, products: 0 }
+      { __v: 0, birds: 0 }
     );
 
     if (!foundUser) {
@@ -61,12 +61,13 @@ login.post("/", async (req, res) => {
     var loggedInUser = { ...foundUser._doc };
     delete loggedInUser.password;
     delete loggedInUser._id;
-    var tokenExpirationTime = Date.now() + 1000 * 60 * 60 * 24;
-    const token = createToken(foundUser._id, "24h");
+    var tokenExpirationTime = Date.now() + 1000 * 60 * 60 * 50;
+    const token = createToken(foundUser._id, "50h");
     //console.log(token);
     res.cookie("token", token, {
       withCredentials: true,
       secure: true,
+      sameSite: "none",
       httpOnly: true,
       maxAge: 50 * 365 * 24 * 60 * 60 * 1000,
     });

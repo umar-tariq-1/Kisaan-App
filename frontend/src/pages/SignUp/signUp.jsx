@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect } from "react";
 
+// import form_img from "../../utils/pictures/logo-form.png";
 import Navbar from "../../components/Navbar/navbar";
 import "./signUp.css";
 import AOS from "aos";
@@ -13,8 +14,11 @@ import CustomToolTip from "../../components/Tooltip/tooltip";
 import CustomPasswordField from "../../components/Form/passwordfield";
 import CustomLoadingAnimation from "../../components/LoadingAnimation/loadingAnimation";
 import { FaLock, FaUserAlt } from "react-icons/fa";
-// import { TbMailFilled } from "react-icons/tb";
 import { FaPhone } from "react-icons/fa6";
+import{ validate, capitalize } from "./Validation";
+import { trimObject } from "../../utils/objectFunctiions/trimObject";
+import { findKeyWithEmptyStringValue } from "../../utils/objectFunctiions/findKeyWithEmptyStringValue";
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 
 function SignUp() {
   const [userData, setuserData] = useState({
@@ -22,13 +26,14 @@ function SignUp() {
     lastName: "",
     phone: "",
     password: "",
-    confirmpassword: "",
+    confirmPassword: "",
   });
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
   const [inputErrors, setinputErrors] = useState({});
   const [open, setOpen] = useState(false);
+  const [parent] = useAutoAnimate();
   const { enqueueSnackbar } = useSnackbar();
 
   const handleTooltipClose = () => {
@@ -42,94 +47,37 @@ function SignUp() {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setuserData({ ...userData, [e.target.name]: e.target.value.trim() });
+    setuserData({ ...userData, [e.target.name]: e.target.value.toString().trim() });
     setError("");
     setinputErrors({});
   };
 
-  function capitalize(Word) {
-    if (!Word) {
-      return;
-    }
-    return Word[0].toUpperCase() + Word.substring(1).toLowerCase();
-  }
-
-  function validate(Fname, Lname, Phone, Password, Confirmpassword) {
-    if (/\s/.test(Fname)) {
-      setError("Name must not contain blank space");
-      setinputErrors({ fname: 1 });
-      enqueueSnackbar("Couldn't register", { variant: "error" });
-      return false;
-    }
-    // eslint-disable-next-line
-    else if (/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(Fname)) {
-      setError("First Name must contain only alphabet letters");
-      setinputErrors({ fname: 1 });
-      enqueueSnackbar("Couldn't register", { variant: "error" });
-      return false;
-    } else if (/\d/.test(Fname)) {
-      setError("Name must not contain any number");
-      setinputErrors({ fname: 1 });
-      enqueueSnackbar("Couldn't register", { variant: "error" });
-      return false;
-    }
-    // eslint-disable-next-line
-    else if (/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(Lname)) {
-      setError("Name must contain only alphabet letters");
-      setinputErrors({ lname: 1 });
-      enqueueSnackbar("Couldn't register", { variant: "error" });
-      return false;
-    } else if (/\d/.test(Lname)) {
-      setError("Name must not contain any number");
-      setinputErrors({ lname: 1 });
-      enqueueSnackbar("Couldn't register", { variant: "error" });
-      return false;
-    } else if (/\s/.test(Lname)) {
-      setError("Name must not contain blank space");
-      setinputErrors({ lname: 1 });
-      enqueueSnackbar("Couldn't register", { variant: "error" });
-      return false;
-    }
-    // eslint-disable-next-line
-    else if (
-      /* !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(Email) */ !/^\+?\d{8,15}$/.test(
-        Phone
-      )
-    ) {
-      setError("Invalid Phone Number");
-      setinputErrors({ phone: 1 });
-      enqueueSnackbar("Couldn't register", { variant: "error" });
-      return false;
-    } else if (/\s/.test(Password)) {
-      setError("Password must not contain blank space");
-      setinputErrors({ password: 1 });
-      enqueueSnackbar("Couldn't register", { variant: "error" });
-      return false;
-    } else if (!Password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)) {
-      setError("Incorrect Password");
-      setinputErrors({ password: 1 });
-      enqueueSnackbar("Couldn't register", { variant: "error" });
-      return false;
-    } else if (Password !== Confirmpassword) {
-      setError("Passwords donot match");
-      setinputErrors({ confirmpassword: 1 });
-      enqueueSnackbar("Couldn't register", { variant: "error" });
-      return false;
-    } else {
-      return true;
-    }
-  }
-
   const handleSubmit = async (ev) => {
     ev.preventDefault();
 
+    var trimmedData=trimObject((({ password, confirmPassword, ...rest }) => rest)({ ...userData }));
+    trimmedData={...trimmedData,password:userData.password,confirmPassword:userData.confirmPassword}
+    const emptyKey=findKeyWithEmptyStringValue(trimmedData);
+
+    if(emptyKey !== null){
+      setError(`${capitalize(
+        emptyKey.replace(/([A-Z])/g, " $1")
+      )} must not be empty`);
+      setinputErrors({[emptyKey]:1});
+      enqueueSnackbar("Couldn't register", { variant: "error" });
+      return;
+    }
+
     if (
       validate(
-        userData.firstName,
-        userData.lastName,
-        userData.phone,
-        userData.password,
-        userData.confirmpassword
+        trimmedData.firstName,
+        trimmedData.lastName,
+        trimmedData.phone,
+        trimmedData.password,
+        trimmedData.confirmPassword,
+        setError,
+        setinputErrors,
+        enqueueSnackbar
       )
     ) {
       setError("");
@@ -142,17 +90,20 @@ function SignUp() {
       setLoading(true);
       // console.log("clicked")
       const url = process.env.REACT_APP_BASE_URL + "/register";
-      const newData = {
-        ...userData,
-        firstName: capitalize(userData.firstName),
-        lastName: capitalize(userData.lastName),
-        phone: userData.phone.toLowerCase(),
+      
+      const config = {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
       };
-      await axios.post(url, newData);
+      const { data } =await axios.post(url, trimmedData,config);
       //console.log(res)
       setLoading(false);
-      enqueueSnackbar("Successfully registered", { variant: "success" });
-      navigate("/login");
+      if (data.isLoggedIn) {
+      enqueueSnackbar("Successfully registered and loggedIn", { variant: "success" });
+        localStorage.setItem("isLoggedIn", JSON.stringify(data.isLoggedIn));
+        localStorage.setItem("tokenExpirationTime", JSON.stringify(data.tokenExpirationTime));
+        navigate("/dashboard");
+      }
     } catch (error) {
       setLoading(false);
       if (error?.response?.data?.message) {
@@ -169,15 +120,15 @@ function SignUp() {
   }, []);
 
   const styleFirstHalf = {
-    width: "49.5%",
-    marginTop: "1%",
+    width: "49%",
+    marginTop: "0%",
     marginBottom: "3%",
   };
   const styleSecondHalf = {
-    width: "49.5%",
+    width: "49%",
     marginBottom: "3%",
-    marginLeft: "1%",
-    marginTop: "1%",
+    marginLeft: "2%",
+    marginTop: "0%",
   };
   const styleFull = {
     width: "100%",
@@ -200,16 +151,15 @@ function SignUp() {
   return (
     <>
       {loading && <CustomLoadingAnimation />}
-      <Navbar SignUp={1} data-aos />
+      <Navbar SignUp={1} />
       <div
-        className="d-flex mt-lg-5 align-items-center justify-contennt-center"
+        className="d-flex align-items-center justify-content-center custom-signup-center"
         style={{
-          height: "calc(90vh - 70px)",
           width: "100%",
         }}
       >
         <div
-          className="container pb-4 pb-md-0 mx-auto"
+          className="container pb-5 mx-auto"
           style={{
             backgroundColor: "#eee",
           }}
@@ -228,12 +178,12 @@ function SignUp() {
                 style={{
                   letterSpacing: "1px",
                   fontFamily: "Titillium Web, sans-serif",
-                  fontSize: "200%",
+                  fontSize: "220%",
                 }}
               >
                 Registration
               </h2>
-
+            {/* <img className="ps-md-2 pe-md-3" style={{width:"66%",marginLeft:"16.25%"}} src={form_img} alt=" Loading" /><hr style={{marginTop:"9px"}} /> */}
               <form onSubmit={handleSubmit}>
                 <CustomTextField
                   inputError={inputErrors.fname}
@@ -257,6 +207,7 @@ function SignUp() {
                   inputError={inputErrors.phone}
                   style={styleFull}
                   label="Phone Number"
+                  type="number"
                   icon={<FaPhone size={19} />}
                   name="phone"
                   onChange={handleChange}
@@ -282,13 +233,13 @@ function SignUp() {
                 </CustomToolTip>
 
                 <CustomPasswordField
-                  inputError={inputErrors.confirmpassword}
+                  inputError={inputErrors.confirmPassword}
                   style={styleFull}
                   showIcon={false}
-                  id="confirmpassword"
+                  id="confirmPassword"
                   label="Confirm Password"
                   icon={<FaLock size={17} />}
-                  name="confirmpassword"
+                  name="confirmPassword"
                   handleChange={handleChange}
                 />
 
@@ -299,6 +250,7 @@ function SignUp() {
                     marginLeft: "-8%",
                     marginRight: "-8%",
                   }}
+                  ref={parent}
                 >
                   {error}
                 </p>
