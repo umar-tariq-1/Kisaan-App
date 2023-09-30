@@ -31,7 +31,7 @@ addProduct.post(
   async (req, res) => {
     try {
       const authorizedUser = getAuthorizedUser();
-      const user = await User.findById(authorizedUser._id);
+      // const user = await User.findById(authorizedUser._id);
       const images = [];
       const imageKitErrors = [];
       const jsonData = JSON.parse(req.body.data);
@@ -45,9 +45,12 @@ addProduct.post(
             folder: "productImages",
             useUniqueFileName: false,
           });
-          images.push(response.name);
+          images.push({ name: response.name, _id: response.fileId });
         } catch (error) {
           imageKitErrors.push(error);
+          for (const image of images) {
+            await imagekit.deleteFile(image._id);
+          }
           res.status(409).send({ message: error.message });
           console.log(error);
         }
@@ -60,25 +63,32 @@ addProduct.post(
         price &&
         address &&
         images &&
-        (quantity === "Bulk" || quantity === "Few")
+        (quantity[0] === "B" || quantity[0] === "F")
       ) {
         // console.log(images);
         const createdProduct = new product({
           name,
           description,
-          quantity,
+          quantity: quantity[0],
           price,
           address,
           images,
           creator: authorizedUser._id,
         });
 
+        var sess = await mongoose.startSession();
         try {
-          const sess = await mongoose.startSession();
           sess.startTransaction();
           await createdProduct.save({ session: sess });
-          user.products.push(createdProduct);
-          await user.save({ session: sess });
+          await User.findByIdAndUpdate(
+            authorizedUser._id,
+            {
+              $push: { products: createdProduct },
+            },
+            { session: sess }
+          );
+          // user.products.push(createdProduct);
+          // await user.save({ session: sess });
           await sess.commitTransaction();
           const data = { ...createdProduct._doc };
           delete data._id;
@@ -87,7 +97,12 @@ addProduct.post(
           res.status(201).send({ message: "Product added successfully", data }); //201 indicates successful creation
         } catch (error) {
           console.log(error);
-          res.send({ message: "Internal server error" }).status(500); //500 indicates server side error
+          await sess.abortTransaction();
+          await sess.endSession();
+          for (const image of images) {
+            await imagekit.deleteFile(image._id);
+          }
+          res.status(500).send({ message: "Internal server error" }); //500 indicates server side error
           return;
         }
       }
