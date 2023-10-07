@@ -14,6 +14,8 @@ const productSchema = new Schema({
       _id: { type: String, required: true },
     },
   ],
+  ratings: [{ type: Number, min: 1, max: 5, required: true, default: [] }],
+  city: { type: String, required: true },
   address: { type: String, required: true },
   creator: { type: Schema.Types.ObjectId, required: true, ref: "User" },
 });

@@ -8,8 +8,19 @@ const getProducts = express.Router();
 
 getProducts.get("/", authorize, async (req, res) => {
   try {
-    const products = await product.find({}, { _id: 0, __v: 0 });
+    const products = await product.find({}, { __v: 0 });
     data = [...products];
+
+    data = data.map((obj) => {
+      return {
+        ...obj._doc,
+        images: obj._doc.images.map((imageObj) => {
+          const { _id, ...rest } = imageObj._doc;
+          return rest;
+        }),
+      };
+    });
+
     if (data.length > 0) {
       return res
         .status(200)

@@ -35,7 +35,7 @@ addProduct.post(
       const images = [];
       const imageKitErrors = [];
       const jsonData = JSON.parse(req.body.data);
-      const { name, description, quantity, price, address } = jsonData;
+      const { name, description, quantity, price, address, city } = jsonData;
 
       for (const file of req.files) {
         try {
@@ -63,6 +63,7 @@ addProduct.post(
         price &&
         address &&
         images &&
+        city &&
         (quantity[0] === "B" || quantity[0] === "F")
       ) {
         // console.log(images);
@@ -71,6 +72,8 @@ addProduct.post(
           description,
           quantity: quantity[0],
           price,
+          city,
+          ratings: [],
           address,
           images,
           creator: authorizedUser._id,
@@ -105,6 +108,11 @@ addProduct.post(
           res.status(500).send({ message: "Internal server error" }); //500 indicates server side error
           return;
         }
+      } else {
+        for (const image of images) {
+          await imagekit.deleteFile(image._id);
+        }
+        res.status(422).send({ message: "Incomplete details entered" });
       }
     } catch (error) {
       console.log(error);

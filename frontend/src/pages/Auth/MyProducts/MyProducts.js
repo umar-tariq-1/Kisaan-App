@@ -10,6 +10,7 @@ const MyProducts = () => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [name, setName] = useState("");
+  const [city, setCity] = useState("");
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("");
   const [address, setAddress] = useState("");
@@ -78,13 +79,13 @@ const MyProducts = () => {
 
       // Perform the image upload using Axios
       try {
-        var jsonData = { name, address, quantity, description, price };
+        var jsonData = { name, address, quantity, description, price, city };
         formData.append("data", JSON.stringify(jsonData));
 
         const url = process.env.REACT_APP_BASE_URL + "/addProduct";
         const { data } = await axios.post(url, formData, config);
         // console.log(data);
-        enqueueSnackbar("Images uploaded successfully", {
+        enqueueSnackbar("Product uploaded successfully", {
           variant: "success",
         });
       } catch (error) {
@@ -139,6 +140,14 @@ const MyProducts = () => {
             type="text"
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>City:</label>
+          <input
+            type="text"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
           />
         </div>
         <div>
